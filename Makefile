@@ -79,6 +79,9 @@ v:
 fcount:
 	@echo "you wrote $(RED)$(shell cat $(SRCS) | wc -l)$(NC)lines of code"
 
+send: fclean
+	git add . && git commit -m "auto" && git push
+
 run: all
 	./$(NAME) 
 

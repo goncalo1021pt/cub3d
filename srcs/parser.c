@@ -6,8 +6,8 @@ bool	check_name(char *name)
 
 	len = ft_strlen(name);
 	name = name + len - 4;
-	if (len < 4 && !ft_strncmp(name, ".cub", 4))
-		return (ft_putendl_fd(INVALID_MAPNAME, 2), false);
+	if (len < 4 || ft_strncmp(name, ".cub", 4))
+		return (ft_putendl_fd(INV_MAPNAME, 2), false);
 	return (true);
 }
 
@@ -29,7 +29,8 @@ bool	read_map(t_map *map, int fd, int loopn)
 	}
 	if (map->map != NULL)
 	{
-		map->map[loopn] = line;
+		map->map[loopn] = ft_strtrim(line, "\n");
+		free(line);
 		return (true);
 	}
 	return (false);
@@ -41,17 +42,23 @@ bool	get_map(char *name, t_map *map)
 
 	fd = open(name, O_RDONLY);
 	if (fd < 0)
-		return (false);
+		return (ft_putendl_fd(INV_FILE, 2), false);
 	if (!read_map(map, fd, 0))
 		return (close(fd), false);
 	close(fd);
 	return (true);
 }
 
+bool	validate_map(t_map *map)
+{
+	(void)map;
+	return (true);
+}
+
 bool	parser(int argc, char **argv, t_map *map)
 {
 	if (argc != 2)
-		return (false);
+		return (ft_putendl_fd(INV_ARGS, 2), false);
 	if (!check_name(argv[1]))
 		return (false);
 	if (!get_map(argv[1], map))
