@@ -27,6 +27,7 @@ bool		parser(int argc, char **argv, t_map *map);
 
 // map_aux.c
 void		print_file(t_map *map);
+void		init_map(t_map *map);
 
 // textures.c
 bool		get_textures(t_map *map);

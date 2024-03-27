@@ -23,11 +23,11 @@ bool	read_file(t_map *map, int fd, int loopn)
 	}
 	else
 	{
-		map->map = ft_calloc((loopn + 1), sizeof(char *));
-		if (!map->map)
+		map->buffer = ft_calloc((loopn + 1), sizeof(char *));
+		if (!map->buffer)
 			return (false);
 	}
-	if (map->map != NULL)
+	if (map->buffer != NULL)
 	{
 		map->buffer[loopn] = ft_strtrim(line, "\n");
 		free(line);
@@ -47,7 +47,7 @@ bool	get_file(char *name, t_map *map)
 	if (fd < 0)
 		return (ft_putendl_fd(INV_FILE, 2), false);
 	if (!read_file(map, fd, 0))
-		return (close(fd), false);
+		return (close(fd), ft_putendl_fd(ERR_FILE, 2) , false);
 	close(fd);
 	return (true);
 }
