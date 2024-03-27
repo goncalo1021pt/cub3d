@@ -11,14 +11,14 @@ bool	check_name(char *name)
 	return (true);
 }
 
-bool	read_map(t_map *map, int fd, int loopn)
+bool	read_file(t_map *map, int fd, int loopn)
 {
 	char	*line;
 
 	line = get_next_line(fd);
 	if (line)
 	{
-		if (!read_map(map, fd, loopn + 1))
+		if (!read_file(map, fd, loopn + 1))
 			return (false);
 	}
 	else
@@ -29,21 +29,24 @@ bool	read_map(t_map *map, int fd, int loopn)
 	}
 	if (map->map != NULL)
 	{
-		map->map[loopn] = ft_strtrim(line, "\n");
+		map->buffer[loopn] = ft_strtrim(line, "\n");
 		free(line);
 		return (true);
 	}
 	return (false);
 }
 
-bool	get_map(char *name, t_map *map)
+bool	get_file(char *name, t_map *map)
 {
-	int	fd;
+	int		fd;
+	char	*new_name;
 
-	fd = open(name, O_RDONLY);
+	new_name = ft_strjoin("includes/maps/", name);
+	fd = open(new_name, O_RDONLY);
+	free(new_name);
 	if (fd < 0)
 		return (ft_putendl_fd(INV_FILE, 2), false);
-	if (!read_map(map, fd, 0))
+	if (!read_file(map, fd, 0))
 		return (close(fd), false);
 	close(fd);
 	return (true);
@@ -61,7 +64,9 @@ bool	parser(int argc, char **argv, t_map *map)
 		return (ft_putendl_fd(INV_ARGS, 2), false);
 	if (!check_name(argv[1]))
 		return (false);
-	if (!get_map(argv[1], map))
+	if (!get_file(argv[1], map))
+		return (false);
+	if (!get_textures(map))
 		return (false);
 	if (!validate_map(map))
 		return (false);

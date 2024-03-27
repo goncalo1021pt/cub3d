@@ -14,9 +14,21 @@
 
 typedef struct s_map
 {
+	char	**buffer;
 	char	**map;
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
 }			t_map;
 
+// parser.c
 bool		parser(int argc, char **argv, t_map *map);
+
+// map_aux.c
+void		print_file(t_map *map);
+
+// textures.c
+bool		get_textures(t_map *map);
 
 #endif

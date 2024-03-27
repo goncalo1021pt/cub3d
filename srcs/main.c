@@ -7,5 +7,6 @@ int	main(int argc, char **argv)
 	ft_printf("Start of the program\n");
 	if (!parser(argc, argv, &map))
 		return (1);
+	print_file(&map);
 	return (0);
 }
