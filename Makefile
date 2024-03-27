@@ -1,7 +1,7 @@
 NAME = cub3d
 
 SRCS = $(addprefix srcs/,$(addsuffix .c, $(S)))
-S = main
+S = main parser
 
 COMPRESS = ar rcs
 RM = rm -f
@@ -16,8 +16,13 @@ BONUS_OBJS = $(addprefix $(OBJS_DIR_BONUS)/,$(BONUS:bonus/%.c=%.o))
 OBJS_DIR = objs
 OBJS_DIR_S = s_objs
 
+# libft
 LIBFT_DIR = ./includes/libft
 LIBFT = $(LIBFT_DIR)/libft.a
+
+#mlx
+MLX_DIR = ./includes/minilibx-linux
+MLX = $(MLX_DIR)/libmlx_Linux.a -lXext -lX11 -lm -lz
 
 # Color codes
 GREEN = \033[0;32m
