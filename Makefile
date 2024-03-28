@@ -1,7 +1,7 @@
 NAME = cub3d
 
 SRCS = $(addprefix srcs/,$(addsuffix .c, $(S)))
-S = main parser map_aux textures 
+S = main parser map_aux textures
 
 COMPRESS = ar rcs
 RM = rm -f
@@ -27,9 +27,9 @@ MLX = $(MLX_DIR)/libmlx_Linux.a -lXext -lX11 -lm -lz
 # Color codes
 GREEN = \033[0;32m
 RED = \033[0;31m
-BLUE = \033[0;34m 
+BLUE = \033[0;34m
 ORANGE = \033[0;33m
-NC = \033[0m 
+NC = \033[0m
 
 all: $(NAME)
 
@@ -61,7 +61,7 @@ $(MLX):
 
 s: fclean $(SOBJS) $(LIBFT)
 	@echo "$(GREEN)$(NAME)$(NC) compiling..."
-	@$(CC) $(CFLAGS) $(SFLAGS) -o $(NAME) $(SOBJS) $(LIBFT) $(rd_ln)
+	@$(CC) $(CFLAGS) $(SFLAGS) -o $(NAME) $(SOBJS) $(LIBFT) $(MLX)
 	@echo "$(GREEN)$(NAME)$(NC) ready!"
 
 clean:
@@ -69,6 +69,7 @@ clean:
 	@$(RM) -r $(OBJS_DIR_BONUS)
 	@$(RM) -r $(OBJS_DIR_S)
 	@$(MAKE) -C $(LIBFT_DIR) clean --no-print-directory
+	@$(MAKE) -C $(MLX_DIR) clean --no-print-directory
 	@echo "$(RED)$(NAME)$(NC)OBJS cleaned!"
 
 fclean: clean
@@ -77,7 +78,7 @@ fclean: clean
 	@$(MAKE) -C $(LIBFT_DIR) fclean --no-print-directory
 	@echo "$(RED)$(NAME)$(NC)cleaned!"
 
-v: 
+v:
 	make re && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --suppressions="supression.supp" ./$(NAME)
 
 fcount:
@@ -87,7 +88,7 @@ send: fclean
 	git add . && git commit -m "auto" && git push
 
 run: all
-	./$(NAME) 
+	./$(NAME)
 
 re: fclean all
 
