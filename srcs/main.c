@@ -1,12 +1,62 @@
 #include "../includes/headers/cub3d.h"
 
+void	mlx_shutdown(t_session *instance)
+{
+	mlx_loop_end(instance->mlx_ser);
+	if (instance->mlx_img.img)
+		mlx_destroy_image(instance->mlx_ser, instance->mlx_img.img);
+	if (instance->mlx_win)
+	{
+		mlx_destroy_window(instance->mlx_ser, instance->mlx_win);
+		instance->mlx_win = NULL;
+	}
+	if (instance->mlx_ser)
+	{
+		mlx_destroy_display(instance->mlx_ser);
+		free(instance->mlx_ser);
+	}
+	free(instance);
+	exit(0);
+}
+
+int	exit_hook(t_session *instance)
+{
+	mlx_shutdown(instance);
+	return (0);
+}
+
+void	mlx_startup(t_session *instance)
+{
+
+	instance->mlx_ser = mlx_init();
+	instance->mlx_win = mlx_new_window(instance->mlx_ser, W_WIDTH, W_HEIGHT, "cub3d");
+	instance->mlx_img.img = mlx_new_image(instance->mlx_ser, W_WIDTH, W_HEIGHT);
+
+	instance->mlx_img.addr = mlx_get_data_addr(instance->mlx_img.img,
+			&instance->mlx_img.bits_per_pixel, &instance->mlx_img.line_length,
+			&instance->mlx_img.endian);
+
+	if (!instance->mlx_ser || !instance->mlx_win || !instance->mlx_img.img)
+		mlx_shutdown(instance);
+//	draw_map(instance);
+//	mlx_put_image_to_window(instance->mlx_ser, instance->mlx_win, instance->mlx_img.img, 0, 0);
+}
+
 int	main(int argc, char **argv)
 {
-	t_map	map;
+	t_session *instance;
 
-	init_map(&map);
-	if (!parser(argc, argv, &map))
-		return (1);
-	print_file(&map);
+	(void)argv;
+	if (argc == 2)
+	{
+		instance = (t_session *)malloc(sizeof(t_session));
+		if (!instance)
+			return (0);
+
+		mlx_startup(instance);
+		//mlx_key_hook(instance->mlx_win, handle_key, instance);
+		//mlx_hook(instance->mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, instance);
+		mlx_loop(instance->mlx_ser);
+	}
 	return (0);
 }

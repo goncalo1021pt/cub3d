@@ -3,6 +3,7 @@
 
 # include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx_int.h"
 # include "messages.h"
 # include <errno.h>
 # include <fcntl.h>
@@ -11,6 +12,9 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+# define W_WIDTH 1920
+# define W_HEIGHT 1080
 
 typedef struct s_map
 {
@@ -21,6 +25,22 @@ typedef struct s_map
 	char	*we;
 	char	*ea;
 }			t_map;
+
+typedef struct s_data
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
+
+typedef struct s_session
+{
+	void		*mlx_ser;
+	void		*mlx_win;
+	t_data		mlx_img;
+}	t_session;
 
 // parser.c
 bool		parser(int argc, char **argv, t_map *map);
