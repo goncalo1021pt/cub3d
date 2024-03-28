@@ -6,7 +6,7 @@
 /*   By: rlandolt <rlandolt@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:44:49 by rlandolt          #+#    #+#             */
-/*   Updated: 2024/03/28 18:21:59 by rlandolt         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:21:49 by rlandolt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,45 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 #define TILE_SIZE 64
 
-void draw_line(t_session *instance, int x0, int y0, int x1, int y1)
+typedef struct s_dda
 {
-	int dx = abs(x1 - x0);
-	int dy = abs(y1 - y0);
-	int sx = x0 < x1 ? 1 : -1;
-	int sy = y0 < y1 ? 1 : -1;
-	int err = dx - dy;
+	float	delta_x;
+	float	delta_y;
+	float	step;
+	float	x_inc;
+	float	y_inc;
+	float	current_x;
+	float	current_y;
+}	t_dda;
 
-	while (x0 != x1 || y0 != y1)
+void	init_dda(t_dda *dda, int start_y, int start_x , int end_y, int end_x)
+{
+	dda->current_x = start_x;
+	dda->current_y = start_y;
+	dda->delta_x = end_x - start_x;
+	dda->delta_y = end_y - start_y;
+	dda->step = fmax(fabs(dda->delta_x), fabs(dda->delta_y));
+	dda->x_inc = dda->delta_x / dda->step;
+	dda->y_inc = dda->delta_y / dda->step;
+}
+
+void	draw_line(t_session *instance, int start_x, int end_x, int start_y, int end_y)
+{
+	t_dda	dda;
+	int		i;
+
+	i = 0;
+	init_dda(&dda, start_y, end_y, start_x, end_x);
+	while (i <= dda.step)
 	{
-		mlx_pixel_put(instance->mlx_ser, instance->mlx_win, x0, y0, 0xFFFFFF); // Draw a white point
-		int e2 = 2 * err;
-		if (e2 > -dy)
-		{
-			err -= dy;
-			x0 += sx;
-		}
-		if (e2 < dx)
-		{
-			err += dx;
-			y0 += sy;
-		}
+		mlx_pixel_put(instance->mlx_ser, instance->mlx_win, dda.current_x, dda.current_y, 0xff4500);
+		dda.current_x += dda.x_inc;
+		dda.current_y += dda.y_inc;
+		i++;
 	}
 }
 
-void draw_square(t_session *instance, int x, int y, int width, int height)
+void draw_square(t_session *instance, int y, int x, int width, int height)
 {
 	// Draw top border
 	draw_line(instance, x, y, x + width, y);
@@ -64,17 +77,16 @@ void draw_square(t_session *instance, int x, int y, int width, int height)
 void draw_grid(t_session *instance, char **map)
 {
 	int x, y;
+	int top_left_x;
+	int top_left_y;
 
 	for (y = 0; map[y] != NULL; y++)
 	{
 		for (x = 0; map[y][x] != '\0'; x++)
 		{
-			if (map[y][x] == '1' || map[y][x] == '0')
-			{
-				int top_left_x = x * TILE_SIZE;
-				int top_left_y = y * TILE_SIZE;
-				draw_square(instance, top_left_x, top_left_y, TILE_SIZE, TILE_SIZE);
-			}
+			top_left_x = x * TILE_SIZE;
+			top_left_y = y * TILE_SIZE;
+			draw_square(instance, top_left_x, top_left_y, TILE_SIZE, TILE_SIZE);
 		}
 	}
 }
