@@ -1,6 +1,6 @@
 #include "../includes/headers/cub3d.h"
 
-void clean_parser(t_map *map)
+void	clean_parser(t_map *map)
 {
 	if (map->buffer)
 		free_file(map);

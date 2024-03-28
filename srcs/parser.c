@@ -66,7 +66,7 @@ bool	parser(int argc, char **argv, t_map *map)
 		return (false);
 	if (!get_file(argv[1], map))
 		return (false);
-	if (!get_textures(map))
+	if (!get_args(map))
 		return (false);
 	if (!validate_map(map))
 		return (false);

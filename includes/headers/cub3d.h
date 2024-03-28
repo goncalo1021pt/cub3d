@@ -33,6 +33,6 @@ void		print_file(t_map *map);
 void		init_map(t_map *map);
 
 // textures.c
-bool		get_textures(t_map *map);
+bool		get_args(t_map *map);
 
 #endif

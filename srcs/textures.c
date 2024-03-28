@@ -52,7 +52,26 @@ char	*tabs_to_spaces(char *line)
 	return (line);
 }
 
-bool	get_textures(t_map *map)
+bool set_map(t_map *map, int ctd)
+{
+	int	len;
+
+	len = 0;
+	while (map->buffer[ctd + len] && map->buffer[ctd + len][0] != '\0')
+		len++;
+	map->map = ft_calloc(len + 1, sizeof(char *));
+	if (!map->map)
+		return (ft_putendl_fd(ERR_ALLOC, 2), false);
+	while (len--)
+	{
+		map->map[len] = ft_strdup(map->buffer[ctd + len]);
+		if (!map->map[len])
+			return (ft_putendl_fd(ERR_ALLOC, 2), false);
+	}
+	return (true);
+}
+
+bool	get_args(t_map *map)
 {
 	int		ctd;
 
