@@ -20,6 +20,8 @@ typedef struct s_map
 	char	*so;
 	char	*we;
 	char	*ea;
+	char	*s;
+	char	*f;
 }			t_map;
 
 // parser.c

@@ -41,9 +41,9 @@ $(OBJS_DIR_S)/%.o: srcs/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(SFLAGS) -c $< -o $@
 
-$(NAME): $(OBJS) $(LIBFT)
+$(NAME): $(OBJS) $(LIBFT) $(MLX)
 	@echo "$(GREEN)$(NAME)$(NC) compiling..."
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(MLX)
 	@echo "$(GREEN)$(NAME)$(NC) ready!"
 
 $(BONUS_NAME): $(BONUS_OBJS) $(LIBFT)
@@ -54,6 +54,10 @@ $(LIBFT):
 	@echo "$(ORANGE)libft$(NC)compiling..."
 	@$(MAKE) -C $(LIBFT_DIR) --no-print-directory
 	@echo "$(ORANGE)libft$(NC)ready!"
+
+$(MLX):
+	@$(MAKE) -C $(MLX_DIR) --no-print-directory
+	@echo $(MLX) compiled and ready!
 
 s: fclean $(SOBJS) $(LIBFT)
 	@echo "$(GREEN)$(NAME)$(NC) compiling..."
