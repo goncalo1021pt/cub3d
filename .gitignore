@@ -1,3 +1,5 @@
 includes/minilibx-linux/
+objs/
 *.o
-.vscode/
+cub3d
+libft.a

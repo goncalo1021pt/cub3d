@@ -24,6 +24,8 @@ typedef struct s_map
 	char	*so;
 	char	*we;
 	char	*ea;
+	char	*s;
+	char	*f;
 }			t_map;
 
 typedef struct s_data
@@ -40,6 +42,8 @@ typedef struct s_session
 	void		*mlx_ser;
 	void		*mlx_win;
 	t_data		mlx_img;
+	int			width;
+	int			height;
 }	t_session;
 
 // parser.c
@@ -51,5 +55,11 @@ void		init_map(t_map *map);
 
 // textures.c
 bool		get_textures(t_map *map);
+// display.c
+void	mlx_startup(t_session *instance);
+void	mlx_shutdown(t_session *instance);
+int		handle_key(int keycode, t_session *instance);
+int		exit_hook(t_session *instance);
+
 
 #endif

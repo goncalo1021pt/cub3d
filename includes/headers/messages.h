@@ -7,4 +7,5 @@
 # define ERR_FILE "Error reading file"
 # define INV_MAP "Invalid map"
 # define ERR_TEXTURE "Error reading textures"
+
 #endif

@@ -33,4 +33,6 @@ void	init_map(t_map *map)
 	map->so = NULL;
 	map->we = NULL;
 	map->ea = NULL;
+	map->s = NULL;
+	map->f = NULL;
 }
