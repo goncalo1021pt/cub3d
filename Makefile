@@ -21,7 +21,7 @@ LIBFT_DIR = ./includes/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 #mlx
-MLX_DIR = ./includes/minilibx-linux
+MLX_DIR = ./includes/.minilibx-linux
 MLX = $(MLX_DIR)/libmlx_Linux.a -lXext -lX11 -lm -lz
 
 # Color codes

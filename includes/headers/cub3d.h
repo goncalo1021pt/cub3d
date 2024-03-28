@@ -2,7 +2,7 @@
 # define CUB3D_H
 
 # include "../libft/libft.h"
-# include "../minilibx-linux/mlx.h"
+# include "../.minilibx-linux/mlx.h"
 # include "messages.h"
 # include <errno.h>
 # include <fcntl.h>
@@ -20,7 +20,7 @@ typedef struct s_map
 	char	*so;
 	char	*we;
 	char	*ea;
-	char	*s;
+	char	*c;
 	char	*f;
 }			t_map;
 
@@ -28,6 +28,7 @@ typedef struct s_map
 bool		parser(int argc, char **argv, t_map *map);
 
 // map_aux.c
+void		free_file(t_map *map);
 void		print_file(t_map *map);
 void		init_map(t_map *map);
 

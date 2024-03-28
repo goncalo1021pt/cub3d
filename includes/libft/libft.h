@@ -6,7 +6,7 @@
 /*   By: goncalo1021pt <goncalo1021pt@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:02:58 by gfontao-          #+#    #+#             */
-/*   Updated: 2024/01/31 22:42:20 by goncalo1021      ###   ########.fr       */
+/*   Updated: 2024/03/28 15:12:24 by goncalo1021      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
 int				ft_putstr_fd(char *s, int fd);
 char			**ft_split(char const *s, char c);
+void			ft_free_split(char **split);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strdup(const char *s);
 void			ft_striteri(char *s, void (*f)(unsigned int, char*));

@@ -15,14 +15,20 @@ void	free_file(t_map *map)
 
 void	print_file(t_map *map)
 {
-	int	ctd;
+	// int	ctd;
 
-	ctd = 0;
-	while (map->buffer[ctd])
-	{
-		ft_printf("%s\n", map->buffer[ctd]);
-		ctd++;
-	}
+	// ctd = 0;
+	printf("NO: %s\n", map->no);
+	printf("SO: %s\n", map->so);
+	printf("WE: %s\n", map->we);
+	printf("EA: %s\n", map->ea);
+	printf("C: %s\n", map->c);
+	printf("F: %s\n", map->f);
+	// while (map->buffer[ctd])
+	// {
+	// 	ft_printf("%s\n", map->buffer[ctd]);
+	// 	ctd++;
+	// }
 }
 
 void	init_map(t_map *map)
@@ -33,6 +39,6 @@ void	init_map(t_map *map)
 	map->so = NULL;
 	map->we = NULL;
 	map->ea = NULL;
-	map->s = NULL;
+	map->c = NULL;
 	map->f = NULL;
 }
