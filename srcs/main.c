@@ -3,7 +3,9 @@
 void	clean_parser(t_map *map)
 {
 	if (map->buffer)
-		free_file(map);
+		free_file(map->buffer);
+	if (map->map)
+		free_file(map->map);
 	if (map->no)
 		free(map->no);
 	if (map->so)

@@ -52,7 +52,7 @@ char	*tabs_to_spaces(char *line)
 	return (line);
 }
 
-bool set_map(t_map *map, int ctd)
+bool	set_map(t_map *map, int ctd)
 {
 	int	len;
 
@@ -89,5 +89,7 @@ bool	get_args(t_map *map)
 			return (ft_putendl_fd(ERR_TEXTURE, 2), false);
 		ctd++;
 	}
+	if (!set_map(map, ctd))
+		return (false);
 	return (true);
 }

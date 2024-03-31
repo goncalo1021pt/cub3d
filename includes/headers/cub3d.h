@@ -28,7 +28,7 @@ typedef struct s_map
 bool		parser(int argc, char **argv, t_map *map);
 
 // map_aux.c
-void		free_file(t_map *map);
+void		free_file(char **arr_str);
 void		print_file(t_map *map);
 void		init_map(t_map *map);
 
