@@ -55,16 +55,25 @@ char	*tabs_to_spaces(char *line)
 bool	set_map(t_map *map, int ctd)
 {
 	int	len;
+	int temp;
 
 	len = 0;
-	while (map->buffer[ctd + len] && map->buffer[ctd + len][0] != '\0')
-		len++;
+
+	temp = 0;
+	while (map->buffer[ctd + len + temp])
+	{
+		if (map->buffer[ctd + len + temp][0] != '\0')
+			len++;
+		else 
+			temp++;
+	}
+	ft_printf("%d\n", len);
 	map->map = ft_calloc(len + 1, sizeof(char *));
 	if (!map->map)
 		return (ft_putendl_fd(ERR_ALLOC, 2), false);
 	while (len--)
 	{
-		map->map[len] = ft_strdup(map->buffer[ctd + len]);
+		map->map[len] = ft_strdup(map->buffer[ctd + len + temp]);
 		if (!map->map[len])
 			return (ft_putendl_fd(ERR_ALLOC, 2), false);
 	}

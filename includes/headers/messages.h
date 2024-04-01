@@ -8,4 +8,6 @@
 # define INV_MAP "Invalid map"
 # define ERR_TEXTURE "Error reading textures"
 # define ERR_ALLOC "Error allocating memory"
+# define INV_CHAR "Invalid character in map"
+
 #endif

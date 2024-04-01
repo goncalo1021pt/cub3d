@@ -1,10 +1,23 @@
-SO ./path_here
+
+
 NO ./path123
 
-WE ./path_to_the_west_texture
+
+SO ./path_here
+
+
             EA ./path_to_the_east_texture
 
 
 C         10.20.30
+WE                ./path_to_the_west_texture
 F         10.20.30
-map
+
+
+
+
+
+111111111
+1000000101111111111
+1000001 100000N00001
+1111111111111111111

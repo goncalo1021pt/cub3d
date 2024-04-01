@@ -12,10 +12,13 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+#define VALID_CHAR "01NSEW "
+
 typedef struct s_map
 {
 	char	**buffer;
 	char	**map;
+	bool 	**visited;
 	char	*no;
 	char	*so;
 	char	*we;
@@ -34,5 +37,8 @@ void		init_map(t_map *map);
 
 // textures.c
 bool		get_args(t_map *map);
+
+// aux.c
+bool is_in_array(char *arr, char c);
 
 #endif
