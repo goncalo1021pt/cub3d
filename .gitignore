@@ -3,3 +3,4 @@ objs/
 *.o
 cub3d
 libft.a
+.vscode/
