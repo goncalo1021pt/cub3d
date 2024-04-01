@@ -6,11 +6,21 @@
 /*   By: rlandolt <rlandolt@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:44:10 by rlandolt          #+#    #+#             */
-/*   Updated: 2024/03/28 16:22:00 by rlandolt         ###   ########.fr       */
+/*   Updated: 2024/04/01 13:46:21 by rlandolt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/headers/cub3d.h"
+
+void	pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+
+	if (x < 0 || y < 0 || x > W_WIDTH - 1 || y > W_HEIGHT - 1)
+		return ;
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
+}
 
 void	mlx_shutdown(t_session *instance)
 {
@@ -29,21 +39,6 @@ void	mlx_shutdown(t_session *instance)
 	}
 	free(instance);
 	exit(0);
-}
-
-# define ESC 65307
-
-int	exit_hook(t_session *instance)
-{
-	mlx_shutdown(instance);
-	return (0);
-}
-
-int	handle_key(int keycode, t_session *instance)
-{
-	if (keycode == ESC)
-		mlx_shutdown(instance);
-	return (0);
 }
 
 void	mlx_startup(t_session *instance)
