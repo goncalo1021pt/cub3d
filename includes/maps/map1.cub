@@ -6,12 +6,12 @@ NO ./path123
 SO ./path_here
 
 
-            EA ./path_to_the_east_texture
+EA ./path_to_the_east_texture
 
 
-C         10.20.30
-WE                ./path_to_the_west_texture
-F         10.20.30
+C         10,20,30
+WE               ./path_to_the_west_texture
+F         10,20,30
 
 
 
