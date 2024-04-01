@@ -6,6 +6,8 @@ void	clean_parser(t_map *map)
 		free_file(map->buffer);
 	if (map->map)
 		free_file(map->map);
+	if (map->visited)
+		free_file((char **)map->visited);
 	if (map->no)
 		free(map->no);
 	if (map->so)

@@ -55,19 +55,17 @@ char	*tabs_to_spaces(char *line)
 bool	set_map(t_map *map, int ctd)
 {
 	int	len;
-	int temp;
+	int	temp;
 
 	len = 0;
-
 	temp = 0;
 	while (map->buffer[ctd + len + temp])
 	{
 		if (map->buffer[ctd + len + temp][0] != '\0')
 			len++;
-		else 
+		else
 			temp++;
 	}
-	ft_printf("%d\n", len);
 	map->map = ft_calloc(len + 1, sizeof(char *));
 	if (!map->map)
 		return (ft_putendl_fd(ERR_ALLOC, 2), false);
@@ -82,7 +80,7 @@ bool	set_map(t_map *map, int ctd)
 
 bool	get_args(t_map *map)
 {
-	int		ctd;
+	int	ctd;
 
 	ctd = 0;
 	while (!check_loaded_textures(map))

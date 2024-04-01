@@ -1,7 +1,7 @@
 NAME = cub3d
 
 SRCS = $(addprefix srcs/,$(addsuffix .c, $(S)))
-S = main parser map_aux aux textures map_check
+S = main parser map_aux aux textures map_check textures_check
 
 COMPRESS = ar rcs
 RM = rm -f
@@ -69,7 +69,7 @@ clean:
 	@$(RM) -r $(OBJS_DIR_BONUS)
 	@$(RM) -r $(OBJS_DIR_S)
 	@$(MAKE) -C $(LIBFT_DIR) clean --no-print-directory
-	@$(MAKE) -C $(MLX_DIR) clean --no-print-directory
+#	@$(MAKE) -C $(MLX_DIR) clean --no-print-directory
 	@echo "$(RED)$(NAME)$(NC) OBJS cleaned!"
 
 fclean: clean
