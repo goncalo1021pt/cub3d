@@ -42,19 +42,26 @@ bool	get_file(char *name, t_map *map)
 	char	*new_name;
 
 	new_name = ft_strjoin("includes/maps/", name);
+	if (!new_name)
+		return (ft_putendl_fd(ERR_ALLOC, 2), false);
 	fd = open(new_name, O_RDONLY);
 	free(new_name);
 	if (fd < 0)
 		return (ft_putendl_fd(INV_FILE, 2), false);
 	if (!read_file(map, fd, 0))
-		return (close(fd), ft_putendl_fd(ERR_FILE, 2) , false);
+		return (close(fd), ft_putendl_fd(ERR_FILE, 2), false);
 	close(fd);
 	return (true);
 }
 
 bool	validate_map(t_map *map)
 {
-	(void)map;
+	if (!check_char(map))
+		return (false);
+	if (!initiate_flood(map))
+		return (false);
+	if (!check_sorroundings(map))
+		return (false);
 	return (true);
 }
 
@@ -66,9 +73,11 @@ bool	parser(int argc, char **argv, t_map *map)
 		return (false);
 	if (!get_file(argv[1], map))
 		return (false);
-	if (!get_textures(map))
+	if (!get_args(map))
 		return (false);
 	if (!validate_map(map))
+		return (false);
+	if (!validate_textures(map))
 		return (false);
 	return (true);
 }

@@ -5,70 +5,43 @@ bool	check_loaded_textures(t_map *map)
 	if (map->no == NULL || map->so == NULL || map->we == NULL
 		|| map->ea == NULL)
 		return (false);
+	if (map->c == NULL || map->f == NULL)
+		return (false);
 	return (true);
-}
-
-char	*clean_texture(char *line)
-{
-	int		new_len;
-	char	*new_line;
-	int		ctd;
-	int		ctd2;
-
-	new_len = 0;
-	ctd = -1;
-	while (line[++ctd])
-	{
-		if (line[ctd] && (((ctd == 0 && line[ctd] != ' ') || (line[ctd] != ' '
-						|| (line[ctd] == ' ' && line[ctd - 1] != ' ')))))
-			new_len++;
-	}
-	new_line = ft_calloc(new_len + 1, sizeof(char));
-	if (!new_line)
-		return (NULL);
-	ctd = -1;
-	ctd2 = -1;
-	while (line[++ctd])
-	{
-		if (line[ctd] && (((ctd == 0 && line[ctd] != ' ') || (line[ctd] != ' '
-						|| (line[ctd] == ' ' && line[ctd - 1] != ' ')))))
-			new_line[++ctd2] = line[ctd];
-	}
-	return (new_line);
 }
 
 bool	set_texture(char *line, t_map *map)
 {
-	if (map->no == NULL && ft_strncmp(line, "NO ", 3) == 0)
+	char	**split;
+
+	split = ft_split(line, ' ');
+	if (!split)
+		return (ft_putendl_fd(ERR_ALLOC, 2), false);
+	if (split[0])
 	{
-		map->no = ft_strtrim(line + 3, " ");
-		ft_printf("NO: %s\n", map->no);
-		return (true);
+		if (split[1] == NULL)
+			return (ft_free_split(split), false);
+		if (map->no == NULL && ft_strncmp(split[0], "NO", 3) == 0)
+			map->no = ft_strdup(split[1]);
+		else if (map->so == NULL && ft_strncmp(split[0], "SO", 3) == 0)
+			map->so = ft_strdup(split[1]);
+		else if (map->we == NULL && ft_strncmp(split[0], "WE", 3) == 0)
+			map->we = ft_strdup(split[1]);
+		else if (map->ea == NULL && ft_strncmp(split[0], "EA", 3) == 0)
+			map->ea = ft_strdup(split[1]);
+		else if (map->c == NULL && ft_strncmp(split[0], "C", 2) == 0)
+			map->c = ft_strdup(split[1]);
+		else if (map->f == NULL && ft_strncmp(split[0], "F", 2) == 0)
+			map->f = ft_strdup(split[1]);
+		else
+			return (ft_free_split(split), false);
 	}
-	if (map->so == NULL && ft_strncmp(line, "SO ", 3) == 0)
-	{
-		map->so = ft_strtrim(line + 3, " ");
-		ft_printf("SO: %s\n", map->so);
-		return (true);
-	}
-	if (map->we == NULL && ft_strncmp(line, "WE ", 3) == 0)
-	{
-		map->we = ft_strtrim(line + 3, " ");
-		ft_printf("WE: %s\n", map->we);
-		return (true);
-	}
-	if (map->ea == NULL && ft_strncmp(line, "EA ", 3) == 0)
-	{
-		map->ea = ft_strtrim(line + 3, " ");
-		ft_printf("EA: %s\n", map->ea);
-		return (true);
-	}
-	return (false);
+	return (ft_free_split(split), true);
 }
 
 char	*tabs_to_spaces(char *line)
 {
-	int		ctd;
+	int	ctd;
 
 	ctd = -1;
 	while (line[++ctd])
@@ -79,23 +52,51 @@ char	*tabs_to_spaces(char *line)
 	return (line);
 }
 
-bool	get_textures(t_map *map)
+bool	set_map(t_map *map, int ctd)
 {
-	char	*line;
-	int		ctd;
+	int	len;
+	int	temp;
+
+	len = 0;
+	temp = 0;
+	while (map->buffer[ctd + len + temp])
+	{
+		if (map->buffer[ctd + len + temp][0] != '\0')
+			len++;
+		else
+			temp++;
+	}
+	map->map = ft_calloc(len + 1, sizeof(char *));
+	if (!map->map)
+		return (ft_putendl_fd(ERR_ALLOC, 2), false);
+	while (len--)
+	{
+		map->map[len] = ft_strdup(map->buffer[ctd + len + temp]);
+		if (!map->map[len])
+			return (ft_putendl_fd(ERR_ALLOC, 2), false);
+	}
+	return (true);
+}
+
+bool	get_args(t_map *map)
+{
+	int	ctd;
 
 	ctd = 0;
 	while (!check_loaded_textures(map))
 	{
 		if (!map->buffer[ctd])
 			return (ft_putendl_fd(ERR_TEXTURE, 2), false);
-		line = clean_texture(tabs_to_spaces(map->buffer[ctd]));
-		if (!line)
+		if (map->buffer[ctd][0] == '\0')
+		{
+			ctd++;
+			continue ;
+		}
+		if (!set_texture(tabs_to_spaces(map->buffer[ctd]), map))
 			return (ft_putendl_fd(ERR_TEXTURE, 2), false);
-		if (line[0] && !set_texture(line, map))
-			return (free(line), ft_putendl_fd(ERR_TEXTURE, 2), false);
-		free(line);
 		ctd++;
 	}
+	if (!set_map(map, ctd))
+		return (false);
 	return (true);
 }

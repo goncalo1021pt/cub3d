@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfontao- <gfontao-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: goncalo1021pt <goncalo1021pt@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 16:16:31 by gfontao-          #+#    #+#             */
-/*   Updated: 2023/10/11 10:35:33 by gfontao-         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:12:00 by goncalo1021      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,23 @@ static char	*word_aloc(const char *str, char c)
 	return (word);
 }
 
-static	void	*free_str(char **out, int ctd)
+static void	*free_str(char **out, int ctd)
 {
 	while (ctd >= 0)
 		free(out[ctd--]);
 	free(out);
 	return (NULL);
+}
+
+void	ft_free_split(char **split)
+{
+	int	ctd;
+
+	ctd = 0;
+	while (split[ctd])
+		free(split[ctd++]);
+	free(split);
+	split = NULL;
 }
 
 char	**ft_split(char const *s, char c)

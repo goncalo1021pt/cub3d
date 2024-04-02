@@ -1,7 +1,7 @@
 NAME = cub3d
 
 SRCS = $(addprefix srcs/,$(addsuffix .c, $(S)))
-S = main parser map_aux textures display hooks draw grid
+S = main parser map_aux aux textures map_check textures_check display hooks draw grid
 
 COMPRESS = ar rcs
 RM = rm -f
@@ -20,7 +20,7 @@ OBJS_DIR_S = s_objs
 LIBFT_DIR = ./includes/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-#mlx
+# mlx
 MLX_DIR = ./includes/.minilibx-linux
 MLX = $(MLX_DIR)/libmlx_Linux.a -lXext -lX11 -lm -lz
 
@@ -39,7 +39,7 @@ $(OBJS_DIR)/%.o: srcs/%.c
 
 $(OBJS_DIR_S)/%.o: srcs/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(SFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(SFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT) $(MLX)
 	@echo "$(GREEN)$(NAME)$(NC) compiling..."
@@ -51,17 +51,17 @@ $(BONUS_NAME): $(BONUS_OBJS) $(LIBFT)
 	@echo $(BONUS_NAME)ready!
 
 $(LIBFT):
-	@echo "$(ORANGE)libft$(NC)compiling..."
+	@echo "$(ORANGE)libft$(NC) compiling..."
 	@$(MAKE) -C $(LIBFT_DIR) --no-print-directory
-	@echo "$(ORANGE)libft$(NC)ready!"
+	@echo "$(ORANGE)libft$(NC) ready!"
 
 $(MLX):
 	@$(MAKE) -C $(MLX_DIR) --no-print-directory
 	@echo $(MLX) compiled and ready!
 
 s: fclean $(SOBJS) $(LIBFT)
-	@echo "$(GREEN)$(NAME)$(NC) compiling..."
-	@$(CC) $(CFLAGS) $(SFLAGS) -o $(NAME) $(SOBJS) $(LIBFT) $(rd_ln)
+	@echo "$(GREEN)$(NAME)$(NC) compiling with $(ORANGE)$(SFLAGS)...$(NC)"
+	@$(CC) $(CFLAGS) $(SFLAGS) -o $(NAME) $(SOBJS) $(LIBFT) $(MLX)
 	@echo "$(GREEN)$(NAME)$(NC) ready!"
 
 clean:
@@ -69,14 +69,14 @@ clean:
 	@$(RM) -r $(OBJS_DIR_BONUS)
 	@$(RM) -r $(OBJS_DIR_S)
 	@$(MAKE) -C $(LIBFT_DIR) clean --no-print-directory
-	@$(MAKE) -C $(MLX_DIR) clean --no-print-directory
-	@echo "$(RED)$(NAME)$(NC)OBJS cleaned!"
+#	@$(MAKE) -C $(MLX_DIR) clean --no-print-directory
+	@echo "$(RED)$(NAME)$(NC) OBJS cleaned!"
 
 fclean: clean
 	@$(RM) $(NAME)
 	@$(RM) $(BONUS_NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean --no-print-directory
-	@echo "$(RED)$(NAME)$(NC)cleaned!"
+	@echo "$(RED)$(NAME)$(NC) cleaned!"
 
 v:
 	make re && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --suppressions="supression.supp" ./$(NAME)
