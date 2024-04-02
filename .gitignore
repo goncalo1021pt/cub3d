@@ -1,4 +1,5 @@
 includes/minilibx-linux/
+includes/.minilibx-linux/
 objs/
 *.o
 cub3d
