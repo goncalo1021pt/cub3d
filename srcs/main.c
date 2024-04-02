@@ -25,18 +25,14 @@ void	clean_parser(t_map *map)
 
 int	main(int argc, char **argv)
 {
-	t_session	*instance;
-	t_map		map;
+	t_session	instance;
 
 	(void)argv;
-	init_map(&map);
-	if (!parser(argc, argv, &map))
-		return (clean_parser(&map), 1);
-	print_file(&map);
-	clean_parser(&map);
-	instance = (t_session *)malloc(sizeof(t_session));
-	if (!instance)
-		return (0);
-	mlx_startup(instance);
+	init_map(&instance.map);
+	if (!parser(argc, argv, &instance.map))
+		return (clean_parser(&instance.map), 1);
+	print_file(&instance.map);
+	mlx_startup(&instance);
+	clean_parser(&instance.map);
 	return (0);
 }

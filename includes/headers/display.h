@@ -1,6 +1,21 @@
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
+#include <stdbool.h>
+
+typedef struct s_map
+{
+	char	**buffer;
+	char	**map;
+	bool	**visited;
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	char	*c;
+	char	*f;
+}			t_map;
+
 typedef struct s_data
 {
 	void	*img;
@@ -12,12 +27,12 @@ typedef struct s_data
 
 typedef struct s_session
 {
-	void		*mlx_ser;
-	void		*mlx_win;
-	char		*map[11];
-	t_data		mlx_img;
-	int			width;
-	int			height;
+	void			*mlx_ser;
+	void			*mlx_win;
+	t_data			mlx_img;
+	t_map			map;
+	int				width;
+	int				height;
 }	t_session;
 
 typedef struct s_grid

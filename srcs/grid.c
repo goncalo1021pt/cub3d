@@ -46,18 +46,18 @@ void draw_grid(t_session *instance)
 	t_grid	grid;
 
 	grid.y = 0;
-	grid.col_s = arr_size(instance->map);
-	grid.row_s = longest_strlen(instance->map);
+	grid.col_s = arr_size(instance->map.map);
+	grid.row_s = longest_strlen(instance->map.map);
 	grid.sq_h = (W_HEIGHT - 1) / grid.col_s;
 	grid.sq_w = (W_WIDTH - 1)/ grid.row_s;
-	while(instance->map[grid.y])
+	while(instance->map.map[grid.y])
 	{
 		grid.x = 0;
-		while(instance->map[grid.y][grid.x])
+		while(instance->map.map[grid.y][grid.x])
 		{
 			grid.top_y = grid.y * grid.sq_h;
 			grid.top_x = grid.x * grid.sq_w;
-			if (instance->map[grid.y][grid.x] == '1')
+			if (instance->map.map[grid.y][grid.x] == '1')
 				draw_square(instance, grid.top_x, grid.top_y, grid.sq_w, grid.sq_h);
 			grid.x++;
 		}
@@ -71,18 +71,18 @@ void draw_player(t_session *instance)
 	t_grid grid;
 
 	grid.y = 0;
-	grid.col_s = arr_size(instance->map);
-	grid.row_s = longest_strlen(instance->map);
+	grid.col_s = arr_size(instance->map.map);
+	grid.row_s = longest_strlen(instance->map.map);
 	grid.sq_h = (W_HEIGHT - 1) / grid.col_s;
 	grid.sq_w = (W_WIDTH - 1) / grid.row_s;
-	while (instance->map[grid.y])
+	while (instance->map.map[grid.y])
 	{
 		grid.x = 0;
-		while (instance->map[grid.y][grid.x])
+		while (instance->map.map[grid.y][grid.x])
 		{
 			grid.top_y = grid.y * grid.sq_h;
 			grid.top_x = grid.x * grid.sq_w;
-			if (instance->map[grid.y][grid.x] == '0') // find first avaible square
+			if (instance->map.map[grid.y][grid.x] == '0') // find first avaible square
 			{
 				pixel_put(&instance->mlx_img, grid.top_x + grid.sq_w / 2, grid.top_y + grid.sq_h / 2, 0xffffff); // draw player at center of square xD
 				return;

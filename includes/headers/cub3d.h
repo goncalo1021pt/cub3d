@@ -20,19 +20,6 @@
 # define VALID_CHAR "01NSEW "
 # define PLAYER "NSEW"
 
-typedef struct s_map
-{
-	char	**buffer;
-	char	**map;
-	bool	**visited;
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-	char	*c;
-	char	*f;
-}			t_map;
-
 // parser.c
 bool		validate_map(t_map *map);
 bool		parser(int argc, char **argv, t_map *map);
