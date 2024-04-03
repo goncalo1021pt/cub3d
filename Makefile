@@ -7,6 +7,7 @@ COMPRESS = ar rcs
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror -g3
 SFLAGS = -fsanitize=address
+VFLAGS = --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes #--suppressions="supression.supp"
 CC = cc
 
 OBJS = $(addprefix $(OBJS_DIR)/,$(SRCS:srcs/%.c=%.o))
@@ -78,8 +79,8 @@ fclean: clean
 	@$(MAKE) -C $(LIBFT_DIR) fclean --no-print-directory
 	@echo "$(RED)$(NAME)$(NC) cleaned!"
 
-v:
-	make re && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --suppressions="supression.supp" ./$(NAME)
+v: re
+	valgrind $(VFLAGS) ./$(NAME)
 
 fcount:
 	@echo "you wrote $(RED)$(shell cat $(SRCS) | wc -l)$(NC)lines of code"
