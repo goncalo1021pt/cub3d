@@ -36,6 +36,7 @@ void	init_map(t_map *map)
 	map->buffer = NULL;
 	map->map = NULL;
 	map->visited = NULL;
+	map->grid = NULL;
 	map->no = NULL;
 	map->so = NULL;
 	map->we = NULL;

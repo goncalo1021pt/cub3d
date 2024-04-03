@@ -14,10 +14,12 @@
 
 # define VALID_CHAR "01NSEW "
 # define PLAYER "NSEW"
+# define MAP_SCALE 32
 
 typedef struct s_map
 {
 	char	**buffer;
+	char	**grid;
 	char	**map;
 	bool	**visited;
 	char	*no;
@@ -50,5 +52,9 @@ bool		check_sorroundings(t_map *map);
 
 // textures_check.c
 bool		validate_textures(t_map *map);
+int			ft_strslen(char **strs);
+
+// movment_grid.c
+bool	create_grid(t_map *map);
 
 #endif
