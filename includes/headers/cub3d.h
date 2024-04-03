@@ -30,6 +30,12 @@ typedef struct s_map
 	char	*f;
 }			t_map;
 
+typedef struct s_player
+{
+	int		x;
+	int		y;
+	long	angle;
+}			t_player;
 // parser.c
 bool		validate_map(t_map *map);
 bool		parser(int argc, char **argv, t_map *map);

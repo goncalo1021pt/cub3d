@@ -1,7 +1,7 @@
 NAME = cub3d
 
 SRCS = $(addprefix srcs/,$(addsuffix .c, $(S)))
-S = main parser map_aux aux textures map_check textures_check movment_grid
+S = main parser map_aux aux textures map_check textures_check grid_init
 
 COMPRESS = ar rcs
 RM = rm -f

@@ -45,8 +45,6 @@ int	main(int argc, char **argv)
 		return (clean_parser(&map), 1);
 	print_file(&map);
 	create_grid(&map);
-	ft_printf("Scaled grid\n");
-	print_grid(map.grid);
 	clean_parser(&map);
 	return (0);
 }
