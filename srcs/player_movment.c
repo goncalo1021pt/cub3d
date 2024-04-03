@@ -1,6 +1,6 @@
 #include "../includes/headers/cub3d.h"
 
-void set_angle(t_player *player, char angle)
+void	set_angle(t_player *player, char angle)
 {
 	if (angle == 'N')
 		player->angle = 0;
@@ -32,5 +32,39 @@ void	initialize_player(t_player *player, t_map *map)
 				return ;
 			}
 		}
+	}
+}
+
+void	rotate_player(t_player *player, int angle)
+{
+	if (angle == RIGHT_ARROW)
+		player->angle -= ROTATION_SPEED;
+	else if (angle == LEFT_ARROW)
+		player->angle += ROTATION_SPEED;
+	if (player->angle >= 360)
+		player->angle -= 360;
+	if (player->angle < 0)
+		player->angle += 360;
+}
+
+void	move_player(t_player *player, t_map *map, int speed, t_dir dir)
+{
+	int		x;
+	int		y;
+	double	angle;
+
+	angle = player->angle + dir;
+	if (angle >= 360)
+		angle -= 360;
+	if (angle < 0)
+		angle += 360;
+	x = player->x + (cos(angle * PI / 180) * speed);
+	y = player->y + (sin(angle * PI / 180) * speed);
+	if (map->grid[x][y] == '0')
+	{
+		map->grid[player->x][player->y] = '0';
+		player->x = x;
+		player->y = y;
+		map->grid[player->x][player->y] = 'P';
 	}
 }

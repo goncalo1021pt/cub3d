@@ -24,18 +24,6 @@ void	clean_parser(t_map *map)
 		free(map->f);
 }
 
-void	print_grid(char **grid)
-{
-	int	ctd;
-
-	ctd = 0;
-	while (grid[ctd])
-	{
-		ft_printf("%s\n", grid[ctd]);
-		ctd++;
-	}
-}
-
 int	main(int argc, char **argv)
 {
 	t_map	map;
@@ -43,8 +31,7 @@ int	main(int argc, char **argv)
 	init_map(&map);
 	if (!parser(argc, argv, &map))
 		return (clean_parser(&map), 1);
-	print_file(&map);
-	create_grid(&map);
+	start_game(&map);
 	clean_parser(&map);
 	return (0);
 }

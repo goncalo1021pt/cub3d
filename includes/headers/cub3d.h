@@ -14,7 +14,9 @@
 
 # define VALID_CHAR "01NSEW "
 # define PLAYER "NSEW"
-# define MAP_SCALE 32
+# define MAP_SCALE 3
+# define ROTATION_SPEED 45
+# define PI 3.14159265358979323846
 
 typedef struct s_map
 {
@@ -30,6 +32,25 @@ typedef struct s_map
 	char	*f;
 }			t_map;
 
+typedef enum e_keys
+{
+	ESC = 65307,
+	W = 119,
+	A = 97,
+	S = 115,
+	D = 100,
+	LEFT_ARROW = 65361,
+	RIGHT_ARROW = 65363
+}			t_keys;
+
+typedef enum e_dir
+{
+	SOUTH = 0,
+	EAST = 90,
+	NORTH = 180,
+	WEST = 270
+}			t_dir;
+
 typedef struct s_player
 {
 	int		x;
@@ -43,6 +64,7 @@ bool		parser(int argc, char **argv, t_map *map);
 // map_aux.c
 void		free_file(char **arr_str);
 void		print_file(t_map *map);
+void		print_grid(char **grid);
 void		init_map(t_map *map);
 
 // textures.c
@@ -61,6 +83,14 @@ bool		validate_textures(t_map *map);
 int			ft_strslen(char **strs);
 
 // movment_grid.c
-bool	create_grid(t_map *map);
+bool		create_grid(t_map *map);
+
+// player_movment.c
+void		initialize_player(t_player *player, t_map *map);
+void		rotate_player(t_player *player, int angle);
+void		move_player(t_player *player, t_map *map, int speed, t_dir dir);
+
+// start.c
+bool		start_game(t_map *map);
 
 #endif
