@@ -14,7 +14,7 @@
 
 # define VALID_CHAR "01NSEW "
 # define PLAYER "NSEW"
-# define MAP_SCALE 3
+# define MAP_SCALE 32
 # define ROTATION_SPEED 45
 # define PI 3.14159265358979323846
 
@@ -55,7 +55,7 @@ typedef struct s_player
 {
 	int		x;
 	int		y;
-	long	angle;
+	double	angle;
 }			t_player;
 // parser.c
 bool		validate_map(t_map *map);
@@ -66,6 +66,7 @@ void		free_file(char **arr_str);
 void		print_file(t_map *map);
 void		print_grid(char **grid);
 void		init_map(t_map *map);
+void				print_player(t_player *player);
 
 // textures.c
 bool		get_args(t_map *map);

@@ -6,6 +6,7 @@ bool	start_game(t_map *map)
 
 	create_grid(map);
 	initialize_player(&player, map);
+	
 	print_grid(map->grid);
 	return (true);
 }
