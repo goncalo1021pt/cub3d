@@ -47,7 +47,7 @@ void	rotate_player(t_player *player, int angle)
 		player->angle += 360;
 }
 
-void	move_player(t_player *player, t_map *map, int speed, t_dir dir)
+void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
 {
 	int		x;
 	int		y;

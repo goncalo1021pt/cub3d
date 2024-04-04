@@ -21,6 +21,15 @@
 # define MAP_SCALE 32
 # define ROTATION_SPEED 45
 # define PI 3.14159265358979323846
+# define ESC 65307
+# define UP 65362
+# define DOWN 65364
+# define LEFT 65361
+# define RIGHT 65363
+# define W 119
+# define S 115
+# define A 97
+# define D 100
 
 typedef enum e_keys_angle
 {
@@ -73,7 +82,7 @@ bool		create_grid(t_map *map);
 // player_movment.c
 void		initialize_player(t_player *player, t_map *map);
 void		rotate_player(t_player *player, int angle);
-void		move_player(t_player *player, t_map *map, int speed, t_dir dir);
+void		move_player(t_player *player, t_map *map, int speed, t_keys_angle dir);
 
 // display.c
 void	mlx_startup(t_session *instance);
