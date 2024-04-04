@@ -75,7 +75,7 @@ bool	initiate_flood(t_map *map)
 bool	flood_fill(t_map *map, int cols, int rows)
 {
 	if (cols < 0 || rows < 0 || !map->map[cols]
-		|| rows >= (int)ft_strlen(map->map[cols]))
+		|| rows >= (int)ft_strlen(map->map[cols]) || map->map[cols][rows] == ' ')
 		return (false);
 	if (map->map[cols][rows] == '1' || map->visited[cols][rows])
 		return (true);

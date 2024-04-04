@@ -1,15 +1,15 @@
 #ifndef MESSAGES_H
 # define MESSAGES_H
 
+# define ERR_FILE "Error reading file"
+# define ERR_TEXTURE "Error reading textures"
+# define ERR_ALLOC "Error allocating memory"
+# define ERR_MAP "Error validating map"
 # define INV_MAPNAME "Invalid map name"
 # define INV_ARGS "Invalid number of arguments"
 # define INV_FILE "File not found"
-# define ERR_FILE "Error reading file"
-# define INV_MAP "Invalid map"
-# define ERR_TEXTURE "Error reading textures"
-# define ERR_ALLOC "Error allocating memory"
 # define INV_CHAR "Invalid character in map"
-# define ERR_MAP "Error validating map"
+# define INV_MAP "Invalid map"
 # define INV_PLAYER "Invalid player count"
 # define INV_NO "Invalid NO texture"
 # define INV_SO "Invalid SO texture"

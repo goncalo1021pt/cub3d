@@ -9,6 +9,8 @@ void	clean_parser(t_map *map)
 		free_file(map->map);
 	if (map->visited)
 		free_file((char **)map->visited);
+	if (map->grid)
+		free_file(map->grid);
 	if (map->no)
 		free(map->no);
 	if (map->so)
@@ -27,11 +29,10 @@ int	main(int argc, char **argv)
 {
 	t_session	instance;
 
-	(void)argv;
 	init_map(&instance.map);
 	if (!parser(argc, argv, &instance.map))
 		return (clean_parser(&instance.map), 1);
-	print_file(&instance.map);
+	start_game(&instance.map);
 	mlx_startup(&instance);
 	clean_parser(&instance.map);
 	return (0);

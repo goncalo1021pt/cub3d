@@ -36,10 +36,23 @@ void	init_map(t_map *map)
 	map->buffer = NULL;
 	map->map = NULL;
 	map->visited = NULL;
+	map->grid = NULL;
 	map->no = NULL;
 	map->so = NULL;
 	map->we = NULL;
 	map->ea = NULL;
 	map->c = NULL;
 	map->f = NULL;
+}
+
+void	print_grid(char **grid)
+{
+	int	ctd;
+
+	ctd = 0;
+	while (grid[ctd])
+	{
+		ft_printf("%s\n", grid[ctd]);
+		ctd++;
+	}
 }

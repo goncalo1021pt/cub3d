@@ -48,8 +48,8 @@ void draw_grid(t_session *instance)
 	grid.y = 0;
 	grid.col_s = arr_size(instance->map.map);
 	grid.row_s = longest_strlen(instance->map.map);
-	grid.sq_h = (W_HEIGHT - 1) / grid.col_s;
-	grid.sq_w = (W_WIDTH - 1)/ grid.row_s;
+	grid.sq_h = MAP_SCALE;//(W_HEIGHT - 1) / grid.col_s;
+	grid.sq_w = MAP_SCALE;//(W_WIDTH - 1)/ grid.row_s;
 	while(instance->map.map[grid.y])
 	{
 		grid.x = 0;
@@ -65,16 +65,22 @@ void draw_grid(t_session *instance)
 	}
 }
 
-// best to return player position to a vector2 variable and write different function to draw the player around that point?
-void draw_player(t_session *instance)
+void	draw_player(t_session *instance, t_point pos)
 {
-	t_grid grid;
+	if (pos.y >= 0 && pos.y >= 0)
+		pixel_put(&instance->mlx_img, pos.x, pos.y, 0xffffff); 
+}
+
+t_point spawn_point(t_session *instance)
+{
+	t_grid	grid;
+	t_point	pos;
 
 	grid.y = 0;
 	grid.col_s = arr_size(instance->map.map);
 	grid.row_s = longest_strlen(instance->map.map);
-	grid.sq_h = (W_HEIGHT - 1) / grid.col_s;
-	grid.sq_w = (W_WIDTH - 1) / grid.row_s;
+	grid.sq_h = MAP_SCALE;//(W_HEIGHT - 1) / grid.col_s;
+	grid.sq_w = MAP_SCALE;//(W_WIDTH - 1)/ grid.row_s;
 	while (instance->map.map[grid.y])
 	{
 		grid.x = 0;
@@ -84,7 +90,39 @@ void draw_player(t_session *instance)
 			grid.top_x = grid.x * grid.sq_w;
 			if (instance->map.map[grid.y][grid.x] == '0') // find first avaible square
 			{
-				pixel_put(&instance->mlx_img, grid.top_x + grid.sq_w / 2, grid.top_y + grid.sq_h / 2, 0xffffff); // draw player at center of square xD
+				pos.y = grid.top_y + grid.sq_h / 2;
+				pos.x = grid.top_x + grid.sq_w / 2;
+				return (pos);
+			}
+			grid.x++;
+		}
+		grid.y++;
+	}
+	pos.y = -1;
+	pos.x = -1;
+	return (pos);
+}
+
+/*
+void draw_player(t_session *instance)
+{
+	t_grid grid;
+
+	grid.y = 0;
+	grid.col_s = arr_size(instance->map.map);
+	grid.row_s = longest_strlen(instance->map.map);
+	grid.sq_h = MAP_SCALE;//(W_HEIGHT - 1) / grid.col_s;
+	grid.sq_w = MAP_SCALE;//(W_WIDTH - 1)/ grid.row_s;
+	while (instance->map.map[grid.y])
+	{
+		grid.x = 0;
+		while (instance->map.map[grid.y][grid.x])
+		{
+			grid.top_y = grid.y * grid.sq_h;
+			grid.top_x = grid.x * grid.sq_w;
+			if (instance->map.map[grid.y][grid.x] == '0') 
+			{
+				pixel_put(&instance->mlx_img, grid.top_x + grid.sq_w / 2, grid.top_y + grid.sq_h / 2, 0xffffff); 
 				return;
 			}
 			grid.x++;
@@ -92,3 +130,4 @@ void draw_player(t_session *instance)
 		grid.y++;
 	}
 }
+*/
