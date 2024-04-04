@@ -1,6 +1,35 @@
 
 #include "../includes/headers/cub3d.h"
 
+void	pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+
+	if (x < 0 || y < 0 || x > W_WIDTH - 1 || y > W_HEIGHT - 1)
+		return ;
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
+}
+
+void	clear_image(t_session *instance, int color)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	mlx_clear_window(instance->mlx_ser, instance->mlx_win);
+	while (y < W_HEIGHT)
+	{
+		x = 0;
+		while (x < W_WIDTH)
+		{
+			pixel_put(&(instance->mlx_img), x, y, color);
+			x++;
+		}
+		y++;
+	}
+}
+
 void	init_dda(t_dda *dda, int start_x, int start_y , int end_x, int end_y)
 {
 	dda->current_x = start_x;

@@ -1,34 +1,7 @@
 
 #include "../includes/headers/cub3d.h"
 
-void	pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
 
-	if (x < 0 || y < 0 || x > W_WIDTH - 1 || y > W_HEIGHT - 1)
-		return ;
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
-}
-
-void	clear_image(t_session *instance, int color)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	mlx_clear_window(instance->mlx_ser, instance->mlx_win);
-	while (y < W_HEIGHT)
-	{
-		x = 0;
-		while (x < W_WIDTH)
-		{
-			pixel_put(&(instance->mlx_img), x, y, color);
-			x++;
-		}
-		y++;
-	}
-}
 
 void	mlx_shutdown(t_session *instance)
 {
@@ -51,8 +24,13 @@ void	mlx_shutdown(t_session *instance)
 
 void	mlx_update(t_session *instance)
 {
+	t_point	p_pos;
+
+	p_pos.y = instance->player.y;
+	p_pos.x = instance->player.x;
 	clear_image(instance, 0x000000);
 	draw_grid(instance);
+	draw_player(instance, p_pos);
 	mlx_put_image_to_window(instance->mlx_ser,
 		instance->mlx_win, instance->mlx_img.img, 0, 0);
 }

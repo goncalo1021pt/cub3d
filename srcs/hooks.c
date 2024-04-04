@@ -18,6 +18,6 @@ int	handle_key(int keycode, t_session *instance)
 	printf("%d\n", keycode);
 	if (keycode == ESC)
 		mlx_shutdown(instance);
-	//mlx_update(instance);
+	mlx_update(instance);
 	return (0);
 }

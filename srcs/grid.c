@@ -102,32 +102,3 @@ t_point spawn_point(t_session *instance)
 	pos.x = -1;
 	return (pos);
 }
-
-/*
-void draw_player(t_session *instance)
-{
-	t_grid grid;
-
-	grid.y = 0;
-	grid.col_s = arr_size(instance->map.map);
-	grid.row_s = longest_strlen(instance->map.map);
-	grid.sq_h = MAP_SCALE;//(W_HEIGHT - 1) / grid.col_s;
-	grid.sq_w = MAP_SCALE;//(W_WIDTH - 1)/ grid.row_s;
-	while (instance->map.map[grid.y])
-	{
-		grid.x = 0;
-		while (instance->map.map[grid.y][grid.x])
-		{
-			grid.top_y = grid.y * grid.sq_h;
-			grid.top_x = grid.x * grid.sq_w;
-			if (instance->map.map[grid.y][grid.x] == '0') 
-			{
-				pixel_put(&instance->mlx_img, grid.top_x + grid.sq_w / 2, grid.top_y + grid.sq_h / 2, 0xffffff); 
-				return;
-			}
-			grid.x++;
-		}
-		grid.y++;
-	}
-}
-*/
