@@ -30,7 +30,7 @@ typedef struct s_player
 {
 	int		x;
 	int		y;
-	long	angle;
+	double	angle;
 }			t_player;
 
 typedef struct s_point 

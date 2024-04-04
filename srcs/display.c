@@ -18,19 +18,16 @@ void	mlx_shutdown(t_session *instance)
 		mlx_destroy_display(instance->mlx_ser);
 		free(instance->mlx_ser);
 	}
-	//free(instance);
+	clean_parser(&instance->map);
+	//free(instance); // maybe return ?
 	exit(0);
 }
 
 void	mlx_update(t_session *instance)
 {
-	t_point	p_pos;
-
-	p_pos.y = instance->player.y;
-	p_pos.x = instance->player.x;
 	clear_image(instance, 0x000000);
 	draw_grid(instance);
-	draw_player(instance, p_pos);
+	draw_player(instance);
 	mlx_put_image_to_window(instance->mlx_ser,
 		instance->mlx_win, instance->mlx_img.img, 0, 0);
 }
@@ -48,7 +45,7 @@ void	mlx_startup(t_session *instance)
 	if (!instance->mlx_ser || !instance->mlx_win || !instance->mlx_img.img)
 		mlx_shutdown(instance);
 	draw_grid(instance);
-	draw_player(instance, spawn_point(instance));
+	draw_player(instance);
 	mlx_put_image_to_window(instance->mlx_ser, instance->mlx_win, instance->mlx_img.img, 0, 0);
 	mlx_key_hook(instance->mlx_win, handle_key, instance);
 	mlx_hook(instance->mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, instance);

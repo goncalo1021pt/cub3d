@@ -3,13 +3,13 @@
 void	set_angle(t_player *player, char angle)
 {
 	if (angle == 'N')
-		player->angle = 0;
+		player->angle = NORTH;
 	else if (angle == 'E')
-		player->angle = 90;
+		player->angle = EAST;
 	else if (angle == 'S')
-		player->angle = 180;
+		player->angle = SOUTH;
 	else if (angle == 'W')
-		player->angle = 270;
+		player->angle = WEST;
 }
 
 void	initialize_player(t_player *player, t_map *map)
@@ -53,13 +53,14 @@ void	move_player(t_player *player, t_map *map, int speed, t_dir dir)
 	int		y;
 	double	angle;
 
+	(void)speed;
 	angle = player->angle + dir;
 	if (angle >= 360)
 		angle -= 360;
 	if (angle < 0)
 		angle += 360;
-	x = player->x + (cos(angle * PI / 180) * speed);
-	y = player->y + (sin(angle * PI / 180) * speed);
+	x = player->x + 1;//(cos(angle * PI / 180) * speed);
+	y = player->y + 1;//(sin(angle * PI / 180) * speed);
 	if (map->grid[x][y] == '0')
 	{
 		map->grid[player->x][player->y] = '0';

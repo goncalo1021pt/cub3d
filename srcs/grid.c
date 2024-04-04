@@ -65,10 +65,9 @@ void draw_grid(t_session *instance)
 	}
 }
 
-void	draw_player(t_session *instance, t_point pos)
+void	draw_player(t_session *instance)
 {
-	if (pos.y >= 0 && pos.y >= 0)
-		pixel_put(&instance->mlx_img, pos.x, pos.y, 0xffffff); 
+	pixel_put(&instance->mlx_img, instance->player.x, instance->player.x, 0xffffff); 
 }
 
 t_point spawn_point(t_session *instance)

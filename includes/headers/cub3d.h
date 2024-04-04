@@ -22,23 +22,22 @@
 # define ROTATION_SPEED 45
 # define PI 3.14159265358979323846
 
-typedef enum e_keys
+typedef enum e_keys_angle
 {
-	ESC = 65307,
-	W = 119,
-	A = 97,
-	S = 115,
-	D = 100,
+	W_ANGLE = 0,
+	A_ANGLE = 270,
+	S_ANGLE = 180,
+	D_ANGLE = 90,
 	LEFT_ARROW = 65361,
 	RIGHT_ARROW = 65363
-}			t_keys;
+}			t_keys_angle;
 
 typedef enum e_dir
 {
-	SOUTH = 0,
-	EAST = 90,
-	NORTH = 180,
-	WEST = 270
+	EAST = 0,
+	SOUTH = 90,
+	WEST = 180,
+	NORTH = 270
 }			t_dir;
 
 // parser.c
@@ -93,10 +92,11 @@ void	draw_line(t_session *instance, int start_x, int end_x, int start_y, int end
 void	clear_image(t_session *instance, int color);
 
 // grid.c
-void	draw_player(t_session *instance, t_point pos);
+void	draw_player(t_session *instance);
 void 	draw_grid(t_session *instance);
 t_point spawn_point(t_session *instance);
 // start.c
 bool	start_game(t_map *map, t_player	*player);
-
+// main.c
+void	clean_parser(t_map *map);
 #endif
