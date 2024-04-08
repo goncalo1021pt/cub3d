@@ -48,11 +48,13 @@ void	draw_scaled(t_session *instance)
 		{
 			if (instance->map.grid[y][x] == '1')
 				pixel_put(&(instance->mlx_img), x, y, 0xff4500);
+			else if (instance->map.grid[y][x] == '0')
+				pixel_put(&(instance->mlx_img), x, y, 0xffffff);
 			else if (instance->map.grid[y][x] == 'P')
 			{
 				printf("grid -> x: %d y: %d\n", x, y);
 				draw_player(instance);
-				pixel_put(&(instance->mlx_img), x, y, 0xff4500);
+				pixel_put(&(instance->mlx_img), x, y, 0x000000);
 			}
 			x++;
 		}
