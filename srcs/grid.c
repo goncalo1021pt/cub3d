@@ -29,40 +29,61 @@ size_t longest_strlen(char **arr)
 	return (max);
 }
 
-
-void draw_square(t_session *instance, t_point start, t_square sq)
+void draw_square(t_session *instance, t_point point, t_square sq, int color)
 {
+	t_point	start;
+	t_point end;
+
 	// Draw top border
-	draw_line(instance, start.x, start.y, start.x + sq.width, start.y);
+	start = point;
+	end.x = point.x + sq.width;
+	end.y = point.y;
+	draw_line(instance, start, end, color);
 	// Draw left border
-	draw_line(instance, start.x, start.y, start.x, start.y + sq.height);
+	end.x = point.x;
+	end.y = point.y + sq.height;
+	draw_line(instance, start, end, color);
 	// Draw bottom border
-	draw_line(instance, start.x, start.y + sq.height, start.x + sq.width, start.y + sq.height);
+	start.x = point.x;
+	start.y = point.y + sq.height;
+	end.x = point.x + sq.width;
+	end.y = point.y + sq.height;
+	draw_line(instance, start, end, color);
 	// Draw right border
-	draw_line(instance, start.x + sq.width, start.y, start.x + sq.width, start.y + sq.height);
+	start.x = point.x + sq.width;
+	start.y = point.y;
+	end.x = point.x + sq.width;
+	end.y = point.y + sq.height;
+	draw_line(instance, start, end, color);
 }
 
-/*
-void draw_square(t_session *instance, int x, int y, int width, int height)
+void	draw_scaled(t_session *instance)
 {
-	// Draw top border
-	draw_line(instance, x, y, x + width, y);
-	// Draw left border
-	draw_line(instance, x, y, x, y + height);
-	// Draw bottom border
-	draw_line(instance, x, y + height, x + width, y + height);
-	// Draw right border
-	draw_line(instance, x + width, y, x + width, y + height);
+	int	y = 0;
+	int x = 0;
+
+	while (instance->map.grid[y])
+	{
+		x = 0;
+		while (instance->map.grid[y][x])
+		{
+			if (instance->map.grid[y][x] == '1')
+				pixel_put(&(instance->mlx_img), x, y, 0xff4500);
+			else if (instance->map.grid[y][x] == 'P')
+				pixel_put(&(instance->mlx_img), x, y, 0xffffff);
+			x++;
+		}
+		y++;
+	}
 }
-*/
 
 void draw_grid(t_session *instance)
 {
 	t_grid	grid;
 
 	grid.pt.y = 0;
-	grid.col_s = arr_size(instance->map.map);
-	grid.row_s = longest_strlen(instance->map.map);
+	//grid.col_s = arr_size(instance->map.map);
+	//grid.row_s = longest_strlen(instance->map.map);
 	grid.sq.height = MAP_SCALE;//(W_HEIGHT - 1) / grid.col_s;
 	grid.sq.width = MAP_SCALE;//(W_WIDTH - 1)/ grid.row_s;
 	while(instance->map.map[grid.pt.y])
@@ -73,7 +94,7 @@ void draw_grid(t_session *instance)
 			grid.top.y = grid.pt.y * grid.sq.height;
 			grid.top.x = grid.pt.x * grid.sq.width;
 			if (instance->map.map[grid.pt.y][grid.pt.x] == '1')
-				draw_square(instance, grid.top, grid.sq);
+				draw_square(instance, grid.top, grid.sq, 0xff4500);
 			grid.pt.x++;
 		}
 		grid.pt.y++;

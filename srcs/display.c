@@ -1,8 +1,6 @@
 
 #include "../includes/headers/cub3d.h"
 
-
-
 void	mlx_shutdown(t_session *instance)
 {
 	mlx_loop_end(instance->mlx_ser);
@@ -26,8 +24,9 @@ void	mlx_shutdown(t_session *instance)
 void	mlx_update(t_session *instance)
 {
 	clear_image(instance, 0x000000);
-	draw_grid(instance);
-	draw_player(instance);
+	//draw_grid(instance);
+	draw_scaled(instance);
+	//draw_player(instance);
 	mlx_put_image_to_window(instance->mlx_ser,
 		instance->mlx_win, instance->mlx_img.img, 0, 0);
 }
@@ -44,8 +43,9 @@ void	mlx_startup(t_session *instance)
 			&instance->mlx_img.endian);
 	if (!instance->mlx_ser || !instance->mlx_win || !instance->mlx_img.img)
 		mlx_shutdown(instance);
-	draw_grid(instance);
-	draw_player(instance);
+	draw_scaled(instance);
+	//draw_grid(instance);
+	//draw_player(instance);
 	mlx_put_image_to_window(instance->mlx_ser, instance->mlx_win, instance->mlx_img.img, 0, 0);
 	mlx_key_hook(instance->mlx_win, handle_key, instance);
 	mlx_hook(instance->mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, instance);

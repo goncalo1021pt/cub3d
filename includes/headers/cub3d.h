@@ -95,14 +95,14 @@ int		handle_key(int keycode, t_session *instance);
 int		exit_hook(t_session *instance);
 
 // draw.c
-void	init_dda(t_dda *dda, int start_x, int start_y , int end_x, int end_y);
 void	pixel_put(t_data *data, int x, int y, int color);
-void	draw_line(t_session *instance, int start_x, int end_x, int start_y, int end_y);
+void	draw_line(t_session *instance, t_point start, t_point end, int color);
 void	clear_image(t_session *instance, int color);
 
 // grid.c
 void	draw_player(t_session *instance);
 void 	draw_grid(t_session *instance);
+void	draw_scaled(t_session *instance);
 //t_point spawn_point(t_session *instance);
 
 // start.c

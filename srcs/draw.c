@@ -30,6 +30,34 @@ void	clear_image(t_session *instance, int color)
 	}
 }
 
+void	init_dda(t_dda *dda, t_point start, t_point end)
+{
+	dda->current_x = start.x;
+	dda->current_y = start.y;
+	dda->delta_x = end.x - start.x;
+	dda->delta_y = end.y - start.y;
+	dda->step = fmax(fabs(dda->delta_x), fabs(dda->delta_y));
+	dda->x_inc = dda->delta_x / dda->step;
+	dda->y_inc = dda->delta_y / dda->step;
+}
+
+void	draw_line(t_session *instance, t_point start, t_point end, int color)
+{
+	t_dda	dda;
+	int		i;
+
+	i = 0;
+	init_dda(&dda, start, end);
+	while (i <= dda.step)
+	{
+		pixel_put(&instance->mlx_img, dda.current_x, dda.current_y, color); //0xff4500
+		dda.current_x += dda.x_inc;
+		dda.current_y += dda.y_inc;
+		i++;
+	}
+}
+
+/*
 void	init_dda(t_dda *dda, int start_x, int start_y , int end_x, int end_y)
 {
 	dda->current_x = start_x;
@@ -56,3 +84,4 @@ void	draw_line(t_session *instance, int start_x, int end_x, int start_y, int end
 		i++;
 	}
 }
+*/
