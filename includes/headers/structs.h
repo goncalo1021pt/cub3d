@@ -39,24 +39,16 @@ typedef struct s_point
 	int	y;
 } t_point;
 
-typedef struct s_quare
-{
-	int	width;
-	int	height;
-} t_square;
-
 typedef struct s_session
 {
 	void			*mlx_ser;
 	void			*mlx_win;
 	t_data			mlx_img;
 	t_map			map;
-    t_player        player;
+	t_player		player;
 	int				width;
 	int				height;
 }	t_session;
-
-
 
 typedef struct s_dda
 {
