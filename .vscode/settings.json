@@ -4,6 +4,7 @@
 		"math.h": "c",
 		"fcntl.h": "c",
 		"errno.h": "c",
-		"structs.h": "c"
+		"structs.h": "c",
+		"string_view": "c"
 	}
 }
