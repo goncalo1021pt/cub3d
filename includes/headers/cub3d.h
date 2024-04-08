@@ -103,7 +103,8 @@ void	clear_image(t_session *instance, int color);
 // grid.c
 void	draw_player(t_session *instance);
 void 	draw_grid(t_session *instance);
-t_point spawn_point(t_session *instance);
+//t_point spawn_point(t_session *instance);
+
 // start.c
 bool	start_game(t_map *map, t_player	*player);
 // main.c

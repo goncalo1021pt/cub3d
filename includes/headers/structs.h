@@ -35,9 +35,15 @@ typedef struct s_player
 
 typedef struct s_point 
 {
-	int	y;
 	int	x;
-}	t_point;
+	int	y;
+} t_point;
+
+typedef struct s_quare 
+{
+	int	width;
+	int	height;
+} t_square;
 
 typedef struct s_session
 {
@@ -52,14 +58,11 @@ typedef struct s_session
 
 typedef struct s_grid
 {
-	int	y;
-	int	x;
-	int	row_s;
-	int	col_s;
-	int	sq_h;
-	int	sq_w;
-	int	top_y;
-	int	top_x;
+	t_point		pt;
+	int			row_s;
+	int			col_s;
+	t_square	sq;
+	t_point		top;
 }	t_grid;
 
 typedef struct s_dda
