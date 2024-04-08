@@ -75,6 +75,7 @@ void	draw_scaled(t_session *instance)
 		}
 		y++;
 	}
+	draw_grid(instance);
 }
 
 void draw_grid(t_session *instance)
@@ -94,7 +95,7 @@ void draw_grid(t_session *instance)
 			grid.top.y = grid.pt.y * grid.sq.height;
 			grid.top.x = grid.pt.x * grid.sq.width;
 			if (instance->map.map[grid.pt.y][grid.pt.x] == '1')
-				draw_square(instance, grid.top, grid.sq, 0xff4500);
+				draw_square(instance, grid.top, grid.sq, 0x000000);
 			grid.pt.x++;
 		}
 		grid.pt.y++;
