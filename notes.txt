@@ -1,0 +1,35 @@
+// divide a square in 4 smaller squares and find the center of each square including the parent square ^^
+
+typedef struct s_subd
+{
+	t_point	tl_cent;
+	t_point	tr_cent;
+	t_point	center;
+	t_point	bl_cent;
+	t_point	br_cent;
+} t_subd;
+
+void subdivide_square(t_session *instance, t_subd *subd_points, int x, int y, int sq_size)
+{
+	int quarter = sq_size / 2;
+
+	subd_points->tl_cent.x = x - quarter / 2;
+	subd_points->tl_cent.y = y - quarter / 2;
+	pixel_put(&(instance->mlx_img), subd_points->tl_cent.x, subd_points->tl_cent.y, 0xFF0000);
+
+	subd_points->tr_cent.x = x + quarter / 2;
+	subd_points->tr_cent.y = y - quarter / 2;
+	pixel_put(&(instance->mlx_img), subd_points->tr_cent.x, subd_points->tr_cent.y, 0x00FF00);
+
+	subd_points->center.x = x;
+	subd_points->center.y = y;
+	pixel_put(&(instance->mlx_img), subd_points->center.x, subd_points->center.y, 0x0000FF);
+
+	subd_points->bl_cent.x = x - quarter / 2;
+	subd_points->bl_cent.y = y + quarter / 2;
+	pixel_put(&(instance->mlx_img), subd_points->bl_cent.x, subd_points->bl_cent.y, 0xFFFF00);
+
+	subd_points->br_cent.x = x + quarter / 2;
+	subd_points->br_cent.y = y + quarter / 2;
+	pixel_put(&(instance->mlx_img), subd_points->br_cent.x, subd_points->br_cent.y, 0xFF00FF);
+}
