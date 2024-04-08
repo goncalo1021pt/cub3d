@@ -11,7 +11,7 @@ bool	start_game(t_map *map, t_player	*player)
 
 	create_grid(map);
 	initialize_player(player, map);
-	print_player(player);
-	print_grid(map->grid);
+	//print_player(player);
+	//print_grid(map->grid);
 	return (true);
 }

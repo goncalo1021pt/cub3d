@@ -47,20 +47,28 @@ void	rotate_player(t_player *player, int angle)
 		player->angle += 360;
 }
 
-void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
-{
-	int		x;
-	int		y;
-	double	angle;
 
-	(void)speed;
+void move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
+{
+	int x;
+	int y;
+	double angle;
+
 	angle = player->angle + dir;
 	if (angle >= 360)
 		angle -= 360;
 	if (angle < 0)
 		angle += 360;
-	x = player->x + 1;//(cos(angle * PI / 180) * speed);
-	y = player->y + 1;//(sin(angle * PI / 180) * speed);
+	x = player->x;
+	y = player->y;
+	if (dir == W_ANGLE)
+		x -= speed;
+	else if (dir == S_ANGLE)
+		x += speed;
+	else if (dir == A_ANGLE)
+		y -= speed;
+	else if (dir == D_ANGLE)
+		y += speed;
 	if (map->grid[x][y] == '0')
 	{
 		map->grid[player->x][player->y] = '0';
@@ -69,3 +77,27 @@ void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
 		map->grid[player->x][player->y] = 'P';
 	}
 }
+
+
+// void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
+// {
+// 	int		x;
+// 	int		y;
+// 	double	angle;
+
+// 	(void)speed;
+// 	angle = player->angle + dir;
+// 	if (angle >= 360)
+// 		angle -= 360;
+// 	if (angle < 0)
+// 		angle += 360;
+// 	x = player->x + 1; //(cos(angle * PI / 180) * speed);
+// 	y = player->y + 1; //(sin(angle * PI / 180) * speed);
+// 	if (map->grid[x][y] == '0')
+// 	{
+// 		map->grid[player->x][player->y] = '0';
+// 		player->x = x;
+// 		player->y = y;
+// 		map->grid[player->x][player->y] = 'P';
+// 	}
+// }

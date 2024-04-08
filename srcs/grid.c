@@ -29,38 +29,15 @@ void draw_square(t_session *instance, t_point point, int sq, int color)
 	draw_line(instance, start, end, color);
 }
 
-void	draw_player(t_session *instance)
+void	draw_player(t_session *instance, int x, int y)
 {
-	printf("pĺayer -> x: %d y: %d\n", instance->player.x, instance->player.y);
-	pixel_put(&instance->mlx_img, instance->player.x, instance->player.y, 0x25f7ff);
-}
+	t_point	pos;
+	int		sq;
 
-void	draw_scaled(t_session *instance)
-{
-	int			y;
-	int			x;
-
-	y = 0;
-	while (instance->map.grid[y])
-	{
-		x = 0;
-		while (instance->map.grid[y][x])
-		{
-			if (instance->map.grid[y][x] == '1')
-				pixel_put(&(instance->mlx_img), x, y, 0xff4500);
-			else if (instance->map.grid[y][x] == '0')
-				pixel_put(&(instance->mlx_img), x, y, 0xffffff);
-			else if (instance->map.grid[y][x] == 'P')
-			{
-				printf("grid -> x: %d y: %d\n", x, y);
-				draw_player(instance);
-				pixel_put(&(instance->mlx_img), x, y, 0x000000);
-			}
-			x++;
-		}
-		y++;
-	}
-	draw_grid(instance);
+	sq = MAP_SCALE / 4;
+	pos.y = y - (sq / 2);
+	pos.x = x - (sq / 2);
+	draw_square(instance, pos, sq, 0x25f7ff);
 }
 
 void draw_grid(t_session *instance)
@@ -87,3 +64,34 @@ void draw_grid(t_session *instance)
 	}
 }
 
+void	draw_scaled(t_session *instance)
+{
+	int		y;
+	int		x;
+	t_point	pos;
+
+	y = 0;
+	while (instance->map.grid[y])
+	{
+		x = 0;
+		while (instance->map.grid[y][x])
+		{
+			if (instance->map.grid[y][x] == '1')
+				pixel_put(&(instance->mlx_img), x, y, 0xff4500);
+			else if (instance->map.grid[y][x] == '0')
+				pixel_put(&(instance->mlx_img), x, y, 0xffffff);
+			else if (instance->map.grid[y][x] == 'P')
+			{
+				pos.y = y;
+				pos.x = x;
+			}
+			x++;
+		}
+		y++;
+	}
+	draw_grid(instance);
+	draw_player(instance, pos.x, pos.y);
+	draw_player(instance, instance->player.x, instance->player.y);
+	printf("grid -> x: %d y: %d\n", pos.x, pos.y);
+	printf("pĺayer -> x: %d y: %d\n", instance->player.x, instance->player.y);
+}
