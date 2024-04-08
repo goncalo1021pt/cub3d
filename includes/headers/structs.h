@@ -33,13 +33,13 @@ typedef struct s_player
 	double	angle;
 }			t_player;
 
-typedef struct s_point 
+typedef struct s_point
 {
 	int	x;
 	int	y;
 } t_point;
 
-typedef struct s_quare 
+typedef struct s_quare
 {
 	int	width;
 	int	height;
@@ -56,14 +56,7 @@ typedef struct s_session
 	int				height;
 }	t_session;
 
-typedef struct s_grid
-{
-	t_point		pt;
-	int			row_s;
-	int			col_s;
-	t_square	sq;
-	t_point		top;
-}	t_grid;
+
 
 typedef struct s_dda
 {
