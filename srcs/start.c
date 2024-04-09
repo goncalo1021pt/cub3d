@@ -10,8 +10,8 @@ bool	start_game(t_map *map, t_player	*player)
 {
 
 	create_grid(map);
-	initialize_player(player, map);
-	//print_player(player);
-	//print_grid(map->grid);
+	initialize_player(player, map);	
+	// print_player(player);
+	// exit(0);
 	return (true);
 }

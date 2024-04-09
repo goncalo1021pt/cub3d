@@ -18,8 +18,8 @@
 
 # define VALID_CHAR "01NSEW "
 # define PLAYER "NSEW"
-# define MAP_SCALE 32
-# define ROTATION_SPEED 45
+# define MAP_SCALE 64
+# define ROTATION_SPEED 22.5
 # define PI 3.14159265358979323846
 # define ESC 65307
 # define UP 65362

@@ -20,6 +20,10 @@ int	handle_key(int keycode, t_session *instance)
 		move_player(&instance->player, &instance->map, 1, A_ANGLE);
 	else if (keycode == D)
 		move_player(&instance->player, &instance->map, 1, D_ANGLE);
+	else if (keycode == LEFT_ARROW)
+		rotate_player(&instance->player, LEFT_ARROW);
+	else if (keycode == RIGHT_ARROW)
+		rotate_player(&instance->player, RIGHT_ARROW);
 	mlx_update(instance);
 	return (0);
 }
