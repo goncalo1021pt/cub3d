@@ -56,8 +56,3 @@ void	print_grid(char **grid)
 		ctd++;
 	}
 }
-
-void print_player(t_player *player)
-{
-	ft_printf("Player x = %d\nPlayer y = %d\nPlayer angle = %d\n",player->x);
-}
