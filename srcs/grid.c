@@ -78,15 +78,35 @@ void draw_grid(t_session *instance)
 
 typedef struct s_camera2d 
 {
+	t_point	top_l;
+	t_point	bot_r;
+	t_point	p_pos;
+	t_point size;
+}	t_camera2d;
+
+void	init_camera2d(t_session *instance, t_camera2d *cam2d)
+{
+	cam2d->size.x = MAP_SCALE * 6;
+	cam2d->size.y = MAP_SCALE * 4;
 	
-} t_camera2d;
+	cam2d->p_pos.x = instance->player.x;
+	cam2d->p_pos.y = instance->player.y;
+
+	cam2d->top_l.x = fmax(0, instance->player.x - cam2d->size.x / 2);
+	cam2d->top_l.y = fmax(0, instance->player.y - cam2d->size.y / 2);
+
+	cam2d->bot_r.x = fmin(W_WIDTH - 1, instance->player.x + cam2d->size.x / 2);
+	cam2d->bot_r.y = fmin(W_HEIGHT - 1, instance->player.y + cam2d->size.y / 2);
+}
 
 void	draw_scaled(t_session *instance)
 {
-	int		y;
-	int		x;
+	int			y;
+	int			x;
+	//t_camera2d	cam2d;
 
 	y = 0;
+	//init_camera2d(instance, &cam2d);
 	while (instance->map.grid[y])
 	{
 		x = 0;
