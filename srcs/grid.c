@@ -82,20 +82,16 @@ typedef struct s_camera2d
 	t_point	bot_r;
 	t_point	p_pos;
 	t_point size;
-	//t_point	offset;
 }	t_camera2d;
 
 void	init_camera2d(t_session *instance, t_camera2d *cam2d)
 {
 	cam2d->size.x = MAP_SCALE * 6;
 	cam2d->size.y = MAP_SCALE * 4;
-	
 	cam2d->p_pos.x = instance->player.x;
 	cam2d->p_pos.y = instance->player.y;
-
 	cam2d->top_l.x = fmax(0, instance->player.x - cam2d->size.x / 2);
 	cam2d->top_l.y = fmax(0, instance->player.y - cam2d->size.y / 2);
-
 	cam2d->bot_r.x = fmin(W_WIDTH - 1, instance->player.x + cam2d->size.x / 2);
 	cam2d->bot_r.y = fmin(W_HEIGHT - 1, instance->player.y + cam2d->size.y / 2);
 }
@@ -113,8 +109,6 @@ void	draw_scaled(t_session *instance)
 		x = cam2d.top_l.x;
 		while (x < cam2d.bot_r.x && instance->map.grid[y][x])
 		{
-			//cam2d.offset.x = x - cam2d.top_l.x;
-			//cam2d.offset.y = y - cam2d.top_l.y;
 			if (instance->map.grid[y][x] == '1')
 				pixel_put(&(instance->mlx_img), x, y, 0xff4500);
 			else if (instance->map.grid[y][x] == '0')
