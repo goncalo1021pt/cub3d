@@ -76,9 +76,13 @@ void draw_grid(t_session *instance)
 	}
 }
 
+typedef struct s_camera2d 
+{
+	
+} t_camera2d;
+
 void	draw_scaled(t_session *instance)
 {
-	t_point	pos;
 	int		y;
 	int		x;
 
@@ -92,18 +96,10 @@ void	draw_scaled(t_session *instance)
 				pixel_put(&(instance->mlx_img), x, y, 0xff4500);
 			else if (instance->map.grid[y][x] == '0')
 				pixel_put(&(instance->mlx_img), x, y, 0xffffff);
-			else if (instance->map.grid[y][x] == 'P')
-			{
-				pos.y = y;
-				pos.x = x;
-			}
 			x++;
 		}
 		y++;
 	}
 	draw_grid(instance);
-	draw_player(instance, pos.x, pos.y);
 	draw_player(instance, instance->player.x, instance->player.y);
-	printf("grid -> x: %d y: %d\n", pos.x, pos.y);
-	printf("pĺayer -> x: %d y: %d\n", instance->player.x, instance->player.y);
 }

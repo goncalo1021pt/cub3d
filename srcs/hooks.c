@@ -9,7 +9,7 @@ int	exit_hook(t_session *instance)
 
 int	handle_key(int keycode, t_session *instance)
 {
-	printf("\033[1;33mINPUT -> %d <- /////\033[0m\n", keycode);
+	//printf("\033[1;33mINPUT -> %d <- /////\033[0m\n", keycode);
 	if (keycode == ESC)
 		mlx_shutdown(instance);
 	if (keycode == W)
