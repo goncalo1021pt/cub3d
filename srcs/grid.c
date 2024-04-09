@@ -54,22 +54,19 @@ void	draw_player(t_session *instance, int x, int y)
 
 void draw_grid(t_session *instance)
 {
-	t_point		top;
-	int			sq;
 	int			y;
 	int			x;
+	//t_camera2d	cam2d;
 
-	sq = MAP_SCALE;
 	y = 0;
-	while (instance->map.map[y])
+	//init_camera2d(instance, &cam2d);
+	while (instance->map.grid[y])
 	{
 		x = 0;
-		while (instance->map.map[y][x])
+		while (instance->map.grid[y][x])
 		{
-			top.y = y * sq;
-			top.x = x * sq;
-			if (instance->map.map[y][x] == '1')
-				draw_square(instance, top, sq, 0x100000);
+			if (instance->map.grid[y][x] == '1' && (x % MAP_SCALE == 0 && y % MAP_SCALE == 0))
+				draw_square(instance, ((t_point){x, y}), MAP_SCALE, 0x000000);
 			x++;
 		}
 		y++;
