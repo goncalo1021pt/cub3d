@@ -75,22 +75,21 @@ void	init_camera2d(t_session *instance, t_camera2d *cam2d)
 
 void draw_grid(t_session *instance)
 {
-	t_point		top;
-	int			sq;
 	int			y;
 	int			x;
+	t_camera2d	cam2d;
 
-	sq = MAP_SCALE;
-	y = 0;
-	while (instance->map.map[y])
+	init_camera2d(instance, &cam2d);
+	y = cam2d.top_l.y;
+	while (y < cam2d.bot_r.y && instance->map.grid[y])
 	{
-		x = 0;
-		while (instance->map.map[y][x])
+		x = cam2d.top_l.x;
+		while (x < cam2d.bot_r.x && instance->map.grid[y][x])
 		{
-			top.y = y * sq;
-			top.x = x * sq;
-			if (instance->map.map[y][x] == '1')
-				draw_square(instance, top, sq, 0x100000);
+			cam2d.offset.x = (x - cam2d.top_l.x) + (W_WIDTH / 9 - (instance->player.x - cam2d.top_l.x));
+			cam2d.offset.y = (y - cam2d.top_l.y) + (W_HEIGHT - (MAP_SCALE * 2) - (instance->player.y - cam2d.top_l.y));
+			if (instance->map.grid[y][x] == '1' && (x % MAP_SCALE == 0 && y % MAP_SCALE == 0))
+				draw_square(instance, ((t_point){cam2d.offset.x, cam2d.offset.y}), MAP_SCALE, 0x000000);
 			x++;
 		}
 		y++;
@@ -99,11 +98,11 @@ void draw_grid(t_session *instance)
 
 void draw_scaled(t_session *instance)
 {
-	int y, x;
-	t_camera2d cam2d;
+	int	y;
+	int	x;
+	t_camera2d	cam2d;
 
 	init_camera2d(instance, &cam2d);
-
 	y = cam2d.top_l.y;
 	while (y < cam2d.bot_r.y && instance->map.grid[y])
 	{
@@ -116,12 +115,11 @@ void draw_scaled(t_session *instance)
 				pixel_put(&(instance->mlx_img), cam2d.offset.x, cam2d.offset.y, 0xff4500);
 			else if (instance->map.grid[y][x] == '0')
 				pixel_put(&(instance->mlx_img), cam2d.offset.x, cam2d.offset.y, 0xffffff);
-			if (instance->map.grid[y][x] == '1' && (x % MAP_SCALE == 0 || y % MAP_SCALE == 0))
-				draw_square(instance, ((t_point){cam2d.offset.x, cam2d.offset.y}), MAP_SCALE, 0x000000);
 			x++;
 		}
 		y++;
 	}
+	draw_grid(instance);
 	draw_player(instance, W_WIDTH / 9, W_HEIGHT - (MAP_SCALE * 2));
 }
 
