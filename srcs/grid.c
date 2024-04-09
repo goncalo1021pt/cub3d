@@ -110,18 +110,18 @@ void draw_scaled(t_session *instance)
 		x = cam2d.top_l.x;
 		while (x < cam2d.bot_r.x && instance->map.grid[y][x])
 		{
-			cam2d.offset.x = (x - cam2d.top_l.x) + (W_WIDTH / 2 - (instance->player.x - cam2d.top_l.x));
-			cam2d.offset.y = (y - cam2d.top_l.y) + (W_HEIGHT / 2 - (instance->player.y - cam2d.top_l.y));
+			cam2d.offset.x = (x - cam2d.top_l.x) + (W_WIDTH / 9 - (instance->player.x - cam2d.top_l.x));
+			cam2d.offset.y = (y - cam2d.top_l.y) + (W_HEIGHT - (MAP_SCALE * 2) - (instance->player.y - cam2d.top_l.y));
 			if (instance->map.grid[y][x] == '1')
 				pixel_put(&(instance->mlx_img), cam2d.offset.x, cam2d.offset.y, 0xff4500);
 			else if (instance->map.grid[y][x] == '0')
 				pixel_put(&(instance->mlx_img), cam2d.offset.x, cam2d.offset.y, 0xffffff);
 			if (instance->map.grid[y][x] == '1' && (x % MAP_SCALE == 0 || y % MAP_SCALE == 0))
-				draw_square(instance, ((t_point){cam2d.offset.x, cam2d.offset.y}), MAP_SCALE, 0x100000);
+				draw_square(instance, ((t_point){cam2d.offset.x, cam2d.offset.y}), MAP_SCALE, 0x000000);
 			x++;
 		}
 		y++;
 	}
-	draw_player(instance, W_WIDTH / 2, W_HEIGHT / 2);
+	draw_player(instance, W_WIDTH / 9, W_HEIGHT - (MAP_SCALE * 2));
 }
 
