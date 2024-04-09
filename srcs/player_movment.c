@@ -67,13 +67,13 @@ void move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
 	}
 	else if (dir == S_ANGLE)
 	{
-		x = player->x - round(speed * +cos(angle * PI / 180));
+		x = player->x + round(speed * +cos(angle * PI / 180));
 		y = player->y + round(speed * +sin(angle * PI / 180));
 	}
 	else if (dir == A_ANGLE)
 	{
 		x = player->x + round(speed * cos(angle * PI / 180));
-		y = player->y - round(speed * sin(angle * PI / 180));
+		y = player->y + round(speed * sin(angle * PI / 180));
 	}
 	else if (dir == D_ANGLE)
 	{
