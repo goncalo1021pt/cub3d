@@ -5,7 +5,7 @@ S = main parser map_aux aux textures map_check textures_check grid_init start pl
 
 COMPRESS = ar rcs
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror #-g3
 SFLAGS = -fsanitize=address
 VFLAGS = --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes #--suppressions="supression.supp"
 CC = cc
@@ -57,7 +57,7 @@ $(LIBFT):
 	@echo "$(ORANGE)libft$(NC) ready!"
 
 $(MLX):
-	@$(MAKE) -C $(MLX_DIR) --no-print-directory
+	@$(MAKE) -C $(MLX_DIR) #--no-print-directory
 	@echo $(MLX) compiled and ready!
 
 s: fclean $(SOBJS) $(LIBFT)

@@ -46,10 +46,17 @@ void	rotate_player(t_player *player, int angle)
 	if (player->angle < 0)
 		player->angle += 360;
 }
+
+// void wall_slide(t_player *player, t_map *map, int speed, t_keys_angle dir)
+// {
+// 	// help me make wall slide, if the player would hit a wall in an angle it will move along the wall
+// 	// if ()
+// }
+
 void move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
 {
-	int x;
-	int y;
+	double x;
+	double y;
 	double angle;
 
 	angle = player->angle + dir;
@@ -59,32 +66,35 @@ void move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
 		angle += 360;
 	x = player->x;
 	y = player->y;
+	speed = speed * SPEED_MULTIPLIER;
 	if (dir == W_ANGLE)
 	{
-		x = player->x + round(speed * cos(angle * PI / 180));
-		y = player->y + round(speed * sin(angle * PI / 180)); 
+		x = player->x + speed * cos(angle * PI / 180);
+		y = player->y + speed * sin(angle * PI / 180); 
 	}
 	else if (dir == S_ANGLE)
 	{
-		x = player->x + round(speed * +cos(angle * PI / 180));
-		y = player->y + round(speed * +sin(angle * PI / 180));
+		x = player->x + speed * +cos(angle * PI / 180);
+		y = player->y + speed * +sin(angle * PI / 180);
 	}
 	else if (dir == A_ANGLE)
 	{
-		x = player->x + round(speed * cos(angle * PI / 180));
-		y = player->y + round(speed * sin(angle * PI / 180));
+		x = player->x + speed * cos(angle * PI / 180);
+		y = player->y + speed * sin(angle * PI / 180);
 	}
 	else if (dir == D_ANGLE)
 	{
-		x = player->x + round(speed * cos(angle * PI / 180));
-		y = player->y + round(speed * sin(angle * PI / 180));
+		x = player->x + speed * cos(angle * PI / 180);
+		y = player->y + speed * sin(angle * PI / 180);
 	}
-	if (map->grid[y][x] == '0')
+	if (map->grid[(int)round(y)][(int)round(x)] == '0')
 	{
-		map->grid[player->y][player->x] = '0';
+		map->grid[(int)round(player->y)][(int)round(player->x)] = '0';
 		player->x = x;
 		player->y = y;
-		map->grid[player->y][player->x] = 'P';
+		map->grid[(int)round(player->y)][(int)round(player->x)] = 'P';
 	}
+	// help me make wall slide, if the player would hit a wall in an angle it will move along the wall
+	// else 
+	// 	wall_slide(player, map, speed, dir);
 }
-

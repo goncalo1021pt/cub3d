@@ -28,8 +28,8 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	int		x;
-	int		y;
+	float		x;
+	float		y;
 	double	angle;
 }			t_player;
 
