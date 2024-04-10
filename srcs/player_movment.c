@@ -47,11 +47,11 @@ void	rotate_player(t_player *player, int angle)
 		player->angle += 360;
 }
 
-// void wall_slide(t_player *player, t_map *map, int speed, t_keys_angle dir)
-// {
-// 	// help me make wall slide, if the player would hit a wall in an angle it will move along the wall
-// 	// if ()
-// }
+void wall_slide(t_player *player, t_map *map, int speed, t_keys_angle dir)
+{
+	// help me make wall slide, if the player would hit a wall in an angle it will move along the wall
+	// if ()
+}
 
 void move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
 {
@@ -67,22 +67,7 @@ void move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
 	x = player->x;
 	y = player->y;
 	speed = speed * SPEED_MULTIPLIER;
-	if (dir == W_ANGLE)
-	{
-		x = player->x + speed * cos(angle * PI / 180);
-		y = player->y + speed * sin(angle * PI / 180); 
-	}
-	else if (dir == S_ANGLE)
-	{
-		x = player->x + speed * +cos(angle * PI / 180);
-		y = player->y + speed * +sin(angle * PI / 180);
-	}
-	else if (dir == A_ANGLE)
-	{
-		x = player->x + speed * cos(angle * PI / 180);
-		y = player->y + speed * sin(angle * PI / 180);
-	}
-	else if (dir == D_ANGLE)
+	if (dir == W_ANGLE || dir == S_ANGLE || dir == A_ANGLE || dir == D_ANGLE)
 	{
 		x = player->x + speed * cos(angle * PI / 180);
 		y = player->y + speed * sin(angle * PI / 180);

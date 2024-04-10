@@ -93,4 +93,4 @@ run: all
 
 re: fclean all
 
-.PHONY: all fclean clean re
+.PHONY: all fclean clean re v s fcount send run
