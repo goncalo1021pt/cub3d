@@ -83,7 +83,7 @@ void draw_grid(t_session *instance)
 	y = cam2d.top_l.y;
 	while (y < cam2d.bot_r.y && instance->map.grid[y])
 	{
-		x = cam2d.top_l.x;
+		x = cam2d.top_l.x - MAP_SCALE;
 		while (x < cam2d.bot_r.x && instance->map.grid[y][x])
 		{
 			cam2d.offset.x = (x - cam2d.top_l.x) + (W_WIDTH / 9 - (instance->player.x - cam2d.top_l.x));
