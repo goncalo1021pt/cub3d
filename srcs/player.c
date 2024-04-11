@@ -29,18 +29,38 @@ void draw_face(t_session *instance, int x, int y, int color)
 	length = MAP_SCALE / 4;
 	end.y = y + length * sin(instance->player.angle * PI / 180);
 	end.x = x + length * cos(instance->player.angle * PI / 180);
-	draw_line(instance, (t_point){x, y}, (t_point){end.x, end.y}, color);
+	draw_line(instance, (t_point){x, y}, end, color);
 }
 
-void draw_ray(t_session *instance, int x, int y, int color)
+typedef struct s_rcaster
 {
-	int		length;
-	t_point	end;
+	float	fov;
+	float	angle;
+	float 	inc;
+	int		len;
+	int		n_rays;
+} t_rcaster;
 
-	length = W_WIDTH;
-	end.y = y + length * sin(instance->player.angle * PI / 180);
-	end.x = x + length * cos(instance->player.angle * PI / 180);
-	cast_ray(instance, (t_point){x, y}, (t_point){end.x, end.y}, color);
+void	raycaster(t_session *instance, int x, int y, int color)
+{
+	t_rcaster	rcaster;
+	t_point		end;
+	int			i;
+
+	rcaster.n_rays = W_WIDTH;
+	rcaster.fov = 80.0;
+	rcaster.len = W_WIDTH;
+	rcaster.angle = instance->player.angle - (rcaster.fov / 2);
+	rcaster.inc = rcaster.fov / (rcaster.n_rays - 1);
+	i = 0;
+	while (i < rcaster.n_rays)
+	{
+		end.y = y + rcaster.len * sin(rcaster.angle * PI / 180);
+		end.x = x + rcaster.len * cos(rcaster.angle * PI / 180);
+		cast_ray(instance, (t_point){x, y}, end, color);
+		rcaster.angle += rcaster.inc;
+		i++;
+	}
 }
 
 void	draw_player(t_session *instance, int x, int y)
@@ -51,7 +71,7 @@ void	draw_player(t_session *instance, int x, int y)
 	sq = MAP_SCALE / 4;
 	pos.y = y - (sq / 2);
 	pos.x = x - (sq / 2);
-	draw_square(instance, pos, sq, 0x6c71c4);
-	draw_ray(instance, x, y, 0x6c71c4);
-	draw_face(instance, x, y, 0x2501c4);
+	draw_square(instance, pos, sq, 0x6c71c4); // temp player representation
+	raycaster(instance, x, y, 0x6c71c4); // casts rays from player pos into player dir
+	draw_face(instance, x, y, 0x250AAA); // representation of player facing dir
 }
