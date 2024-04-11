@@ -41,6 +41,16 @@ typedef struct s_rcaster
 	int		n_rays;
 } t_rcaster;
 
+int	is_in_bounds(t_point start, t_point end)
+{
+	if (start.x < 0 || start.y < 0 || start.x > W_WIDTH || start.y > W_HEIGHT)
+		return (0);
+	else if (end.x < 0 || end.y < 0 || end.x > W_WIDTH || end.y > W_HEIGHT)
+		return (0);	
+	else
+		return(1);
+}
+
 void	raycaster(t_session *instance, int x, int y, int color)
 {
 	t_rcaster	rcaster;
