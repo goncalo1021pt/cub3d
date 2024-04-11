@@ -82,6 +82,8 @@ void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
 		angle -= 360;
 	if (angle < 0)
 		angle += 360;
+	x = 0;
+	y = 0;
 	if (dir == W_ANGLE || dir == S_ANGLE || dir == A_ANGLE || dir == D_ANGLE)
 	{
 		x = player->x + speed * cos(angle * PI / 180);

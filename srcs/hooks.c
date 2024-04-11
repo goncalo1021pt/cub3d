@@ -10,9 +10,13 @@ int	exit_hook(t_session *instance)
 int	handle_key(int keycode, t_session *instance)
 {
 	//printf("\033[1;33mINPUT -> %d <- /////\033[0m\n", keycode);
+	if (keycode == LEFT_ARROW)
+		instance->keys[LEFT_ARROW_CODE] = 1;
+	if (keycode == RIGHT_ARROW)
+		instance->keys[RIGHT_ARROW_CODE] = 1;
 	if (keycode == ESC)
 		mlx_shutdown(instance);
-	else if (keycode == 'a')
+	if (keycode == 'a')
 		instance->keys[A] = 1;
 	else if (keycode == 'd')
 		instance->keys[D] = 1;
@@ -20,10 +24,6 @@ int	handle_key(int keycode, t_session *instance)
 		instance->keys[W] = 1;
 	else if (keycode == 's')
 		instance->keys[S] = 1;
-	else if (keycode == LEFT_ARROW)
-		instance->keys[LEFT_ARROW_CODE] = 1;
-	else if (keycode == RIGHT_ARROW)
-		instance->keys[RIGHT_ARROW_CODE] = 1;
 	else 
 		return (0);
 	instance->player.keys_pressed++;
