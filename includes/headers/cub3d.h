@@ -82,8 +82,7 @@ int		ft_strslen(char **strs);
 bool	create_grid(t_map *map);
 
 //player.c
-void	draw_player(t_session *instance, int x, int y);
-void draw_face(t_session *instance, int x, int y, int color);
+void	update_player(t_session *instance, int x, int y);
 
 // player_movment.c
 void	initialize_player(t_player *player, t_map *map);
@@ -114,6 +113,9 @@ void	draw_grid(t_session *instance);
 //minimap.c
 void 	vp_grid(t_session *instance);
 void 	vp_scaled(t_session *instance);
+void	draw_player(t_session *instance, int x, int y);
+void 	draw_face(t_session *instance, int x, int y, int color);
+
 // start.c
 bool	start_game(t_session *instance);
 // main.c

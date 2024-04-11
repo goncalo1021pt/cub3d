@@ -25,6 +25,7 @@ void	mlx_update(t_session *instance)
 {
 	clear_image(instance, 0x000000);
 	draw_scaled(instance);
+	vp_scaled(instance);
 	mlx_put_image_to_window(instance->mlx_ser,
 		instance->mlx_win, instance->mlx_img.img, 0, 0);
 }
@@ -42,6 +43,7 @@ void	mlx_startup(t_session *instance)
 	if (!instance->mlx_ser || !instance->mlx_win || !instance->mlx_img.img)
 		mlx_shutdown(instance);
 	draw_scaled(instance);
+	vp_scaled(instance);
 	mlx_put_image_to_window(instance->mlx_ser, instance->mlx_win, instance->mlx_img.img, 0, 0);
 	mlx_hook(instance->mlx_win, KeyPress, KeyPressMask, handle_key, instance);
 	mlx_hook(instance->mlx_win, KeyRelease, KeyReleaseMask, handle_key_release, instance);

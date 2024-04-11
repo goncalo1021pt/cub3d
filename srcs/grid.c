@@ -71,7 +71,7 @@ void	draw_scaled(t_session *instance)
 		}
 		y++;
 	}
-	draw_player(instance, instance->player.x, instance->player.y);
+	update_player(instance, instance->player.x, instance->player.y);
 	draw_grid(instance);
 }
 

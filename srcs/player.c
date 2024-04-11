@@ -21,17 +21,6 @@ void	cast_ray(t_session *instance, t_point start, t_point end, int color)
 	}
 }
 
-void draw_face(t_session *instance, int x, int y, int color)
-{
-	int		length;
-	t_point	end;
-
-	length = MAP_SCALE / 4;
-	end.y = y + length * sin(instance->player.angle * PI / 180);
-	end.x = x + length * cos(instance->player.angle * PI / 180);
-	draw_line(instance, (t_point){x, y}, end, color);
-}
-
 typedef struct s_rcaster
 {
 	float	fov;
@@ -40,16 +29,6 @@ typedef struct s_rcaster
 	int		len;
 	int		n_rays;
 } t_rcaster;
-
-int	is_in_bounds(t_point start, t_point end)
-{
-	if (start.x < 0 || start.y < 0 || start.x > W_WIDTH || start.y > W_HEIGHT)
-		return (0);
-	else if (end.x < 0 || end.y < 0 || end.x > W_WIDTH || end.y > W_HEIGHT)
-		return (0);	
-	else
-		return(1);
-}
 
 void	raycaster(t_session *instance, int x, int y, int color)
 {
@@ -73,7 +52,7 @@ void	raycaster(t_session *instance, int x, int y, int color)
 	}
 }
 
-void	draw_player(t_session *instance, int x, int y)
+void	update_player(t_session *instance, int x, int y)
 {
 	t_point	pos;
 	int		sq;
@@ -81,7 +60,7 @@ void	draw_player(t_session *instance, int x, int y)
 	sq = MAP_SCALE / 4;
 	pos.y = y - (sq / 2);
 	pos.x = x - (sq / 2);
-	draw_square(instance, pos, sq, 0x6c71c4); // temp player representation
-	raycaster(instance, x, y, 0x6c71c4); // casts rays from player pos into player dir
-	draw_face(instance, x, y, 0x250AAA); // representation of player facing dir
+	draw_square(instance, pos, sq, 0x6c71c4);
+	raycaster(instance, x, y, 0x6c71c4);
+	draw_face(instance, x, y, 0x250AAA);
 }
