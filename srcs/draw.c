@@ -50,7 +50,7 @@ void	draw_line(t_session *instance, t_point start, t_point end, int color)
 	init_dda(&dda, start, end);
 	while (i <= dda.step)
 	{
-		pixel_put(&instance->mlx_img, dda.current_x, dda.current_y, color); //0xff4500
+		pixel_put(&instance->mlx_img, dda.current_x, dda.current_y, color);
 		dda.current_x += dda.x_inc;
 		dda.current_y += dda.y_inc;
 		i++;

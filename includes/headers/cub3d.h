@@ -111,7 +111,8 @@ void	draw_square(t_session *instance, t_point point, int sq, int color);
 void	draw_scaled(t_session *instance);
 void	draw_grid(t_session *instance);
 //minimap.c
-
+void 	vp_grid(t_session *instance);
+void 	vp_scaled(t_session *instance);
 // start.c
 bool	start_game(t_session *instance);
 // main.c
