@@ -53,13 +53,11 @@ void	wall_slide(t_player *player, t_map *map, double x, double y)
 	{
 		map->grid[(int)round(player->y)][(int)round(player->x)] = '0';
 		player->x = x;
-		map->grid[(int)round(player->y)][(int)round(player->x)] = 'P';
 	}
 	else if (map->grid[(int)round(y)][(int)round(player->x)] == '0')
 	{
 		map->grid[(int)round(player->y)][(int)round(player->x)] = '0';
 		player->y = y;
-		map->grid[(int)round(player->y)][(int)round(player->x)] = 'P';
 	}
 	else if (x > player->x && map->grid[(int)round(player->y)][(int)round(player->x + 1)] == '0')
 			player->x = x;

@@ -103,6 +103,7 @@ int		exit_hook(t_session *instance);
 
 // draw.c
 void	pixel_put(t_data *data, int x, int y, int color);
+void	init_dda(t_dda *dda, t_point start, t_point end);
 void	draw_line(t_session *instance, t_point start, t_point end, int color);
 void	clear_image(t_session *instance, int color);
 
