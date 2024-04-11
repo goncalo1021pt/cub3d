@@ -2,6 +2,7 @@
 # define STRUCTS_H
 
 # include <stdbool.h>
+# define MAX_KEYS 256
 
 typedef struct s_data
 {
@@ -30,14 +31,15 @@ typedef struct s_player
 {
 	float		x;
 	float		y;
-	double	angle;
+	int			keys_pressed;
+	double		angle;
 }			t_player;
 
 typedef struct s_point
 {
 	int	x;
 	int	y;
-} t_point;
+}	t_point;
 
 typedef struct s_session
 {
@@ -48,6 +50,7 @@ typedef struct s_session
 	t_player		player;
 	int				width;
 	int				height;
+	int				keys[MAX_KEYS];
 }	t_session;
 
 typedef struct s_dda

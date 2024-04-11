@@ -6,11 +6,29 @@ void	print_player(t_player *player)
 	printf("angle: %lf\n", player->angle);
 }
 
-bool	start_game(t_map *map, t_player	*player)
+void	init_keys(t_session *instance)
 {
+	int	i;
 
+	i = 0;
+	while (i < MAX_KEYS)
+	{
+		instance->keys[i] = 0;
+		i++;
+	}
+}
+
+bool	start_game(t_session *instance)
+{
+	t_map		*map;
+	t_player	*player;
+
+	map = &instance->map;
+	player = &instance->player;
 	create_grid(map);
 	initialize_player(player, map);
+	init_keys(instance);
+	mlx_startup(instance);
 	// print_player(player);
 	// exit(0);
 	return (true);

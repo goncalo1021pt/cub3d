@@ -28,7 +28,7 @@ void	initialize_player(t_player *player, t_map *map)
 				player->x = x;
 				player->y = y;
 				set_angle(player, map->grid[y][x]);
-				map->grid[y][x] ='P' ;
+				map->grid[y][x] = 'P';
 				return ;
 			}
 		}
@@ -47,26 +47,41 @@ void	rotate_player(t_player *player, int angle)
 		player->angle += 360;
 }
 
-void wall_slide(t_player *player, t_map *map, int speed, t_keys_angle dir)
+void	wall_slide(t_player *player, t_map *map, double x, double y)
 {
-	// help me make wall slide, if the player would hit a wall in an angle it will move along the wall
-	// if ()
+	if (map->grid[(int)round(player->y)][(int)round(x)] == '0')
+	{
+		map->grid[(int)round(player->y)][(int)round(player->x)] = '0';
+		player->x = x;
+		map->grid[(int)round(player->y)][(int)round(player->x)] = 'P';
+	}
+	else if (map->grid[(int)round(y)][(int)round(player->x)] == '0')
+	{
+		map->grid[(int)round(player->y)][(int)round(player->x)] = '0';
+		player->y = y;
+		map->grid[(int)round(player->y)][(int)round(player->x)] = 'P';
+	}
+	else if (x > player->x && map->grid[(int)round(player->y)][(int)round(player->x + 1)] == '0')
+			player->x = x;
+	else if (x < player->x && map->grid[(int)round(player->y)][(int)round(player->x - 1)] == '0')
+			player->x = x;
+	else if (y > player->y && map->grid[(int)round(player->y + 1)][(int)round(player->x)] == '0')
+			player->y = y;
+	else if (y < player->y && map->grid[(int)round(player->y - 1)][(int)round(player->x)] == '0')
+			player->y = y;
 }
 
-void move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
+void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
 {
-	double x;
-	double y;
-	double angle;
+	double	x;
+	double	y;
+	double	angle;
 
 	angle = player->angle + dir;
 	if (angle >= 360)
 		angle -= 360;
 	if (angle < 0)
 		angle += 360;
-	x = player->x;
-	y = player->y;
-	speed = speed * SPEED_MULTIPLIER;
 	if (dir == W_ANGLE || dir == S_ANGLE || dir == A_ANGLE || dir == D_ANGLE)
 	{
 		x = player->x + speed * cos(angle * PI / 180);
@@ -79,7 +94,6 @@ void move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
 		player->y = y;
 		map->grid[(int)round(player->y)][(int)round(player->x)] = 'P';
 	}
-	// help me make wall slide, if the player would hit a wall in an angle it will move along the wall
-	// else 
-	// 	wall_slide(player, map, speed, dir);
+	else if ((int)angle % 90 != 0)
+		wall_slide(player, map, x, y);
 }
