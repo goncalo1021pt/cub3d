@@ -41,7 +41,8 @@ void	mlx_startup(t_session *instance)
 	instance->height = 0;
 	instance->width = 0;
 	instance->mlx_ser = mlx_init();
-	instance->mlx_win = mlx_new_window(instance->mlx_ser, W_WIDTH, W_HEIGHT, "cub3d");
+	instance->mlx_win = mlx_new_window(instance->mlx_ser, W_WIDTH, W_HEIGHT, "cub3d");	
+	mlx_mouse_hide(instance->mlx_ser, instance->mlx_win);
 	instance->width = W_WIDTH;
 	instance->height = W_HEIGHT;
 	instance->mlx_img.img = mlx_new_image(instance->mlx_ser, W_WIDTH, W_HEIGHT);

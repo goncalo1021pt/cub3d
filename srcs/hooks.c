@@ -66,9 +66,9 @@ int	const_movement(t_session *instance)
 	if (instance->keys[D])
 		move_player(&instance->player, &instance->map, speed, D_ANGLE);
 	if (instance->keys[LEFT_ARROW_CODE])
-		rotate_player(&instance->player, LEFT_ARROW, ROTATION_SPEED);
+		rotate_player(&instance->player, LEFT_ARROW);
 	if (instance->keys[RIGHT_ARROW_CODE])
-		rotate_player(&instance->player, RIGHT_ARROW, ROTATION_SPEED);
+		rotate_player(&instance->player, RIGHT_ARROW);
 	mlx_update(instance);
 	return (0);
 }

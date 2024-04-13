@@ -36,12 +36,12 @@ void	initialize_player(t_player *player, t_map *map)
 	}
 }
 
-void	rotate_player(t_player *player, int angle, float rotation_speed)
+void	rotate_player(t_player *player, int angle)
 {
 	if (angle == RIGHT_ARROW)
-		player->angle += rotation_speed;
+		player->angle += ROTATION_SPEED;
 	else if (angle == LEFT_ARROW)
-		player->angle -= rotation_speed;
+		player->angle -= ROTATION_SPEED;
 	if (player->angle >= 360)
 		player->angle -= 360;
 	if (player->angle < 0)

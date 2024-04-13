@@ -9,6 +9,7 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <math.h>
+# include <time.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -86,7 +87,7 @@ void	update_player(t_session *instance, int x, int y);
 
 // player_movment.c
 void	initialize_player(t_player *player, t_map *map);
-void	rotate_player(t_player *player, int angle, float rotation_speed);
+void	rotate_player(t_player *player, int angle);
 void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir);
 
 // display.c
