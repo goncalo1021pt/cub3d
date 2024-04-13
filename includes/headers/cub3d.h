@@ -86,7 +86,7 @@ void	update_player(t_session *instance, int x, int y);
 
 // player_movment.c
 void	initialize_player(t_player *player, t_map *map);
-void	rotate_player(t_player *player, int angle);
+void	rotate_player(t_player *player, int angle, float rotation_speed);
 void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir);
 
 // display.c
@@ -99,6 +99,9 @@ int		handle_key(int keycode, t_session *instance);
 int		const_movement(t_session *instance);
 int		handle_key_release(int keycode, t_session *instance);
 int		exit_hook(t_session *instance);
+
+// mouse_hooks.c
+int		mouse_movement(int x, int y, t_session *instance);
 
 // draw.c
 void	pixel_put(t_data *data, int x, int y, int color);
