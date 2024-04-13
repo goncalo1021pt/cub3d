@@ -1,5 +1,4 @@
 #include "../includes/headers/cub3d.h"
-#define MOUSE_SENSITIVITY 250
 
 int	mouse_movement(int x, int y, t_session *instance)
 {

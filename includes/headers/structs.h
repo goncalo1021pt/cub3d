@@ -48,6 +48,7 @@ typedef struct s_session
 	t_data			mlx_img;
 	t_map			map;
 	t_player		player;
+	int				mode;
 	int				width;
 	int				height;
 	int				keys[MAX_KEYS];

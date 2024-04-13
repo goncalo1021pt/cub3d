@@ -23,17 +23,15 @@
 # define ROTATION_SPEED 5
 # define SPEED_MULTIPLIER 2
 # define PI 3.14159265358979323846
+# define MOUSE_SENSITIVITY 250
 # define ESC 65307
 # define UP 65362
 # define DOWN 65364
 # define LEFT 65361
 # define RIGHT 65363
-# define W 1
-# define S 2
-# define A 3
-# define D 4
-# define LEFT_ARROW_CODE 5
-# define RIGHT_ARROW_CODE 6
+# define LEFT_ARROW 65361
+# define RIGHT_ARROW 65363
+# define PAUSE 0
 
 typedef enum e_keys_angle
 {
@@ -41,8 +39,6 @@ typedef enum e_keys_angle
 	A_ANGLE = 270,
 	S_ANGLE = 180,
 	D_ANGLE = 90,
-	LEFT_ARROW = 65361,
-	RIGHT_ARROW = 65363
 }		t_keys_angle;
 
 typedef enum e_dir
@@ -52,6 +48,17 @@ typedef enum e_dir
 	WEST = 180,
 	NORTH = 270
 }		t_dir;
+
+typedef enum e_key_arr
+{
+	W,
+	S,
+	A, 
+ 	D,
+	P,
+	LEFT_ARROW_CODE,
+	RIGHT_ARROW_CODE
+}	t_key_arr;
 
 // parser.c
 bool	validate_map(t_map *map);
