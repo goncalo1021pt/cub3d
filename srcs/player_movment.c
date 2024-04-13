@@ -18,6 +18,7 @@ void	initialize_player(t_player *player, t_map *map)
 	int	x;
 
 	y = -1;
+	player->keys_pressed = 0;
 	while (map->grid[++y])
 	{
 		x = -1;

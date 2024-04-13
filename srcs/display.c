@@ -24,12 +24,14 @@ void	mlx_shutdown(t_session *instance)
 void	mlx_update(t_session *instance)
 {
 	clear_image(instance, 0x000000);
-	//graphics
-	draw_scaled(instance);
+	//raycast
+	debug2D(instance);
+	update_player(instance, instance->player.x, instance->player.y);
+	//minimap
 	vp_scaled(instance);
 	vp_grid(instance);
-	draw_player(instance, W_WIDTH / 9, W_HEIGHT - (MAP_SCALE * 2));
-	//graphics
+	vp_player(instance, W_WIDTH / 9, W_HEIGHT - (MAP_SCALE * 2));
+	//push to window
 	mlx_put_image_to_window(instance->mlx_ser,
 		instance->mlx_win, instance->mlx_img.img, 0, 0);
 }
@@ -48,12 +50,14 @@ void	mlx_startup(t_session *instance)
 			&instance->mlx_img.endian);
 	if (!instance->mlx_ser || !instance->mlx_win || !instance->mlx_img.img)
 		mlx_shutdown(instance);
-	//graphics
-	draw_scaled(instance);
+	//raycast
+	debug2D(instance);
+	update_player(instance, instance->player.x, instance->player.y);
+	//minimap
 	vp_scaled(instance);
 	vp_grid(instance);
-	draw_player(instance, W_WIDTH / 9, W_HEIGHT - (MAP_SCALE * 2));
-	//graphics
+	vp_player(instance, W_WIDTH / 9, W_HEIGHT - (MAP_SCALE * 2));
+	//push to window
 	mlx_put_image_to_window(instance->mlx_ser, instance->mlx_win, instance->mlx_img.img, 0, 0);
 	mlx_hook(instance->mlx_win, KeyPress, KeyPressMask, handle_key, instance);
 	mlx_hook(instance->mlx_win, KeyRelease, KeyReleaseMask, handle_key_release, instance);

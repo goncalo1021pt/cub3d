@@ -9,18 +9,9 @@ typedef struct s_camera2d
 	t_point offset;
 }	t_camera2d;
 
-void	draw_face(t_session *instance, int x, int y, int color)
-{
-	int		length;
-	t_point	end;
 
-	length = MAP_SCALE / 4;
-	end.y = y + length * sin(instance->player.angle * PI / 180);
-	end.x = x + length * cos(instance->player.angle * PI / 180);
-	draw_line(instance, (t_point){x, y}, end, color);
-}
 
-void	draw_player(t_session *instance, int x, int y)
+void	vp_player(t_session *instance, int x, int y)
 {
 	t_point	pos;
 	int		sq;
@@ -29,7 +20,6 @@ void	draw_player(t_session *instance, int x, int y)
 	pos.y = y - (sq / 2);
 	pos.x = x - (sq / 2);
 	draw_square(instance, pos, sq, 0x6c71c4); // temp player representation
-	//raycaster(instance, x, y, 0x6c71c4); // casts rays from player pos into player dir
 	draw_face(instance, x, y, 0x250AAA); // representation of player facing dir
 }
 

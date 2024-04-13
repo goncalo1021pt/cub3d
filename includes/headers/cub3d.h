@@ -107,17 +107,17 @@ int		mouse_movement(int x, int y, t_session *instance);
 void	pixel_put(t_data *data, int x, int y, int color);
 void	init_dda(t_dda *dda, t_point start, t_point end);
 void	draw_line(t_session *instance, t_point start, t_point end, int color);
+void	draw_square(t_session *instance, t_point point, int sq, int color);
+void 	draw_face(t_session *instance, int x, int y, int color);
 void	clear_image(t_session *instance, int color);
 
-// grid.c
-void	draw_square(t_session *instance, t_point point, int sq, int color);
-void	draw_scaled(t_session *instance);
-void	draw_grid(t_session *instance);
+// grid.c // debug2D.c
+void	debug2D(t_session *instance);
 //minimap.c
 void 	vp_grid(t_session *instance);
 void 	vp_scaled(t_session *instance);
-void	draw_player(t_session *instance, int x, int y);
-void 	draw_face(t_session *instance, int x, int y, int color);
+void	vp_player(t_session *instance, int x, int y);
+
 
 // start.c
 bool	start_game(t_session *instance);
