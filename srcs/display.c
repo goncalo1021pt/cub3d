@@ -5,6 +5,7 @@ void	mlx_shutdown(t_session *instance)
 	mlx_loop_end(instance->mlx_ser);
 	if (instance->mlx_img.img)
 		mlx_destroy_image(instance->mlx_ser, instance->mlx_img.img);
+	destroy_textures(instance);
 	if (instance->mlx_win)
 	{
 		mlx_destroy_window(instance->mlx_ser, instance->mlx_win);
@@ -40,7 +41,6 @@ void	mlx_startup(t_session *instance)
 {
 	instance->width = W_WIDTH;
 	instance->height = W_HEIGHT;
-	mlx_vars_init(instance);
 	if (!mlx_vars_init(instance) || !instance->mlx_ser || !instance->mlx_win || !instance->mlx_img.img)
 		mlx_shutdown(instance);
 	//raycast

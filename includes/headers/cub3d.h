@@ -114,6 +114,7 @@ void	mlx_shutdown(t_session *instance);
 
 // dislay_init.c
 bool	mlx_vars_init(t_session *instance);
+void	destroy_textures(t_session *instance);
 
 // hooks.c
 int		handle_key(int keycode, t_session *instance);
