@@ -127,6 +127,7 @@ int		mouse_movement(int x, int y, t_session *instance);
 
 // draw.c
 void	pixel_put(t_data *data, int x, int y, int color);
+int		get_pixel(t_data *data, int x, int y);
 void	init_dda(t_dda *dda, t_point start, t_point end);
 void	draw_line(t_session *instance, t_point start, t_point end, int color);
 void	draw_square(t_session *instance, t_point point, int sq, int color);

@@ -11,6 +11,14 @@ void	pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+int	get_pixel(t_data *data, int x, int y)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
+	return (*(unsigned int *)dst);
+}
+
 void	clear_image(t_session *instance, int color)
 {
 	int	y;

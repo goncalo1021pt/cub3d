@@ -39,6 +39,7 @@ typedef struct s_map
 typedef struct s_ray 
 {
 	t_point col_point;
+	int		texture;
 	int 	len;
 	float 	angle;
 } t_ray;

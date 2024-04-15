@@ -29,6 +29,7 @@ t_ray	cast_ray(t_session *instance, t_point start, t_point end, int color)
 			return (ray);
 		//pixel_put(&instance->mlx_img, dda.current_x, dda.current_y, color);
 		aux = sqrt(pow(dda.x_inc, 2) + pow(dda.y_inc, 2));
+
 		dda.current_x += dda.x_inc / aux;
 		dda.current_y += dda.y_inc / aux;
 		i++;
@@ -38,6 +39,13 @@ t_ray	cast_ray(t_session *instance, t_point start, t_point end, int color)
 	//ray.len = i;
 	return (ray);
 }
+
+// int get_colision_texture(t_session *instance)
+// {
+// 	if (ray.col_point.x + 1 == 0)
+
+// 	else if (ray.col_point.x - 1 == 0)
+// }
 
 void	raycaster(t_session *instance, int x, int y, int color)
 {
@@ -56,21 +64,55 @@ void	raycaster(t_session *instance, int x, int y, int color)
 	{
 		end.y = y + rcaster->len * sin(rcaster->angle * PI / 180);
 		end.x = x + rcaster->len * cos(rcaster->angle * PI / 180);
-		//
+		// assignments
 		rcaster->rays[i] =  cast_ray(instance, (t_point){x, y}, end, color);
 		rcaster->rays[i].angle = rcaster->angle;
-		//
+
+		//increments
 		rcaster->angle += rcaster->inc;
 		i++;
 	}
 }
 
+/*
+void	init_dda(t_dda *dda, t_point start, t_point end)
+{
+	dda->current_x = start.x;
+	dda->current_y = start.y;
+	dda->delta_x = end.x - start.x;
+	dda->delta_y = end.y - start.y;
+	dda->step = fmax(fabs(dda->delta_x), fabs(dda->delta_y));
+	dda->x_inc = dda->delta_x / dda->step;
+	dda->y_inc = dda->delta_y / dda->step;
+}
+*/
+
+// void	place_texture(t_session *instance, t_point start, t_point end)
+// {
+// 	t_dda	dda;
+// 	int		i;
+// 	int 	color;
+
+// 	i = 0;
+// 	init_dda(&dda, start, end);
+// 	while (i <= dda.step)
+// 	{
+// 		color = get_pixel(&instance->mlx_img,);
+// 		pixel_put(&instance->mlx_img, dda.current_x, dda.current_y, color);
+// 		dda.current_x += dda.x_inc;
+// 		dda.current_y += dda.y_inc;
+// 		i++;
+// 	}
+// }
+
 void render3D(t_session *instance)
 {
 	t_ray	*rays;
 	int		cam_z; // cam height
+
 	float	cam_d; // camera plane
 	float	real_d; // corrected distance
+
 	float	a_diff; // angle difference rom ray angle to cam
 	float	wall_h; // wall height
 	int		wall_t; // wall top point

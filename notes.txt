@@ -106,3 +106,6 @@ void	draw_scaled(t_session *instance)
 	draw_grid(instance);
 	draw_player(instance, instance->player.x, instance->player.y);
 }
+
+
+https://github.com/vinibiavatti1/RayCastingTutorial/wiki/Fisheye-fix
