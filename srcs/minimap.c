@@ -9,8 +9,6 @@ typedef struct s_camera2d
 	t_point offset;
 }	t_camera2d;
 
-
-
 void	vp_player(t_session *instance, int x, int y)
 {
 	t_point	pos;
