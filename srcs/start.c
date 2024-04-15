@@ -18,6 +18,44 @@ void	init_keys(t_session *instance)
 	}
 }
 
+void	set_angle(t_player *player, char angle)
+{
+	if (angle == 'N')
+		player->angle = NORTH;
+	else if (angle == 'E')
+		player->angle = EAST;
+	else if (angle == 'S')
+		player->angle = SOUTH;
+	else if (angle == 'W')
+		player->angle = WEST;
+}
+
+bool	initialize_player(t_player *player, t_map *map)
+{
+	int	y;
+	int	x;
+
+	y = -1;
+	player->keys_pressed = 0;
+	while (map->grid[++y])
+	{
+		x = -1;
+		while (map->grid[y][++x])
+		{
+			if (is_in_array(PLAYER, map->grid[y][x]))
+			{
+				player->x = x;
+				player->y = y;
+				set_angle(player, map->grid[y][x]);
+				map->grid[y][x] = 'P';
+				return (true);
+			}
+		}
+	}
+	return (true);
+}
+
+
 bool	start_game(t_session *instance)
 {
 	t_map		*map;
@@ -25,8 +63,10 @@ bool	start_game(t_session *instance)
 
 	map = &instance->map;
 	player = &instance->player;
-	create_grid(map);
-	initialize_player(player, map);
+	if (!create_grid(map))
+		return (false);
+	if (!initialize_player(player, map))
+		return (false);
 	init_keys(instance);
 	mlx_startup(instance);
 	// print_player(player);

@@ -92,7 +92,7 @@ bool	create_grid(t_map *map);
 void	update_player(t_session *instance, int x, int y);
 
 // player_movment.c
-void	initialize_player(t_player *player, t_map *map);
+bool	initialize_player(t_player *player, t_map *map);
 void	rotate_player(t_player *player, int angle);
 void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir);
 float	get_player_speed(t_session *instance);
