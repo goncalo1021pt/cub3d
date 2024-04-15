@@ -33,6 +33,5 @@ int	main(int argc, char **argv)
 	if (!parser(argc, argv, &instance.map))
 		return (clean_parser(&instance.map), 1);
 	start_game(&instance);
-	// clean_parser(&instance.map);
 	return (0);
 }

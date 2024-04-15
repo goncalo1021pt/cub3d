@@ -29,8 +29,6 @@
 # define DOWN 65364
 # define LEFT 65361
 # define RIGHT 65363
-# define LEFT_ARROW 65361
-# define RIGHT_ARROW 65363
 # define PAUSE 0
 
 typedef enum e_keys_angle
@@ -56,8 +54,9 @@ typedef enum e_key_arr
 	A, 
  	D,
 	P,
-	LEFT_ARROW_CODE,
-	RIGHT_ARROW_CODE
+	L_SHIFT,
+	LEFT_ARROW,
+	RIGHT_ARROW
 }	t_key_arr;
 
 // parser.c
@@ -96,6 +95,7 @@ void	update_player(t_session *instance, int x, int y);
 void	initialize_player(t_player *player, t_map *map);
 void	rotate_player(t_player *player, int angle);
 void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir);
+float	get_player_speed(t_session *instance);
 
 // display.c
 void	mlx_startup(t_session *instance);

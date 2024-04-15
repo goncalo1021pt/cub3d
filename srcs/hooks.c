@@ -10,10 +10,12 @@ int	exit_hook(t_session *instance)
 int	handle_key(int keycode, t_session *instance)
 {
 	//printf("\033[1;33mINPUT -> %d <- /////\033[0m\n", keycode);
-	if (keycode == LEFT_ARROW)
-		instance->keys[LEFT_ARROW_CODE] = 1;
-	if (keycode == RIGHT_ARROW)
-		instance->keys[RIGHT_ARROW_CODE] = 1;
+	if (keycode == XK_Left)
+		instance->keys[LEFT_ARROW] = 1;
+	if (keycode == XK_Right)
+		instance->keys[RIGHT_ARROW] = 1;
+	if (keycode == XK_Shift_L)
+		instance->keys[L_SHIFT] = 1;
 	if (keycode == ESC)
 		mlx_shutdown(instance);
 	if (keycode == 'a')
@@ -32,10 +34,12 @@ int	handle_key(int keycode, t_session *instance)
 
 int	handle_key_release(int keycode, t_session *instance)
 {
-	if (keycode == LEFT_ARROW)
-		instance->keys[LEFT_ARROW_CODE] = 0;
-	if (keycode == RIGHT_ARROW)
-		instance->keys[RIGHT_ARROW_CODE] = 0;
+	if (keycode == XK_Left)
+		instance->keys[LEFT_ARROW] = 0;
+	if (keycode == XK_Right)
+		instance->keys[RIGHT_ARROW] = 0;
+	if (keycode == XK_Shift_L)
+		instance->keys[L_SHIFT] = 0;
 	if (keycode == 'a')
 		instance->keys[A] = 0;
 	else if (keycode == 'd')
@@ -54,9 +58,7 @@ int	const_movement(t_session *instance)
 {
 	int	speed;
 
-	speed = 2;
-	if (instance->player.keys_pressed > 1)
-		speed = 1;
+	speed = get_player_speed(instance);
 	if (instance->keys[W])
 		move_player(&instance->player, &instance->map, speed, W_ANGLE);
 	if (instance->keys[S])
@@ -65,9 +67,9 @@ int	const_movement(t_session *instance)
 		move_player(&instance->player, &instance->map, speed, A_ANGLE);
 	if (instance->keys[D])
 		move_player(&instance->player, &instance->map, speed, D_ANGLE);
-	if (instance->keys[LEFT_ARROW_CODE])
+	if (instance->keys[LEFT_ARROW])
 		rotate_player(&instance->player, LEFT_ARROW);
-	if (instance->keys[RIGHT_ARROW_CODE])
+	if (instance->keys[RIGHT_ARROW])
 		rotate_player(&instance->player, RIGHT_ARROW);
 	mlx_update(instance);
 	return (0);
