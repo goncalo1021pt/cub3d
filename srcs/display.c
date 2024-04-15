@@ -32,6 +32,7 @@ void	mlx_update(t_session *instance)
 	vp_grid(instance);
 	vp_player(instance, instance->width / 9, instance->height - (MAP_SCALE * 2));
 	//push to window
+	// cast_3d(instance);
 	mlx_put_image_to_window(instance->mlx_ser,
 		instance->mlx_win, instance->mlx_img.img, 0, 0);
 }
