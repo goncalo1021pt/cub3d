@@ -43,7 +43,7 @@ void	raycaster(t_session *instance, int x, int y, int color)
 	int			i;
 
 	rcaster = &instance->player.raycaster;
-	rcaster->n_rays = 5;//W_WIDTH;
+	rcaster->n_rays = W_WIDTH;
 	rcaster->fov = 80;
 	rcaster->len = W_WIDTH;
 	rcaster->angle = instance->player.angle - (rcaster->fov / 2);

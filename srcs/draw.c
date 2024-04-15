@@ -7,7 +7,7 @@ void	pixel_put(t_data *data, int x, int y, int color)
 
 	if (x < 0 || y < 0 || x > W_WIDTH - 1 || y > W_HEIGHT - 1)
 		return ;
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
 	*(unsigned int *)dst = color;
 }
 

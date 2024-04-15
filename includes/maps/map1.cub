@@ -2,11 +2,10 @@
 
 
 
-NO ./path123
-SO ./path_here
-EA                    ./path_to_the_east_texture
-
-WE               ./path_to_the_west_texture
+NO ./includes/assets/IMG_1.xpm
+SO ./includes/assets/IMG_2.xpm
+EA ./includes/assets/IMG_3.xpm
+WE ./includes/assets/IMG_4.xpm
 
 
 
