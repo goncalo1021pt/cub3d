@@ -69,6 +69,7 @@ void render3D(t_session *instance)
 	int		cam_z; // cam height
 	float	cam_d; // cam distance
 	float	real_d; // corrected distance
+	float	a_diff; // angle difference rom ray angle to cam
 	float	wall_h; // wall height
 	int		wall_t; // wall top point
 	int		wall_b; // wall bot point
@@ -77,15 +78,19 @@ void render3D(t_session *instance)
 
 	cam_z = (W_HEIGHT / 2);
 	cam_d = (W_WIDTH / 2) / tan((instance->player.raycaster.fov / 2) * (PI / 180));
-
+	
 	for (int i = 0; i < instance->player.raycaster.n_rays; i++)
 	{
-		real_d = rays[i].len * cos((rays[i].angle - instance->player.angle) * (PI / 180));
+		a_diff = (rays[i].angle - instance->player.angle) * (PI / 180);
+		a_diff = fmod(a_diff + PI, 2 * PI) - PI;
+		real_d = rays[i].len * cos(a_diff);
+
 		wall_h = (MAP_SCALE / real_d) * cam_d;
 		wall_t = cam_z - (wall_h / 2);
 		wall_b = cam_z + (wall_h / 2);
 		wall_t = fmax(0, wall_t);
 		wall_b = fmin(W_HEIGHT, wall_b);
+		
 		draw_line(instance, (t_point){i, wall_t},(t_point){i, wall_b}, 0xFFFFFF);
 	}
 }
