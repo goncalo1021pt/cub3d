@@ -1,12 +1,13 @@
 #include "../includes/headers/cub3d.h"
 
+// dswdwsa
 t_ray	cast_ray(t_session *instance, t_point start, t_point end, int color)
 {
 	t_dda	dda;
 	t_ray	ray;
 	t_point	r_pos;
 	int		i;
-
+	float	aux;
 	i = 0;
 	(void)color;
 	init_dda(&dda, start, end);
@@ -27,8 +28,9 @@ t_ray	cast_ray(t_session *instance, t_point start, t_point end, int color)
 			|| instance->map.grid[r_pos.y][r_pos.x] == '1' || instance->map.grid[r_pos.y][r_pos.x] == ' ')
 			return (ray);
 		//pixel_put(&instance->mlx_img, dda.current_x, dda.current_y, color);
-		dda.current_x += dda.x_inc;
-		dda.current_y += dda.y_inc;
+		aux = sqrt(pow(dda.x_inc, 2) + pow(dda.y_inc, 2));
+		dda.current_x += dda.x_inc / aux;
+		dda.current_y += dda.y_inc / aux;
 		i++;
 	}
 	//ray.col_point.x = dda.current_x;
@@ -45,7 +47,7 @@ void	raycaster(t_session *instance, int x, int y, int color)
 
 	rcaster = &instance->player.raycaster;
 	rcaster->n_rays = W_WIDTH;
-	rcaster->fov = 80;
+	rcaster->fov = 90;
 	rcaster->len = W_WIDTH;
 	rcaster->angle = instance->player.angle - (rcaster->fov / 2);
 	rcaster->inc = rcaster->fov / (rcaster->n_rays);
@@ -67,7 +69,7 @@ void render3D(t_session *instance)
 {
 	t_ray	*rays;
 	int		cam_z; // cam height
-	float	cam_d; // cam distance
+	float	cam_d; // camera plane
 	float	real_d; // corrected distance
 	float	a_diff; // angle difference rom ray angle to cam
 	float	wall_h; // wall height
@@ -90,7 +92,7 @@ void render3D(t_session *instance)
 		wall_b = cam_z + (wall_h / 2);
 		wall_t = fmax(0, wall_t);
 		wall_b = fmin(W_HEIGHT, wall_b);
-		
+
 		draw_line(instance, (t_point){i, wall_t},(t_point){i, wall_b}, 0xFFFFFF);
 	}
 }
