@@ -1,6 +1,5 @@
 #include "../includes/headers/cub3d.h"
 
-// dswdwsa
 t_ray	cast_ray(t_session *instance, t_point start, t_point end, int color)
 {
 	t_dda	dda;
@@ -15,15 +14,16 @@ t_ray	cast_ray(t_session *instance, t_point start, t_point end, int color)
 	{
 		r_pos.y = dda.current_y;
 		r_pos.x = dda.current_x;
-		//
+		
 		ray.col_point.x = dda.current_x;
 		ray.col_point.y = dda.current_y;
 		ray.len = i;
-		if (ray.col_point.x < 0 || ray.col_point.x > W_WIDTH) //clamp rays ?
-			ray.col_point.x = W_WIDTH;
-		if (ray.col_point.y < 0 || ray.col_point.y > W_WIDTH)
-			ray.col_point.y = W_WIDTH;	
-		//
+
+		// if (ray.col_point.x < 0 || ray.col_point.x > W_WIDTH) //clamp rays ?
+		// 	ray.col_point.x = W_WIDTH;
+		// if (ray.col_point.y < 0 || ray.col_point.y > W_WIDTH)
+		// 	ray.col_point.y = W_WIDTH;	
+		
 		if (!instance->map.grid[r_pos.y] || !instance->map.grid[r_pos.y][r_pos.x]
 			|| instance->map.grid[r_pos.y][r_pos.x] == '1' || instance->map.grid[r_pos.y][r_pos.x] == ' ')
 			return (ray);
@@ -79,7 +79,7 @@ void render3D(t_session *instance)
 	rays = instance->player.raycaster.rays;
 
 	cam_z = (W_HEIGHT / 2);
-	cam_d = (W_WIDTH / 2) / tan((instance->player.raycaster.fov / 2) * (PI / 180));
+	cam_d = (W_WIDTH / 2);// / tan((instance->player.raycaster.fov / 2) * (PI / 180));
 	
 	for (int i = 0; i < instance->player.raycaster.n_rays; i++)
 	{
