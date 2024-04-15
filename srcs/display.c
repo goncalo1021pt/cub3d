@@ -1,4 +1,3 @@
-
 #include "../includes/headers/cub3d.h"
 
 void	mlx_shutdown(t_session *instance)
@@ -6,6 +5,7 @@ void	mlx_shutdown(t_session *instance)
 	mlx_loop_end(instance->mlx_ser);
 	if (instance->mlx_img.img)
 		mlx_destroy_image(instance->mlx_ser, instance->mlx_img.img);
+	destroy_textures(instance);
 	if (instance->mlx_win)
 	{
 		mlx_destroy_window(instance->mlx_ser, instance->mlx_win);
@@ -41,15 +41,7 @@ void	mlx_startup(t_session *instance)
 {
 	instance->width = W_WIDTH;
 	instance->height = W_HEIGHT;
-	instance->mlx_ser = mlx_init();
-	//mlx_get_screen_size(instance->mlx_ser, &instance->width, &instance->height);
-	instance->mlx_win = mlx_new_window(instance->mlx_ser, instance->width, instance->height, "cub3d");	
-	mlx_mouse_hide(instance->mlx_ser, instance->mlx_win);
-	instance->mlx_img.img = mlx_new_image(instance->mlx_ser, instance->width, instance->height);
-	instance->mlx_img.addr = mlx_get_data_addr(instance->mlx_img.img,
-			&instance->mlx_img.bits_per_pixel, &instance->mlx_img.line_length,
-			&instance->mlx_img.endian);
-	if (!instance->mlx_ser || !instance->mlx_win || !instance->mlx_img.img)
+	if (!mlx_vars_init(instance) || !instance->mlx_ser || !instance->mlx_win || !instance->mlx_img.img)
 		mlx_shutdown(instance);
 	//raycast
 	//debug2D(instance);

@@ -14,9 +14,11 @@ typedef struct s_data
 {
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
+	int		bpp;
 	int		line_length;
 	int		endian;
+	int		width;
+	int		height;
 }				t_data;
 
 typedef struct s_map
@@ -65,6 +67,7 @@ typedef struct s_session
 	void			*mlx_ser;
 	void			*mlx_win;
 	t_data			mlx_img;
+	t_data			textures[6];
 	t_map			map;
 	t_player		player;
 	int				mode;
