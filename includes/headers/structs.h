@@ -76,6 +76,14 @@ typedef struct s_session
 	int				keys[MAX_KEYS];
 }	t_session;
 
+typedef struct s_camera2d
+{
+	t_point	top_l;
+	t_point	bot_r;
+	t_point	p_pos;
+	t_point size;
+	t_point offset;
+}	t_camera2d;
 
 typedef struct s_dda
 {
