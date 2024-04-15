@@ -18,10 +18,10 @@ void	clear_image(t_session *instance, int color)
 
 	y = 0;
 	mlx_clear_window(instance->mlx_ser, instance->mlx_win);
-	while (y < W_HEIGHT)
+	while (y < instance->height)
 	{
 		x = 0;
-		while (x < W_WIDTH)
+		while (x < instance->width)
 		{
 			pixel_put(&(instance->mlx_img), x, y, color);
 			x++;
@@ -50,11 +50,50 @@ void	draw_line(t_session *instance, t_point start, t_point end, int color)
 	init_dda(&dda, start, end);
 	while (i <= dda.step)
 	{
-		pixel_put(&instance->mlx_img, dda.current_x, dda.current_y, color); //0xff4500
+		pixel_put(&instance->mlx_img, dda.current_x, dda.current_y, color);
 		dda.current_x += dda.x_inc;
 		dda.current_y += dda.y_inc;
 		i++;
 	}
+}
+
+void draw_square(t_session *instance, t_point point, int sq, int color)
+{
+	t_point	start;
+	t_point end;
+
+	// Draw top border
+	start = point;
+	end.x = point.x + sq;
+	end.y = point.y;
+	draw_line(instance, start, end, color);
+	// Draw left border
+	end.x = point.x;
+	end.y = point.y + sq;
+	draw_line(instance, start, end, color);
+	// Draw bottom border
+	start.x = point.x;
+	start.y = point.y + sq;
+	end.x = point.x + sq;
+	end.y = point.y + sq;
+	draw_line(instance, start, end, color);
+	// Draw right border
+	start.x = point.x + sq;
+	start.y = point.y;
+	end.x = point.x + sq;
+	end.y = point.y + sq;
+	draw_line(instance, start, end, color);
+}
+
+void	draw_face(t_session *instance, int x, int y, int color)
+{
+	int		length;
+	t_point	end;
+
+	length = MAP_SCALE / 4;
+	end.y = y + length * sin(instance->player.angle * PI / 180);
+	end.x = x + length * cos(instance->player.angle * PI / 180);
+	draw_line(instance, (t_point){x, y}, end, color);
 }
 
 /*

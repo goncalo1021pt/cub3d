@@ -5,6 +5,9 @@
 		"fcntl.h": "c",
 		"errno.h": "c",
 		"structs.h": "c",
-		"string_view": "c"
+		"string_view": "c",
+		"cmath": "c",
+		"libft.h": "c",
+		"mlx.h": "c"
 	}
 }

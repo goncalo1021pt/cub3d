@@ -24,26 +24,45 @@ void	mlx_shutdown(t_session *instance)
 void	mlx_update(t_session *instance)
 {
 	clear_image(instance, 0x000000);
-	draw_scaled(instance);
+	//raycast
+	debug2D(instance);
+	update_player(instance, instance->player.x, instance->player.y);
+	//minimap
+	vp_scaled(instance);
+	vp_grid(instance);
+	vp_player(instance, instance->width / 9, instance->height - (MAP_SCALE * 2));
+	//push to window
 	mlx_put_image_to_window(instance->mlx_ser,
 		instance->mlx_win, instance->mlx_img.img, 0, 0);
 }
 
 void	mlx_startup(t_session *instance)
 {
-	instance->height = 0;
-	instance->width = 0;
+	instance->width = W_WIDTH;
+	instance->height = W_HEIGHT;
 	instance->mlx_ser = mlx_init();
-	instance->mlx_win = mlx_new_window(instance->mlx_ser, W_WIDTH, W_HEIGHT, "cub3d");
-	instance->mlx_img.img = mlx_new_image(instance->mlx_ser, W_WIDTH, W_HEIGHT);
+	//mlx_get_screen_size(instance->mlx_ser, &instance->width, &instance->height);
+	instance->mlx_win = mlx_new_window(instance->mlx_ser, instance->width, instance->height, "cub3d");	
+	mlx_mouse_hide(instance->mlx_ser, instance->mlx_win);
+	instance->mlx_img.img = mlx_new_image(instance->mlx_ser, instance->width, instance->height);
 	instance->mlx_img.addr = mlx_get_data_addr(instance->mlx_img.img,
 			&instance->mlx_img.bits_per_pixel, &instance->mlx_img.line_length,
 			&instance->mlx_img.endian);
 	if (!instance->mlx_ser || !instance->mlx_win || !instance->mlx_img.img)
 		mlx_shutdown(instance);
-	draw_scaled(instance);
+	//raycast
+	debug2D(instance);
+	update_player(instance, instance->player.x, instance->player.y);
+	//minimap
+	vp_scaled(instance);
+	vp_grid(instance);
+	vp_player(instance, instance->width / 9, instance->height - (MAP_SCALE * 2));
+	//push to window
 	mlx_put_image_to_window(instance->mlx_ser, instance->mlx_win, instance->mlx_img.img, 0, 0);
-	mlx_key_hook(instance->mlx_win, handle_key, instance);
+	mlx_hook(instance->mlx_win, KeyPress, KeyPressMask, handle_key, instance);
+	mlx_hook(instance->mlx_win, KeyRelease, KeyReleaseMask, handle_key_release, instance);
+	mlx_hook(instance->mlx_win, MotionNotify, PointerMotionMask, mouse_movement, instance);
+	mlx_loop_hook(instance->mlx_ser, const_movement, instance);  // Use instance->mlx instead of instance->mlx_win
 	mlx_hook(instance->mlx_win, DestroyNotify, StructureNotifyMask, exit_hook, instance);
 	mlx_loop(instance->mlx_ser);
 }

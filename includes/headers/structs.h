@@ -2,6 +2,13 @@
 # define STRUCTS_H
 
 # include <stdbool.h>
+# define MAX_KEYS 256
+
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
 
 typedef struct s_data
 {
@@ -26,18 +33,32 @@ typedef struct s_map
 	char	*f;
 }			t_map;
 
+
+typedef struct s_ray 
+{
+	t_point col_point;
+	int 	len;
+	float 	angle;
+} t_ray;
+
+typedef struct s_rcaster
+{
+	float	fov;
+	float	angle;
+	float 	inc;
+	int		len;
+	int		n_rays;
+	t_ray	rays[1980];	
+} t_rcaster;
+
 typedef struct s_player
 {
-	int		x;
-	int		y;
-	double	angle;
+	float		x;
+	float		y;
+	int			keys_pressed;
+	double		angle;
+	t_rcaster	raycaster;
 }			t_player;
-
-typedef struct s_point
-{
-	int	x;
-	int	y;
-} t_point;
 
 typedef struct s_session
 {
@@ -46,8 +67,10 @@ typedef struct s_session
 	t_data			mlx_img;
 	t_map			map;
 	t_player		player;
+	int				mode;
 	int				width;
 	int				height;
+	int				keys[MAX_KEYS];
 }	t_session;
 
 typedef struct s_dda

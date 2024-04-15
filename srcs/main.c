@@ -32,8 +32,6 @@ int	main(int argc, char **argv)
 	init_map(&instance.map);
 	if (!parser(argc, argv, &instance.map))
 		return (clean_parser(&instance.map), 1);
-	start_game(&instance.map, &instance.player);
-	mlx_startup(&instance);
-	clean_parser(&instance.map);
+	start_game(&instance);
 	return (0);
 }

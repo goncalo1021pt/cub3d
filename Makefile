@@ -1,11 +1,12 @@
 NAME = cub3d
 
 SRCS = $(addprefix srcs/,$(addsuffix .c, $(S)))
-S = main parser map_aux aux textures map_check textures_check grid_init start player_movment  display hooks draw grid
+S = main parser map_aux aux textures map_check textures_check grid_init start player_movment  display hooks draw debug2D player \
+	minimap mouse_hooks player_movment2
 
 COMPRESS = ar rcs
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror #-g3
 SFLAGS = -fsanitize=address
 VFLAGS = --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes #--suppressions="supression.supp"
 CC = cc
@@ -57,7 +58,7 @@ $(LIBFT):
 	@echo "$(ORANGE)libft$(NC) ready!"
 
 $(MLX):
-	@$(MAKE) -C $(MLX_DIR) --no-print-directory
+	@$(MAKE) -C $(MLX_DIR) #--no-print-directory
 	@echo $(MLX) compiled and ready!
 
 s: fclean $(SOBJS) $(LIBFT)
@@ -93,4 +94,4 @@ run: all
 
 re: fclean all
 
-.PHONY: all fclean clean re
+.PHONY: all fclean clean re v s fcount send run
