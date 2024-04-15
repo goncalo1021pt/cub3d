@@ -18,10 +18,10 @@ void	clear_image(t_session *instance, int color)
 
 	y = 0;
 	mlx_clear_window(instance->mlx_ser, instance->mlx_win);
-	while (y < W_HEIGHT)
+	while (y < instance->height)
 	{
 		x = 0;
-		while (x < W_WIDTH)
+		while (x < instance->width)
 		{
 			pixel_put(&(instance->mlx_img), x, y, color);
 			x++;

@@ -1,8 +1,9 @@
 #include "../includes/headers/cub3d.h"
 
-void	cast_ray(t_session *instance, t_point start, t_point end, int color)
+t_ray	cast_ray(t_session *instance, t_point start, t_point end, int color)
 {
 	t_dda	dda;
+	t_ray	ray;
 	t_point	r_pos;
 	int		i;
 
@@ -12,23 +13,26 @@ void	cast_ray(t_session *instance, t_point start, t_point end, int color)
 	{
 		r_pos.y = dda.current_y;
 		r_pos.x = dda.current_x;
-		if (!instance->map.grid[r_pos.y] || !instance->map.grid[r_pos.y][r_pos.x] || instance->map.grid[r_pos.y][r_pos.x] == '1' || instance->map.grid[r_pos.y][r_pos.x] == ' ')
-			return;
+		//
+		ray.col_point.x = dda.current_x;
+		ray.col_point.y = dda.current_y;
+		ray.len = i;
+		//
+		if (!instance->map.grid[r_pos.y] || !instance->map.grid[r_pos.y][r_pos.x]
+			|| instance->map.grid[r_pos.y][r_pos.x] == '1' || instance->map.grid[r_pos.y][r_pos.x] == ' ')
+			return (ray);
 		pixel_put(&instance->mlx_img, dda.current_x, dda.current_y, color);
 		dda.current_x += dda.x_inc;
 		dda.current_y += dda.y_inc;
 		i++;
 	}
+	ray.col_point.x = dda.current_x;
+	ray.col_point.y = dda.current_y;
+	ray.len = i;
+	return (ray);
 }
 
-typedef struct s_rcaster
-{
-	float	fov;
-	float	angle;
-	float 	inc;
-	int		len;
-	int		n_rays;
-} t_rcaster;
+
 
 void	raycaster(t_session *instance, int x, int y, int color)
 {
@@ -46,7 +50,10 @@ void	raycaster(t_session *instance, int x, int y, int color)
 	{
 		end.y = y + rcaster.len * sin(rcaster.angle * PI / 180);
 		end.x = x + rcaster.len * cos(rcaster.angle * PI / 180);
-		cast_ray(instance, (t_point){x, y}, end, color);
+		//
+		rcaster.rays[i] =  cast_ray(instance, (t_point){x, y}, end, color);
+		rcaster.rays[i].angle = rcaster.angle;
+		//
 		rcaster.angle += rcaster.inc;
 		i++;
 	}
