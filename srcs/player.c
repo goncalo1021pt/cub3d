@@ -37,10 +37,10 @@ void	raycaster(t_session *instance, int x, int y, int color)
 	int			i;
 
 	rcaster.n_rays = W_WIDTH;
-	rcaster.fov = 80.0;
+	rcaster.fov = 80;
 	rcaster.len = W_WIDTH;
 	rcaster.angle = instance->player.angle - (rcaster.fov / 2);
-	rcaster.inc = rcaster.fov / (rcaster.n_rays - 1);
+	rcaster.inc = rcaster.fov / (rcaster.n_rays);
 	i = 0;
 	while (i < rcaster.n_rays)
 	{
