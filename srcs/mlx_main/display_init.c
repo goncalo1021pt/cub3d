@@ -31,7 +31,7 @@ bool	mlx_vars_init(t_session *instance)
 	init_array(instance);
 	// mlx_get_screen_size(instance->mlx_ser, &instance->width, &instance->height);
 	instance->mlx_win = mlx_new_window(instance->mlx_ser, instance->width, instance->height, "cub3d");	
-	// mlx_mouse_hide(instance->mlx_ser, instance->mlx_win);
+	mlx_mouse_hide(instance->mlx_ser, instance->mlx_win);	
 	instance->mlx_img.img = mlx_new_image(instance->mlx_ser, instance->width, instance->height);
 	instance->mlx_img.addr = mlx_get_data_addr(instance->mlx_img.img,
 			&instance->mlx_img.bpp, &instance->mlx_img.line_length,
