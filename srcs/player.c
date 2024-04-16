@@ -2,7 +2,7 @@
 
 void	init_ray(t_dda *dda, t_point start, t_point end)
 {
-	//float	norm;
+	// float	norm;
 
 	dda->current_x = start.x;
 	dda->current_y = start.y;
@@ -11,9 +11,9 @@ void	init_ray(t_dda *dda, t_point start, t_point end)
 	dda->step = fmax(fabs(dda->delta_x), fabs(dda->delta_y));
 	dda->x_inc = (dda->delta_x / dda->step);
 	dda->y_inc = (dda->delta_y / dda->step);
-// 	norm = sqrt(pow(dda->x_inc, 2) + pow(dda->y_inc, 2));
-// 	dda->x_inc = dda->x_inc / norm;
-// 	dda->y_inc = dda->y_inc / norm; 
+	// norm = sqrt(pow(dda->x_inc, 2) + pow(dda->y_inc, 2));
+	// dda->x_inc = dda->x_inc / norm;
+	// dda->y_inc = dda->y_inc / norm; 
 }
 
 double formula(t_ray ray)
@@ -72,7 +72,7 @@ void	raycaster(t_session *instance, int x, int y, int color)
 	rcaster = &instance->player.raycaster;
 	rcaster->n_rays =  W_WIDTH;
 	rcaster->fov = 1.570;
-	rcaster->len = 64;
+	rcaster->len = 3000;
 
 	rcaster->angle = (instance->player.angle * (PI / 180)) - (rcaster->fov / 2);
 
@@ -133,7 +133,7 @@ void render3D(t_session *instance)
 void	update_player(t_session *instance, int x, int y)
 {
 	raycaster(instance, x, y, 0x6c71c4);
-	//render3D(instance);
+	render3D(instance);
 	// for (int i = 0; i < instance->player.raycaster.n_rays; i++)
 	// {
 	// 	printf("coll point: x: %d y: %d\n",
