@@ -5,6 +5,7 @@
 # define ERR_TEXTURE "Error reading textures"
 # define ERR_ALLOC "Error allocating memory"
 # define ERR_MAP "Error validating map"
+# define ERR_TEXTURE_LOAD "Error loading textures"
 # define INV_MAPNAME "Invalid map name"
 # define INV_ARGS "Invalid number of arguments"
 # define INV_FILE "File not found"

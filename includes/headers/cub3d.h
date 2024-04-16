@@ -59,6 +59,16 @@ typedef enum e_key_arr
 	RIGHT_ARROW
 }	t_key_arr;
 
+typedef enum e_sprite_order
+{
+	NORT_TEXTURE,
+	SOUTH_TEXTURE,
+	EAST_TEXTURE,
+	WEST_TEXTURE,
+	CEALING_TEXTURE,
+	FLOOR_TEXTURE
+}	t_sprite_order;
+
 // parser.c
 bool	validate_map(t_map *map);
 bool	parser(int argc, char **argv, t_map *map);
@@ -102,6 +112,10 @@ void	mlx_startup(t_session *instance);
 void	mlx_update(t_session *instance);
 void	mlx_shutdown(t_session *instance);
 
+// dislay_init.c
+bool	mlx_vars_init(t_session *instance);
+void	destroy_textures(t_session *instance);
+
 // hooks.c
 int		handle_key(int keycode, t_session *instance);
 int		const_movement(t_session *instance);
@@ -113,11 +127,15 @@ int		mouse_movement(int x, int y, t_session *instance);
 
 // draw.c
 void	pixel_put(t_data *data, int x, int y, int color);
+int		get_pixel(t_data *data, int x, int y);
 void	init_dda(t_dda *dda, t_point start, t_point end);
 void	draw_line(t_session *instance, t_point start, t_point end, int color);
 void	draw_square(t_session *instance, t_point point, int sq, int color);
 void 	draw_face(t_session *instance, int x, int y, int color);
 void	clear_image(t_session *instance, int color);
+
+// load_textures.c
+bool load_textures(t_session *ist);
 
 // grid.c // debug2D.c
 void	debug2D(t_session *instance);
@@ -126,6 +144,8 @@ void 	vp_grid(t_session *instance);
 void 	vp_scaled(t_session *instance);
 void	vp_player(t_session *instance, int x, int y);
 
+//create3d.c
+void cast_3d(t_session *instance);
 
 // start.c
 bool	start_game(t_session *instance);

@@ -14,9 +14,11 @@ typedef struct s_data
 {
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
+	int		bpp;
 	int		line_length;
 	int		endian;
+	int		width;
+	int		height;
 }				t_data;
 
 typedef struct s_map
@@ -37,6 +39,7 @@ typedef struct s_map
 typedef struct s_ray 
 {
 	t_point col_point;
+	int		texture;
 	int 	len;
 	float 	angle;
 } t_ray;
@@ -65,6 +68,7 @@ typedef struct s_session
 	void			*mlx_ser;
 	void			*mlx_win;
 	t_data			mlx_img;
+	t_data			textures[6];
 	t_map			map;
 	t_player		player;
 	int				mode;
@@ -72,6 +76,15 @@ typedef struct s_session
 	int				height;
 	int				keys[MAX_KEYS];
 }	t_session;
+
+typedef struct s_camera2d
+{
+	t_point	top_l;
+	t_point	bot_r;
+	t_point	p_pos;
+	t_point size;
+	t_point offset;
+}	t_camera2d;
 
 typedef struct s_dda
 {
