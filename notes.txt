@@ -109,7 +109,7 @@ void	draw_scaled(t_session *instance)
 
 
 https://github.com/vinibiavatti1/RayCastingTutorial/wiki/Fisheye-fix
-
+https://lodev.org/cgtutor/raycasting.html
 
 void	init_ray(t_dda *dda, t_point start, t_point end)
 {

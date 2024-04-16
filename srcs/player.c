@@ -34,7 +34,7 @@ t_ray	cast_ray(t_session *instance, t_point start, t_point end, int color)
 	i = 0;
 	(void)color;
 	init_ray(&dda, start, end);
-	while ((int)i <= dda.step)
+	while (i <= dda.step)
 	{
 		r_pos.y = dda.current_y;
 		r_pos.x = dda.current_x;
@@ -57,33 +57,33 @@ t_ray	cast_ray(t_session *instance, t_point start, t_point end, int color)
 }
 void	raycaster(t_session *instance, int x, int y, int color)
 {
-	t_rcaster	*rcaster;
+	t_rcaster	*caster;
 	t_point		end;
 	int			i;
 
-	rcaster = &instance->player.raycaster;
-	rcaster->n_rays =  W_WIDTH;
-	rcaster->fov = 1.221; //1.570;
-	rcaster->len = 3000;
+	caster = &instance->player.raycaster;
+	caster->n_rays =  W_WIDTH;
+	caster->fov = 1.221; //1.570;
+	caster->len = W_WIDTH;
 
-	rcaster->angle = (instance->player.angle * (PI / 180)) - (rcaster->fov / 2);
+	caster->angle = (instance->player.angle * (PI / 180)) - (caster->fov / 2);
 
-	rcaster->inc = rcaster->fov / (rcaster->n_rays);
+	caster->inc = caster->fov / (caster->n_rays);
 	i = 0;
-	while (i < rcaster->n_rays)
+	while (i < caster->n_rays)
 	{
-		end.y = y + truncf(rcaster->len * sin(rcaster->angle));
-		end.x = x + truncf(rcaster->len * cos(rcaster->angle));
+		end.y = y + truncf(caster->len * sin(caster->angle));
+		end.x = x + truncf(caster->len * cos(caster->angle));
 
 		// assignments
-
-		rcaster->rays[i] =  cast_ray(instance, (t_point){x, y}, end, color);
-		rcaster->rays[i].angle = -(rcaster->fov / 2) + i * (rcaster->fov / (rcaster->n_rays - 1));
-		rcaster->rays[i].len = formula(rcaster->rays[i]);
+		printf("caster angle in raycaster: %f\n", caster->angle);
+		caster->rays[i] =  cast_ray(instance, (t_point){x, y}, end, color);
+		caster->rays[i].angle = -(caster->fov / 2) + i * (caster->fov / (caster->n_rays - 1));
+		caster->rays[i].len = formula(caster->rays[i]);
 
 		//increments
 
-		rcaster->angle += rcaster->inc;
+		caster->angle += caster->inc;
 		i++;
 	}
 }
@@ -108,15 +108,19 @@ void render3D(t_session *instance)
 	for (int i = 0; i < instance->player.raycaster.n_rays; i++)
 	{
 
-		real_d = rays[i].len * cos(caster->angle * PI / 180); // this is unecessary real_d is 35.996 instead of 36.0 in rays[i].len
-		wall_h = (MAP_SCALE / real_d) * cam_p;
-		wall_t = cam_z - (wall_h / 2);
-		wall_b = cam_z + (wall_h / 2);
-		wall_t = fmax(0, wall_t);
-		wall_b = fmin(W_HEIGHT, wall_b);
+		if (rays[i].len > 0)
+		{
+			printf("caster angle in renderer: %f\n", caster->angle);
+			real_d = fabs(rays[i].len * cos(caster->angle * (PI / 180))); // this is unecessary real_d is 35.996 instead of 36.0 in rays[i].len
+			wall_h = (MAP_SCALE / real_d) * cam_p;
+			wall_t = cam_z - (wall_h / 2);
+			wall_b = cam_z + (wall_h / 2);
+			wall_t = fmax(0, wall_t);
+			wall_b = fmin(W_HEIGHT, wall_b);
+			draw_line(instance, (t_point){i, wall_t},(t_point){i, wall_b}, 0xFFFFFF / 2);
+		}
 
-		printf("rays[%d].len: %f |real_d: %f \n", i, rays[i].len, real_d); // debug
-		draw_line(instance, (t_point){i, wall_t},(t_point){i, wall_b}, 0xFFFFFF);
+		printf("rays[%d].len: %f | real_d: %f | ray angle: %f\n", i, rays[i].len, real_d, rays[i].angle);
 	}
 }
 
