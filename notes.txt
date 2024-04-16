@@ -109,3 +109,20 @@ void	draw_scaled(t_session *instance)
 
 
 https://github.com/vinibiavatti1/RayCastingTutorial/wiki/Fisheye-fix
+
+
+void	init_ray(t_dda *dda, t_point start, t_point end)
+{
+	float	norm;
+
+	dda->current_x = start.x;
+	dda->current_y = start.y;
+	dda->delta_x = end.x - start.x;
+	dda->delta_y = end.y - start.y;
+	dda->step = fmax(fabs(dda->delta_x), fabs(dda->delta_y));
+	dda->x_inc = (dda->delta_x / dda->step);
+	dda->y_inc = (dda->delta_y / dda->step);
+	norm = sqrt(pow(dda->x_inc, 2) + pow(dda->y_inc, 2));
+	dda->x_inc = dda->x_inc / norm;
+	dda->y_inc = dda->y_inc / norm;
+}
