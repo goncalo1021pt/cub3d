@@ -1,4 +1,4 @@
-#include "../includes/headers/cub3d.h"
+#include "../../includes/headers/cub3d.h"
 
 int	get_max_len(t_map *map)
 {

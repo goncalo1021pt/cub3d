@@ -1,8 +1,12 @@
 NAME = cub3d
 
 SRCS = $(addprefix srcs/,$(addsuffix .c, $(S)))
-S = main parser map_aux aux textures map_check textures_check grid_init start player_movment  display hooks draw debug2D player \
-	minimap mouse_hooks player_movment2 load_textures display_init
+S = $(addprefix aux/,$(AUX_SRCS)) $(addprefix display/,$(DISPLAY_SRCS)) $(addprefix mlx_main/,$(MLX_MAIN_SRCS)) $(addprefix parser/,$(PARSER_SRCS))
+
+AUX_SRCS = aux free
+DISPLAY_SRCS = create3d debug2D draw minimap pause_menu player
+MLX_MAIN_SRCS = display_init display load_textures mouse_hooks player_movment2 player_movment hooks
+PARSER_SRCS = grid_init main map_aux map_check parser start textures textures_check
 
 COMPRESS = ar rcs
 RM = rm -f

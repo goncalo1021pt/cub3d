@@ -1,5 +1,4 @@
-
-#include "../includes/headers/cub3d.h"
+#include "../../includes/headers/cub3d.h"
 
 void	clean_parser(t_map *map)
 {
@@ -25,13 +24,16 @@ void	clean_parser(t_map *map)
 		free(map->f);
 }
 
-int	main(int argc, char **argv)
+void	free_file(char **arr_str)
 {
-	t_session	instance;
+	int	ctd;
 
-	init_map(&instance.map);
-	if (!parser(argc, argv, &instance.map))
-		return (clean_parser(&instance.map), 1);
-	start_game(&instance);
-	return (0);
+	ctd = 0;
+	while (arr_str[ctd])
+	{
+		free(arr_str[ctd]);
+		ctd++;
+	}
+	free(arr_str);
 }
+

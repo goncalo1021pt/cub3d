@@ -1,9 +1,9 @@
-#include "../includes/headers/cub3d.h"
+#include "../../includes/headers/cub3d.h"
 
 int	mouse_movement(int x, int y, t_session *instance)
 {
+	int	dif;
 	(void)y;
-	int dif;
 
 	dif = abs(instance->width - x);
 	if (x > (instance->width / 2))

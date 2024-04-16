@@ -1,4 +1,4 @@
-#include "../includes/headers/cub3d.h"
+#include "../../includes/headers/cub3d.h"
 
 t_ray	cast_ray(t_session *instance, t_point start, t_point end, int color)
 {

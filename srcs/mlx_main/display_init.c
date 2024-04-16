@@ -1,6 +1,6 @@
-#include "../includes/headers/cub3d.h"
+#include "../../includes/headers/cub3d.h"
 
-void init_array(t_session *instance)
+void	init_array(t_session *instance)
 {
 	instance->textures[NORT_TEXTURE].img = NULL;
 	instance->textures[SOUTH_TEXTURE].img = NULL;
@@ -10,7 +10,7 @@ void init_array(t_session *instance)
 	instance->textures[FLOOR_TEXTURE].img = NULL;
 }
 
-void destroy_textures(t_session *instance)
+void 	destroy_textures(t_session *instance)
 {
 	int i;
 
@@ -23,7 +23,7 @@ void destroy_textures(t_session *instance)
 	}
 }
 
-bool mlx_vars_init(t_session *instance)
+bool	mlx_vars_init(t_session *instance)
 {
 	instance->width = W_WIDTH;
 	instance->height = W_HEIGHT;

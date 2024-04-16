@@ -1,17 +1,4 @@
-#include "../includes/headers/cub3d.h"
-
-void	free_file(char **arr_str)
-{
-	int	ctd;
-
-	ctd = 0;
-	while (arr_str[ctd])
-	{
-		free(arr_str[ctd]);
-		ctd++;
-	}
-	free(arr_str);
-}
+#include "../../includes/headers/cub3d.h"
 
 void	print_file(t_map *map)
 {
