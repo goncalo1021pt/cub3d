@@ -122,21 +122,13 @@ void render3D(t_session *instance)
 
 void	update_player(t_session *instance, int x, int y)
 {
-	// t_point	pos;
-	// int		sq;
-
-	// sq = MAP_SCALE / 4;
-	// pos.y = y - (sq / 2);
-	// pos.x = x - (sq / 2);
-	// draw_square(instance, pos, sq, 0x6c71c4);
-	// draw_face(instance, x, y, 0x250AAA);
 	raycaster(instance, x, y, 0x6c71c4);
 	render3D(instance);
-	for (int i = 0; i < instance->player.raycaster.n_rays; i++)
-	{
-		printf("coll point: x: %d y: %d\n",
-			instance->player.raycaster.rays[i].col_point.x, instance->player.raycaster.rays[i].col_point.y);
-		printf("ray lenght: %d\n", instance->player.raycaster.rays[i].len);
-		printf("exit angle: %f\n", instance->player.raycaster.rays[i].angle);
-	}
+	// for (int i = 0; i < instance->player.raycaster.n_rays; i++)
+	// {
+	// 	printf("coll point: x: %d y: %d\n",
+	// 		instance->player.raycaster.rays[i].col_point.x, instance->player.raycaster.rays[i].col_point.y);
+	// 	printf("ray lenght: %d\n", instance->player.raycaster.rays[i].len);
+	// 	printf("exit angle: %f\n", instance->player.raycaster.rays[i].angle);
+	// }
 }
