@@ -2,7 +2,7 @@
 
 void	init_ray(t_dda *dda, t_point start, t_point end)
 {
-	// float	norm;
+	float	norm;
 
 	dda->current_x = start.x;
 	dda->current_y = start.y;
@@ -11,16 +11,16 @@ void	init_ray(t_dda *dda, t_point start, t_point end)
 	dda->step = fmax(fabs(dda->delta_x), fabs(dda->delta_y));
 	dda->x_inc = (dda->delta_x / dda->step);
 	dda->y_inc = (dda->delta_y / dda->step);
-	// norm = sqrt(pow(dda->x_inc, 2) + pow(dda->y_inc, 2));
-	// dda->x_inc = dda->x_inc / norm;
-	// dda->y_inc = dda->y_inc / norm; 
+	norm = sqrt(pow(dda->x_inc, 2) + pow(dda->y_inc, 2));
+	dda->x_inc = dda->x_inc / norm;
+	dda->y_inc = dda->y_inc / norm;
 }
 
 double formula(t_ray ray)
 {
 	float aux;
 
-	aux = (float)ray.len * (float)cos(((float)ray.angle));
+	aux = ray.len * cos((ray.angle));
 	return (roundf(aux));
 }
 
@@ -46,23 +46,15 @@ t_ray	cast_ray(t_session *instance, t_point start, t_point end, int color)
 		if (!instance->map.grid[r_pos.y] || !instance->map.grid[r_pos.y][r_pos.x]
 			|| instance->map.grid[r_pos.y][r_pos.x] == '1' || instance->map.grid[r_pos.y][r_pos.x] == ' ')
 			return (ray);
-		pixel_put(&instance->mlx_img, dda.current_x, dda.current_y, color);
-		
+		//pixel_put(&instance->mlx_img, dda.current_x, dda.current_y, color);
+
 		dda.current_x += dda.x_inc * 0.1;
 		dda.current_y += dda.y_inc * 0.1;
 		i+= 0.1;
 	}
-	
+
 	return (ray);
 }
-
-// int get_colision_texture(t_session *instance)
-// {
-// 	if (ray.col_point.x + 1 == 0)
-
-// 	else if (ray.col_point.x - 1 == 0)
-// }
-
 void	raycaster(t_session *instance, int x, int y, int color)
 {
 	t_rcaster	*rcaster;
@@ -71,7 +63,7 @@ void	raycaster(t_session *instance, int x, int y, int color)
 
 	rcaster = &instance->player.raycaster;
 	rcaster->n_rays =  W_WIDTH;
-	rcaster->fov = 1.570;
+	rcaster->fov = 1.221; //1.570;
 	rcaster->len = 3000;
 
 	rcaster->angle = (instance->player.angle * (PI / 180)) - (rcaster->fov / 2);
@@ -82,17 +74,15 @@ void	raycaster(t_session *instance, int x, int y, int color)
 	{
 		end.y = y + truncf(rcaster->len * sin(rcaster->angle));
 		end.x = x + truncf(rcaster->len * cos(rcaster->angle));
+
 		// assignments
-		printf("in raycaster func -> angle = %f\n", rcaster->rays[i].angle);
+
 		rcaster->rays[i] =  cast_ray(instance, (t_point){x, y}, end, color);
-		rcaster->rays[i].angle = -(rcaster->fov / 2) + (float)i * (rcaster->fov / (float)(rcaster->n_rays - 1));
-		printf("in raycaster func -> len before = %f\n", rcaster->rays[i].len);
-		rcaster->rays[i].len = formula(rcaster->rays[i]);	
-		printf("in raycaster func -> len = %f\n", rcaster->rays[i].len);
-		printf("afterin raycaster func -> angle = %f\n", rcaster->rays[i].angle);
-		
+		rcaster->rays[i].angle = -(rcaster->fov / 2) + i * (rcaster->fov / (rcaster->n_rays - 1));
+		rcaster->rays[i].len = formula(rcaster->rays[i]);
 
 		//increments
+
 		rcaster->angle += rcaster->inc;
 		i++;
 	}
@@ -101,31 +91,31 @@ void	raycaster(t_session *instance, int x, int y, int color)
 void render3D(t_session *instance)
 {
 	t_ray	*rays;
-	int		cam_z; // cam height
+	t_rcaster	*caster;
 
+	int		cam_z; // cam height
 	float	cam_p; // camera plane
 	float	real_d;
-	float	wall_h; // wall height
+	int		wall_h; // wall height
 	int		wall_t; // wall top point
 	int		wall_b; // wall bot point
 
-	rays = instance->player.raycaster.rays;
-
+	caster = &instance->player.raycaster;
+	rays = caster->rays;
 	cam_z = (W_HEIGHT / 2);
-	cam_p = (W_WIDTH / 2) / tan((instance->player.raycaster.fov / 2));
+	cam_p = (W_WIDTH / 2) / tan((caster->fov / 2));
 
 	for (int i = 0; i < instance->player.raycaster.n_rays; i++)
 	{
-		real_d = rays[i].len * cos(instance->player.raycaster.angle * PI / 180);
 
-
+		real_d = rays[i].len * cos(caster->angle * PI / 180);
 		wall_h = (MAP_SCALE / real_d) * cam_p;
 		wall_t = cam_z - (wall_h / 2);
 		wall_b = cam_z + (wall_h / 2);
-
 		wall_t = fmax(0, wall_t);
 		wall_b = fmin(W_HEIGHT, wall_b);
 
+		printf("rays[%d].len: %f |real_d: %f \n", i, rays[i].len, real_d); // debug
 		draw_line(instance, (t_point){i, wall_t},(t_point){i, wall_b}, 0xFFFFFF);
 	}
 }
@@ -134,11 +124,4 @@ void	update_player(t_session *instance, int x, int y)
 {
 	raycaster(instance, x, y, 0x6c71c4);
 	render3D(instance);
-	// for (int i = 0; i < instance->player.raycaster.n_rays; i++)
-	// {
-	// 	printf("coll point: x: %d y: %d\n",
-	// 		instance->player.raycaster.rays[i].col_point.x, instance->player.raycaster.rays[i].col_point.y);
-	// 	printf("ray lenght: %d\n", instance->player.raycaster.rays[i].len);
-	// 	printf("exit angle: %f\n", instance->player.raycaster.rays[i].angle);
-	// }
 }
