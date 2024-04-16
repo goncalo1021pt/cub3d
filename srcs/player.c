@@ -108,7 +108,7 @@ void render3D(t_session *instance)
 	for (int i = 0; i < instance->player.raycaster.n_rays; i++)
 	{
 
-		real_d = rays[i].len * cos(caster->angle * PI / 180);
+		real_d = rays[i].len * cos(caster->angle * PI / 180); // this is unecessary real_d is 35.996 instead of 36.0 in rays[i].len
 		wall_h = (MAP_SCALE / real_d) * cam_p;
 		wall_t = cam_z - (wall_h / 2);
 		wall_b = cam_z + (wall_h / 2);
