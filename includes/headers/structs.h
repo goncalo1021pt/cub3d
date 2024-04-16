@@ -40,7 +40,7 @@ typedef struct s_ray
 {
 	t_point col_point;
 	int		texture;
-	int 	len;
+	float 	len;
 	float 	angle;
 } t_ray;
 
@@ -49,7 +49,7 @@ typedef struct s_rcaster
 	float	fov;
 	float	angle;
 	float 	inc;
-	int		len;
+	float	len;
 	int		n_rays;
 	t_ray	rays[1980];	
 } t_rcaster;
