@@ -1,43 +1,33 @@
 #include "../../includes/headers/cub3d.h"
-
-t_ray	cast_ray(t_session *instance, t_point start, t_point end, int color)
+# define RAY_COLOR 0x6c71c4
+t_ray	cast_ray(t_session *instance, t_point start, t_point end, t_ray	*ray)
 {
 	t_dda	dda;
-	t_ray	ray;
 	t_point	r_pos;
 	int		i;
-	float	aux;
+
 	i = 0;
-	(void)color;
 	init_dda(&dda, start, end);
 	while (i <= dda.step)
 	{
 		r_pos.y = dda.current_y;
 		r_pos.x = dda.current_x;
-
-		ray.col_point.x = dda.current_x;
-		ray.col_point.y = dda.current_y;
-		ray.len = i;
-
-		// if (ray.col_point.x < 0 || ray.col_point.x > W_WIDTH) //clamp rays ?
-		// 	ray.col_point.x = W_WIDTH;
-		// if (ray.col_point.y < 0 || ray.col_point.y > W_WIDTH)
-		// 	ray.col_point.y = W_WIDTH;
-
-		if (!instance->map.grid[r_pos.y] || !instance->map.grid[r_pos.y][r_pos.x]
-			|| instance->map.grid[r_pos.y][r_pos.x] == '1' || instance->map.grid[r_pos.y][r_pos.x] == ' ')
-			return (ray);
-		//pixel_put(&instance->mlx_img, dda.current_x, dda.current_y, color);
-		aux = sqrt(pow(dda.x_inc, 2) + pow(dda.y_inc, 2));
-
-		dda.current_x += dda.x_inc / aux;
-		dda.current_y += dda.y_inc / aux;
+		ray->col_point.x = dda.current_x;
+		ray->col_point.y = dda.current_y;
+		if (!instance->map.grid[r_pos.y] || !instance->map.grid[r_pos.y][r_pos.x] || instance->map.grid[r_pos.y][r_pos.x] == '1' || instance->map.grid[r_pos.y][r_pos.x] == ' ')
+		{
+			ray->len = sqrt(pow(start.x - dda.current_x, 2) + pow(start.y - dda.current_y, 2));
+			return (*ray);
+		}
+		// pixel_put(&instance->mlx_img, dda.current_x, dda.current_y, RAY_COLOR);
+		dda.current_x += dda.x_inc;
+		dda.current_y += dda.y_inc;
 		i++;
 	}
-	//ray.col_point.x = dda.current_x;
-	//ray.col_point.y = dda.current_y;
-	//ray.len = i;
-	return (ray);
+	ray->col_point.x = dda.current_x;
+	ray->col_point.y = dda.current_y;
+	ray->len = sqrt(pow(start.x - dda.current_x, 2) + pow(start.y - dda.current_y, 2));
+	return (*ray);
 }
 
 // int get_colision_texture(t_session *instance)
@@ -47,7 +37,7 @@ t_ray	cast_ray(t_session *instance, t_point start, t_point end, int color)
 // 	else if (ray.col_point.x - 1 == 0)
 // }
 
-void	raycaster(t_session *instance, int x, int y, int color)
+void	raycaster(t_session *instance, int x, int y)
 {
 	t_rcaster	*rcaster;
 	t_point		end;
@@ -58,16 +48,15 @@ void	raycaster(t_session *instance, int x, int y, int color)
 	rcaster->fov = 90;
 	rcaster->len = W_WIDTH;
 	rcaster->angle = instance->player.angle - (rcaster->fov / 2);
-	rcaster->inc = rcaster->fov / (rcaster->n_rays);
+	rcaster->inc = (float)(rcaster->fov / (rcaster->n_rays - 1));
 	i = 0;
 	while (i < rcaster->n_rays)
 	{
 		end.y = y + rcaster->len * sin(rcaster->angle * PI / 180);
 		end.x = x + rcaster->len * cos(rcaster->angle * PI / 180);
 		// assignments
-		rcaster->rays[i] =  cast_ray(instance, (t_point){x, y}, end, color);
-		rcaster->rays[i].angle = rcaster->angle;
-
+		rcaster->rays[i] = cast_ray(instance, (t_point){x, y}, end, &rcaster->rays[i]);
+		rcaster->rays[i].angle = instance->player.angle - rcaster->angle;
 		//increments
 		rcaster->angle += rcaster->inc;
 		i++;
@@ -105,39 +94,39 @@ void	init_dda(t_dda *dda, t_point start, t_point end)
 // 	}
 // }
 
-void render3D(t_session *instance)
-{
-	t_ray	*rays;
-	int		cam_z; // cam height
+// void render3D(t_session *instance)
+// {
+// 	t_ray	*rays;
+// 	int		cam_z; // cam height
 
-	float	cam_d; // camera plane
-	float	real_d; // corrected distance
+// 	float	cam_d; // camera plane
+// 	float	real_d; // corrected distance
 
-	float	a_diff; // angle difference rom ray angle to cam
-	float	wall_h; // wall height
-	int		wall_t; // wall top point
-	int		wall_b; // wall bot point
+// 	float	a_diff; // angle difference rom ray angle to cam
+// 	float	wall_h; // wall height
+// 	int		wall_t; // wall top point
+// 	int		wall_b; // wall bot point
 
-	rays = instance->player.raycaster.rays;
+// 	rays = instance->player.raycaster.rays;
 
-	cam_z = (W_HEIGHT / 2);
-	cam_d = (W_WIDTH / 2);// / tan((instance->player.raycaster.fov / 2) * (PI / 180));
+// 	cam_z = (W_HEIGHT / 2);
+// 	cam_d = (W_WIDTH / 2);// / tan((instance->player.raycaster.fov / 2) * (PI / 180));
 
-	for (int i = 0; i < instance->player.raycaster.n_rays; i++)
-	{
-		a_diff = (rays[i].angle - instance->player.angle) * (PI / 180);
-		a_diff = fmod(a_diff + PI, 2 * PI) - PI;
-		real_d = rays[i].len * cos(a_diff);
+// 	for (int i = 0; i < instance->player.raycaster.n_rays; i++)
+// 	{
+// 		a_diff = (rays[i].angle - instance->player.angle) * (PI / 180);
+// 		a_diff = fmod(a_diff + PI, 2 * PI) - PI;
+// 		real_d = rays[i].len * cos(a_diff);
 
-		wall_h = (MAP_SCALE / real_d) * cam_d;
-		wall_t = cam_z - (wall_h / 2);
-		wall_b = cam_z + (wall_h / 2);
-		wall_t = fmax(0, wall_t);
-		wall_b = fmin(W_HEIGHT, wall_b);
+// 		wall_h = (MAP_SCALE / real_d) * cam_d;
+// 		wall_t = cam_z - (wall_h / 2);
+// 		wall_b = cam_z + (wall_h / 2);
+// 		wall_t = fmax(0, wall_t);
+// 		wall_b = fmin(W_HEIGHT, wall_b);
 
-		draw_line(instance, (t_point){i, wall_t},(t_point){i, wall_b}, 0xFFFFFF);
-	}
-}
+// 		draw_line(instance, (t_point){i, wall_t},(t_point){i, wall_b}, 0xFFFFFF);
+// 	}
+// }
 
 void	update_player(t_session *instance, int x, int y)
 {
@@ -147,9 +136,9 @@ void	update_player(t_session *instance, int x, int y)
 	// sq = MAP_SCALE / 4;
 	// pos.y = y - (sq / 2);
 	// pos.x = x - (sq / 2);
-	//draw_square(instance, pos, sq, 0x6c71c4);
-	raycaster(instance, x, y, 0x6c71c4);
-	render3D(instance);
+	// draw_square(instance, pos, sq, 0x6c71c4);
+	raycaster(instance, x, y);
+	// render3D(instance);
 	// for (int i = 0; i < instance->player.raycaster.n_rays; i++)
 	// {
 	// 	printf("coll point: x: %d y: %d\n",

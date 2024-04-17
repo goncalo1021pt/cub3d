@@ -138,7 +138,7 @@ void	clear_image(t_session *instance, int color);
 bool	load_textures(t_session *ist);
 
 // grid.c // debug2D.c
-void	debug2D(t_session *instance);
+void	debug2d(t_session *instance);
 //minimap.c
 void	vp_grid(t_session *instance);
 void	vp_scaled(t_session *instance);

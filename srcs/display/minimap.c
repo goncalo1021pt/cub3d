@@ -24,7 +24,7 @@ void	init_camera2d(t_session *instance, t_camera2d *cam2d)
 	cam2d->bot_r.y = fmin(W_HEIGHT - 1, instance->player.y + cam2d->size.y / 2);
 }
 
-void vp_grid(t_session *instance)
+void	vp_grid(t_session *instance)
 {
 	int			y;
 	int			x;
