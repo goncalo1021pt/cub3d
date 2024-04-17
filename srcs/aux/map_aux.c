@@ -72,6 +72,9 @@ void	create_boarder(char **grid)
 					- 1] == '1' || grid[x + 1][y] == '1' || grid[x
 					- 1][y] == '1'))
 				grid[x][y] = '2';
+			if (grid[x][y] == '0' && (grid[x][y + 2] == '1' || grid[x][y
+					- 2] == '1' || grid[x + 2][y] == '1' || grid[x
+					- 2][y] == '1'))
 			y++;
 		}
 		x++;
