@@ -10,34 +10,22 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 	double fov;
 	double cam_x;
 
-
-	//printf("angle: %f\n", instance->player.angle);
 	dir_x = cos(instance->player.angle * (PI / 180));
 	dir_y = sin(instance->player.angle * (PI / 180));
-	printf("dir_x: %f\n", dir_x);
-	printf("dir_y: %f\n", dir_y);
-
-	fov = 70 * (PI / 180); // Field of view in radians
+	fov = 72 * (PI / 180); // Field of view in radians
 	plane_x = -dir_y * tan(fov / 2);
 	plane_y = dir_x * tan(fov / 2);
 
 	int	i;
 	i = 0;
-	while (i < W_WIDTH)
+	while (i < W_WIDTH) //i < n_rays
 	{
-		cam_x = 2 * i / (double)W_WIDTH - 1;
-
-		double ray_dir_x;
-		double ray_dir_y;
-		ray_dir_x = dir_x + plane_x * cam_x;
-		ray_dir_y = dir_y + plane_y * cam_x;
-
-
+		int hit;
+		int side;
 		int grid_x;
 		int grid_y;
-		grid_x = (int)pos_x;
-		grid_y = (int)pos_y;
-
+		double ray_dir_x;
+		double ray_dir_y;
 		double delta_dist_x;
 		double delta_dist_y;
 		double side_dist_x;
@@ -45,10 +33,14 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 		double perp_wall_dist;
 		double step_x;
 		double step_y;
-		int hit;
-		int side;
 
-		// get delta dist
+		// setup values for dda
+		grid_x = (int)pos_x;
+		grid_y = (int)pos_y;
+		cam_x = 2 * i / (double)W_WIDTH - 1;
+		ray_dir_x = dir_x + plane_x * cam_x;
+		ray_dir_y = dir_y + plane_y * cam_x;
+
 		if (ray_dir_y == 0)
 			delta_dist_x = W_WIDTH;
 		else
@@ -59,7 +51,6 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 		else
 			delta_dist_y = fabs(1 / ray_dir_y);
 
-		// setup values for dda
 		if (ray_dir_x < 0)
 		{
 			step_x = -1;
@@ -80,7 +71,7 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 			step_y = 1;
 			side_dist_y = (grid_y + 1.0 - pos_y) * delta_dist_y;
 		}
-		// dda collider
+		// exec dda until collision
 		hit = 0;
 		while (hit == 0)
 		{
