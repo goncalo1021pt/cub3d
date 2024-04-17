@@ -85,6 +85,8 @@ bool	get_args(t_map *map);
 
 // aux.c
 bool	is_in_array(char *arr, char c);
+int		ft_strslen(char **strs);
+bool	is_number(char *str);
 
 // map_check.c
 bool	check_char(t_map *map);
@@ -93,13 +95,12 @@ bool	check_sorroundings(t_map *map);
 
 // textures_check.c
 bool	validate_textures(t_map *map);
-int		ft_strslen(char **strs);
 
 // movment_grid.c
 bool	create_grid(t_map *map);
 
-//player.c
-void	update_player(t_session *instance, int x, int y);
+//Camera3D.c
+void	camera3D(t_session *instance, double pos_x, double pos_y);
 
 // player_movment.c
 bool	initialize_player(t_player *player, t_map *map);

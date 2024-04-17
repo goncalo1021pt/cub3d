@@ -19,7 +19,7 @@ bool	set_texture(char *line, t_map *map)
 		return (ft_putendl_fd(ERR_ALLOC, 2), false);
 	if (split[0])
 	{
-		if (split[1] == NULL)
+		if (split[1] == NULL || ft_strslen(split) != 2)
 			return (ft_free_split(split), false);
 		if (map->no == NULL && ft_strncmp(split[0], "NO", 3) == 0)
 			map->no = ft_strdup(split[1]);
