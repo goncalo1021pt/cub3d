@@ -51,7 +51,7 @@ typedef enum e_key_arr
 {
 	W,
 	S,
-	A, 
+	A,
  	D,
 	P,
 	L_SHIFT,
@@ -98,8 +98,8 @@ int		ft_strslen(char **strs);
 // movment_grid.c
 bool	create_grid(t_map *map);
 
-//player.c
-void	update_player(t_session *instance, int x, int y);
+//Camera3D.c
+void	camera3D(t_session *instance, double pos_x, double pos_y);
 
 // player_movment.c
 bool	initialize_player(t_player *player, t_map *map);

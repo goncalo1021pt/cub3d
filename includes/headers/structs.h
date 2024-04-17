@@ -36,23 +36,23 @@ typedef struct s_map
 }			t_map;
 
 
-typedef struct s_ray 
-{
-	t_point col_point;
-	int		texture;
-	float 	len;
-	float 	angle;
-} t_ray;
+// typedef struct s_ray
+// {
+// 	t_point col_point;
+// 	int		texture;
+// 	float 	len;
+// 	float 	angle;
+// } t_ray;
 
-typedef struct s_rcaster
-{
-	float	fov;
-	float	angle;
-	float 	inc;
-	float	len;
-	int		n_rays;
-	t_ray	rays[1980];	
-} t_rcaster;
+// typedef struct s_rcaster
+// {
+// 	float	fov;
+// 	float	angle;
+// 	float 	inc;
+// 	float	len;
+// 	int		n_rays;
+// 	t_ray	rays[1980];
+// } t_rcaster;
 
 typedef struct s_player
 {
@@ -60,7 +60,7 @@ typedef struct s_player
 	float		y;
 	int			keys_pressed;
 	double		angle;
-	t_rcaster	raycaster;
+	//t_rcaster	raycaster;
 }			t_player;
 
 typedef struct s_session
