@@ -1,4 +1,4 @@
-#include "../includes/headers/cub3d.h"
+#include "../../includes/headers/cub3d.h"
 
 int	mouse_movement(int x, int y, t_session *instance)
 {

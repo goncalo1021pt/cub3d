@@ -1,4 +1,4 @@
-#include "../includes/headers/cub3d.h"
+#include "../../includes/headers/cub3d.h"
 
 float get_player_speed(t_session *instance)
 {

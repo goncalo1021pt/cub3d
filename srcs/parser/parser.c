@@ -1,4 +1,4 @@
-#include "../includes/headers/cub3d.h"
+#include "../../includes/headers/cub3d.h"
 
 bool	check_name(char *name)
 {

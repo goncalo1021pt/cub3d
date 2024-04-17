@@ -1,4 +1,4 @@
-#include "../includes/headers/cub3d.h"
+#include "../../includes/headers/cub3d.h"
 
 void	free_file(char **arr_str)
 {
