@@ -7,18 +7,17 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 	double dir_y;
 	double plane_x;
 	double plane_y;
+	double fov;
+	double cam_x;
 
 
 	//printf("angle: %f\n", instance->player.angle);
 	dir_x = cos(instance->player.angle * (PI / 180));
 	dir_y = sin(instance->player.angle * (PI / 180));
+	printf("dir_x: %f\n", dir_x);
+	printf("dir_y: %f\n", dir_y);
 
-
-	//dir_x = 1;
-	//dir_y = 0;
-
-
-	double fov = 66 * (PI / 180); // Field of view in radians
+	fov = 70 * (PI / 180); // Field of view in radians
 	plane_x = -dir_y * tan(fov / 2);
 	plane_y = dir_x * tan(fov / 2);
 
@@ -26,7 +25,6 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 	i = 0;
 	while (i < W_WIDTH)
 	{
-		double cam_x;
 		cam_x = 2 * i / (double)W_WIDTH - 1;
 
 		double ray_dir_x;
@@ -42,17 +40,6 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 
 		double delta_dist_x;
 		double delta_dist_y;
-
-		if (ray_dir_y == 0)
-			delta_dist_x = 1e30;
-		else
-			delta_dist_x = fabs(1 / ray_dir_x);
-
-		if (ray_dir_x == 0)
-			delta_dist_y = 1e30;
-		else
-			delta_dist_y = fabs(1 / ray_dir_y);
-
 		double side_dist_x;
 		double side_dist_y;
 		double perp_wall_dist;
@@ -61,8 +48,18 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 		int hit;
 		int side;
 
+		// get delta dist
+		if (ray_dir_y == 0)
+			delta_dist_x = W_WIDTH;
+		else
+			delta_dist_x = fabs(1 / ray_dir_x);
 
+		if (ray_dir_x == 0)
+			delta_dist_y = W_WIDTH;
+		else
+			delta_dist_y = fabs(1 / ray_dir_y);
 
+		// setup values for dda
 		if (ray_dir_x < 0)
 		{
 			step_x = -1;
@@ -83,7 +80,7 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 			step_y = 1;
 			side_dist_y = (grid_y + 1.0 - pos_y) * delta_dist_y;
 		}
-
+		// dda collider
 		hit = 0;
 		while (hit == 0)
 		{
@@ -109,6 +106,7 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 		else
 			perp_wall_dist = (side_dist_y - delta_dist_y);
 
+		//apply vertical rendering from left to right
 		int	line_height;
 		int	line_start;
 		int	line_end;
