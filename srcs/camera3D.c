@@ -117,6 +117,15 @@ void	cast_ray(t_session *instance, t_ray	*ray)
 }
 
 
+int	clamp_slice(int slice)
+{
+	if (slice < 0)
+		return (0);
+	if (slice >= W_HEIGHT)
+		return (W_HEIGHT - 1);
+	return (slice);
+}
+
 void	camera3D(t_session *instance, double pos_x, double pos_y)
 {
 	t_camera3D	camera;
@@ -136,10 +145,8 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 			slice.height = (int)(W_HEIGHT / ray.perp_wall_dist * MAP_SCALE);
 			slice.start = -slice.height / 2 + W_HEIGHT / 2;
 			slice.end = slice.height / 2 + W_HEIGHT / 2;
-			if (slice.start < 0)
-				slice.start = 0;
-			if (slice.end >= W_HEIGHT)
-				slice.end = W_HEIGHT - 1;
+			slice.start = clamp_slice(slice.start);
+			slice.end = clamp_slice(slice.end);
 			slice.color = 0x7c71c4;
 			if (ray.side == 1)
 				slice.color = 0x2f4f4f;
