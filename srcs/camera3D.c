@@ -43,11 +43,20 @@ double	clamp_ray(double dir)
 		return (fabs(1 / dir));
 }
 
+int	clamp_slice(int slice)
+{
+	if (slice < 0)
+		return (0);
+	if (slice >= W_HEIGHT)
+		return (W_HEIGHT - 1);
+	return (slice);
+}
+
 void	init_camera3D(t_session *instance, t_camera3D *camera)
 {
 	camera->dir_x = cos(instance->player.angle * (PI / 180));
 	camera->dir_y = sin(instance->player.angle * (PI / 180));
-	camera->fov = 72 * (PI / 180); // Field of view in radians
+	camera->fov = 72 * (PI / 180);
 	camera->plane_x = -camera->dir_y * tan(camera->fov / 2);
 	camera->plane_y = camera->dir_x * tan(camera->fov / 2);
 }
@@ -114,16 +123,6 @@ void	cast_ray(t_session *instance, t_ray	*ray)
 		ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
 	else
 		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
-}
-
-
-int	clamp_slice(int slice)
-{
-	if (slice < 0)
-		return (0);
-	if (slice >= W_HEIGHT)
-		return (W_HEIGHT - 1);
-	return (slice);
 }
 
 void	camera3D(t_session *instance, double pos_x, double pos_y)
