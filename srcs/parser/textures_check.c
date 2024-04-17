@@ -32,6 +32,15 @@ bool	is_rgb(char *str)
 	return (true);
 }
 
+bool	convert_rgb(t_map *map)
+{
+	map->colors[0] = get_hexa_color(map->c);
+	map->colors[1] = get_hexa_color(map->f);
+	if (map->colors[0] < 0 || map->colors[1] < 0)
+		return (false);
+	return (true);
+}
+
 bool	validate_textures(t_map *map)
 {
 	if (!try_open(map->no))
@@ -46,5 +55,7 @@ bool	validate_textures(t_map *map)
 		return (ft_putendl_fd(INV_C, 2), false);
 	if (!is_rgb(map->f))
 		return (ft_putendl_fd(INV_F, 2), false);
+	if (!convert_rgb(map))
+		return (false);
 	return (true);
 }

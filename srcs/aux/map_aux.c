@@ -56,3 +56,24 @@ void	print_grid(char **grid)
 		ctd++;
 	}
 }
+
+void	create_boarder(char **grid)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	while (grid[x])
+	{
+		y = 0;
+		while (grid[x][y])
+		{
+			if (grid[x][y] == '0' && (grid[x][y + 1] == '1' || grid[x][y
+					- 1] == '1' || grid[x + 1][y] == '1' || grid[x
+					- 1][y] == '1'))
+				grid[x][y] = '2';
+			y++;
+		}
+		x++;
+	}
+}

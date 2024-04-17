@@ -23,7 +23,7 @@ void	mlx_shutdown(t_session *instance)
 
 void	mlx_update(t_session *instance)
 {
-	clear_image(instance, 0x000000);
+	clear_image(instance);
 	//raycast
 	//debug2D(instance);
 	camera3D(instance, instance->player.x, instance->player.y);
@@ -32,7 +32,6 @@ void	mlx_update(t_session *instance)
 	vp_grid(instance);
 	vp_player(instance, instance->width / 9, instance->height - (MAP_SCALE * 2));
 	//push to window
-	// cast_3d(instance);
 	mlx_put_image_to_window(instance->mlx_ser,
 		instance->mlx_win, instance->mlx_img.img, 0, 0);
 }

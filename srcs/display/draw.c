@@ -19,7 +19,7 @@ int	get_pixel(t_data *data, int x, int y)
 	return (*(unsigned int *)dst);
 }
 
-void	clear_image(t_session *instance, int color)
+void	clear_image(t_session *instance)
 {
 	int	y;
 	int	x;
@@ -31,7 +31,11 @@ void	clear_image(t_session *instance, int color)
 		x = 0;
 		while (x < instance->width)
 		{
-			pixel_put(&(instance->mlx_img), x, y, color);
+			if (y < instance->height / 2)
+				pixel_put(&(instance->mlx_img), x, y, instance->map.colors[0]);
+			else
+				pixel_put(&(instance->mlx_img), x, y, instance->map.colors[1]);
+			// pixel_put(&(instance->mlx_img), x, y, color);
 			x++;
 		}
 		y++;

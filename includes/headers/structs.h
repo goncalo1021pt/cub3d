@@ -33,6 +33,7 @@ typedef struct s_map
 	char		*ea;
 	char		*c;
 	char		*f;
+	int			colors[2];
 }				t_map;
 
 // typedef struct s_ray

@@ -87,11 +87,13 @@ bool	get_args(t_map *map);
 bool	is_in_array(char *arr, char c);
 int		ft_strslen(char **strs);
 bool	is_number(char *str);
+int		get_hexa_color(char *color);
 
 // map_check.c
 bool	check_char(t_map *map);
 bool	initiate_flood(t_map *map);
 bool	check_sorroundings(t_map *map);
+void	create_boarder(char **grid);
 
 // textures_check.c
 bool	validate_textures(t_map *map);
@@ -133,7 +135,7 @@ void	init_dda(t_dda *dda, t_point start, t_point end);
 void	draw_line(t_session *instance, t_point start, t_point end, int color);
 void	draw_square(t_session *instance, t_point point, int sq, int color);
 void 	draw_face(t_session *instance, int x, int y, int color);
-void	clear_image(t_session *instance, int color);
+void	clear_image(t_session *instance);
 
 // load_textures.c
 bool load_textures(t_session *ist);

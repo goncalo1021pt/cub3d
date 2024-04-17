@@ -47,7 +47,6 @@ bool	initialize_player(t_player *player, t_map *map)
 				player->x = x;
 				player->y = y;
 				set_angle(player, map->grid[y][x]);
-				map->grid[y][x] = 'P';
 				return (true);
 			}
 		}
@@ -70,6 +69,5 @@ bool	start_game(t_session *instance)
 	init_keys(instance);
 	mlx_startup(instance);
 	// print_player(player);
-	// exit(0);
 	return (true);
 }

@@ -15,15 +15,9 @@ void	rotate_player(t_player *player, int angle)
 void	wall_slide(t_player *player, t_map *map, double x, double y)
 {
 	if (map->grid[(int)round(player->y)][(int)round(x)] == '0')
-	{
-		map->grid[(int)round(player->y)][(int)round(player->x)] = '0';
 		player->x = x;
-	}
 	else if (map->grid[(int)round(y)][(int)round(player->x)] == '0')
-	{
-		map->grid[(int)round(player->y)][(int)round(player->x)] = '0';
 		player->y = y;
-	}
 	else if (x > player->x && map->grid[(int)round(player->y)][(int)round(player->x + 1)] == '0')
 			player->x = x;
 	else if (x < player->x && map->grid[(int)round(player->y)][(int)round(player->x - 1)] == '0')
@@ -57,7 +51,6 @@ void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
 		map->grid[(int)round(player->y)][(int)round(player->x)] = '0';
 		player->x = x;
 		player->y = y;
-		map->grid[(int)round(player->y)][(int)round(player->x)] = 'P';
 	}
 	else if ((int)angle % 90 != 0)
 		wall_slide(player, map, x, y);
