@@ -1,4 +1,3 @@
-
 #include "../includes/headers/cub3d.h"
 
 static void draw_grid(t_session *instance)
@@ -41,4 +40,3 @@ void	debug2D(t_session *instance)
 	}
 	draw_grid(instance);
 }
-

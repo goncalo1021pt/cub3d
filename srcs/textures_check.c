@@ -11,30 +11,6 @@ bool	try_open(char *path)
 	return (true);
 }
 
-bool	is_number(char *str)
-{
-	int	ctd;
-
-	ctd = 0;
-	while (str[ctd])
-	{
-		if (!ft_isdigit(str[ctd]))
-			return (false);
-		ctd++;
-	}
-	return (true);
-}
-
-int	ft_strslen(char **strs)
-{
-	int	ctd;
-
-	ctd = 0;
-	while (strs[ctd])
-		ctd++;
-	return (ctd);
-}
-
 bool	is_rgb(char *str)
 {
 	char	**rgb;
@@ -58,14 +34,14 @@ bool	is_rgb(char *str)
 
 bool	validate_textures(t_map *map)
 {
-	// if (!try_open(map->no))
-	// 	return (ft_putendl_fd(INV_NO, 2), false);
-	// if (!try_open(map->so))
-	// 	return (ft_putendl_fd(INV_SO, 2), false);
-	// if (!try_open(map->we))
-	// 	return (ft_putendl_fd(INV_WE, 2), false);
-	// if (!try_open(map->ea))
-	// 	return (ft_putendl_fd(INV_EA, 2), false);
+	if (!try_open(map->no))
+		return (ft_putendl_fd(INV_NO, 2), false);
+	if (!try_open(map->so))
+		return (ft_putendl_fd(INV_SO, 2), false);
+	if (!try_open(map->we))
+		return (ft_putendl_fd(INV_WE, 2), false);
+	if (!try_open(map->ea))
+		return (ft_putendl_fd(INV_EA, 2), false);
 	if (!is_rgb(map->c))
 		return (ft_putendl_fd(INV_C, 2), false);
 	if (!is_rgb(map->f))

@@ -52,7 +52,7 @@ typedef enum e_key_arr
 	W,
 	S,
 	A,
- 	D,
+	D,
 	P,
 	L_SHIFT,
 	LEFT_ARROW,
@@ -85,6 +85,8 @@ bool	get_args(t_map *map);
 
 // aux.c
 bool	is_in_array(char *arr, char c);
+int		ft_strslen(char **strs);
+bool	is_number(char *str);
 
 // map_check.c
 bool	check_char(t_map *map);
@@ -93,7 +95,6 @@ bool	check_sorroundings(t_map *map);
 
 // textures_check.c
 bool	validate_textures(t_map *map);
-int		ft_strslen(char **strs);
 
 // movment_grid.c
 bool	create_grid(t_map *map);
@@ -140,12 +141,12 @@ bool load_textures(t_session *ist);
 // grid.c // debug2D.c
 void	debug2D(t_session *instance);
 //minimap.c
-void 	vp_grid(t_session *instance);
-void 	vp_scaled(t_session *instance);
+void	vp_grid(t_session *instance);
+void	vp_scaled(t_session *instance);
 void	vp_player(t_session *instance, int x, int y);
 
 //create3d.c
-void cast_3d(t_session *instance);
+void	cast_3d(t_session *instance);
 
 // start.c
 bool	start_game(t_session *instance);
