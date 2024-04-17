@@ -91,7 +91,6 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 			if (instance->map.grid[grid_y][grid_x] == '1')
 				hit = 1;
 		}
-
 		if (side == 0)
 			perp_wall_dist = (side_dist_x - delta_dist_x);
 		else
@@ -110,9 +109,9 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 			line_start = 0;
 		if (line_end >= W_HEIGHT)
 			line_end = W_HEIGHT - 1;
-		color = 0xFFFFFF;
+		color = 0x7c71c4;
 		if (side == 1)
-			color = color / 2;
+			color = 0x2f4f4f;
 		draw_line(instance, (t_point){i, line_start}, (t_point){i, line_end}, color);
 		i++;
 	}
