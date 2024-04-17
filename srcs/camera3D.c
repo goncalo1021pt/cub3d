@@ -43,11 +43,20 @@ double	clamp_ray(double dir)
 		return (fabs(1 / dir));
 }
 
+int	clamp_slice(int slice)
+{
+	if (slice < 0)
+		return (0);
+	if (slice >= W_HEIGHT)
+		return (W_HEIGHT - 1);
+	return (slice);
+}
+
 void	init_camera3D(t_session *instance, t_camera3D *camera)
 {
 	camera->dir_x = cos(instance->player.angle * (PI / 180));
 	camera->dir_y = sin(instance->player.angle * (PI / 180));
-	camera->fov = 72 * (PI / 180); // Field of view in radians
+	camera->fov = 72 * (PI / 180);
 	camera->plane_x = -camera->dir_y * tan(camera->fov / 2);
 	camera->plane_y = camera->dir_x * tan(camera->fov / 2);
 }
@@ -116,7 +125,6 @@ void	cast_ray(t_session *instance, t_ray	*ray)
 		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
 }
 
-
 void	camera3D(t_session *instance, double pos_x, double pos_y)
 {
 	t_camera3D	camera;
@@ -136,10 +144,8 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 			slice.height = (int)(W_HEIGHT / ray.perp_wall_dist * MAP_SCALE);
 			slice.start = -slice.height / 2 + W_HEIGHT / 2;
 			slice.end = slice.height / 2 + W_HEIGHT / 2;
-			if (slice.start < 0)
-				slice.start = 0;
-			if (slice.end >= W_HEIGHT)
-				slice.end = W_HEIGHT - 1;
+			slice.start = clamp_slice(slice.start);
+			slice.end = clamp_slice(slice.end);
 			slice.color = 0x7c71c4;
 			if (ray.side == 1)
 				slice.color = 0x2f4f4f;
