@@ -1,12 +1,6 @@
 #include "../includes/headers/cub3d.h"
 
-/*
-	double cam_angle;
 
-	cam_angle = instance->player.angle * (PI / 180);
-	dir_x = cos(cam_angle);
-	dir_y = sin(cam_angle);
-*/
 void	camera3D(t_session *instance, double pos_x, double pos_y)
 {
 	double dir_x;
@@ -15,16 +9,18 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 	double plane_y;
 
 
-	// dir_x = cos(instance->player.angle * (PI / 180));
-	// dir_y = sin(instance->player.angle * (PI / 180));
+	//printf("angle: %f\n", instance->player.angle);
+	dir_x = cos(instance->player.angle * (PI / 180));
+	dir_y = sin(instance->player.angle * (PI / 180));
 
 
-	dir_x = 1;
-	dir_y = 0;
+	//dir_x = 1;
+	//dir_y = 0;
 
 
-	plane_x = 0;
-	plane_y = 0.7;
+	double fov = 66 * (PI / 180); // Field of view in radians
+	plane_x = -dir_y * tan(fov / 2);
+	plane_y = dir_x * tan(fov / 2);
 
 	int	i;
 	i = 0;
@@ -46,8 +42,16 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 
 		double delta_dist_x;
 		double delta_dist_y;
-		delta_dist_x = (ray_dir_y == 0) ? 1e30 : fabs(1 / ray_dir_x);	// Avoid division by zero
-		delta_dist_y = (ray_dir_x == 0) ? 1e30 : fabs(1 / ray_dir_y);	// Avoid division by zero
+
+		if (ray_dir_y == 0)
+			delta_dist_x = 1e30;
+		else
+			delta_dist_x = fabs(1 / ray_dir_x);
+
+		if (ray_dir_x == 0)
+			delta_dist_y = 1e30;
+		else
+			delta_dist_y = fabs(1 / ray_dir_y);
 
 		double side_dist_x;
 		double side_dist_y;
@@ -95,6 +99,7 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 				grid_y += step_y;
 				side = 1;
 			}
+			//pixel_put(&instance->mlx_img, grid_x, grid_y, 0xFF0000);
 			if (instance->map.grid[grid_y][grid_x] == '1')
 				hit = 1;
 		}
