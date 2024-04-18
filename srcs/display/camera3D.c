@@ -56,7 +56,7 @@ void	init_camera3D(t_session *instance, t_camera3D *camera)
 {
 	camera->dir_x = cos(instance->player.angle * (PI / 180));
 	camera->dir_y = sin(instance->player.angle * (PI / 180));
-	camera->fov = 72 * (PI / 180);
+	camera->fov = 78 * (PI / 180);
 	camera->plane_x = -camera->dir_y * tan(camera->fov / 2);
 	camera->plane_y = camera->dir_x * tan(camera->fov / 2);
 }
@@ -96,6 +96,8 @@ void	aim_ray(t_ray *ray)
 	}
 }
 
+// if (!instance->map.grid[r_pos.y] || !instance->map.grid[r_pos.y][r_pos.x] || instance->map.grid[r_pos.y][r_pos.x] == '1' || instance->map.grid[r_pos.y][r_pos.x] == ' ')
+
 void	cast_ray(t_session *instance, t_ray	*ray)
 {
 	int	hit;
@@ -116,7 +118,8 @@ void	cast_ray(t_session *instance, t_ray	*ray)
 			ray->side = 1;
 		}
 		//pixel_put(&instance->mlx_img, ray->x, ray->y, 0xFF0000); // check ray in 2Debug
-		if (instance->map.grid[ray->y][ray->x] == '1')
+		if (!instance->map.grid[ray->y] || !instance->map.grid[ray->y][ray->x] 
+			|| instance->map.grid[ray->y][ray->x] == '1' || instance->map.grid[ray->y][ray->x] == ' ')
 			hit = 1;
 	}
 	if (ray->side == 0)
