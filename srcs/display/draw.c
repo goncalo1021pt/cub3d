@@ -19,29 +19,6 @@ int	get_pixel(t_data *data, int x, int y)
 	return (*(unsigned int *)dst);
 }
 
-void	clear_image(t_session *instance)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	mlx_clear_window(instance->mlx_ser, instance->mlx_win);
-	while (y < instance->height)
-	{
-		x = 0;
-		while (x < instance->width)
-		{
-			if (y < instance->height / 2)
-				pixel_put(&(instance->mlx_img), x, y, instance->map.colors[0]);
-			else
-				pixel_put(&(instance->mlx_img), x, y, instance->map.colors[1]);
-			// pixel_put(&(instance->mlx_img), x, y, color);
-			x++;
-		}
-		y++;
-	}
-}
-
 void	init_dda(t_dda *dda, t_point start, t_point end)
 {
 	dda->current_x = start.x;
@@ -69,7 +46,47 @@ void	draw_line(t_session *instance, t_point start, t_point end, int color)
 	}
 }
 
-void draw_square(t_session *instance, t_point point, int sq, int color)
+void	clear_image(t_session *instance)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	mlx_clear_window(instance->mlx_ser, instance->mlx_win);
+	while (y < instance->height)
+	{
+		x = 0;
+		while (x < instance->width)
+		{
+			if (y < instance->height / 2)
+				pixel_put(&(instance->mlx_img), x, y, instance->map.colors[0]);
+			else
+				pixel_put(&(instance->mlx_img), x, y, instance->map.colors[1]);
+			// pixel_put(&(instance->mlx_img), x, y, color);
+			x++;
+		}
+		y++;
+	}
+}
+
+void fill_square(t_session *instance, t_point point, int sq, int color)
+{
+	int	x;
+	int	y;
+	y = point.y;
+	while (y < point.y + sq)
+	{
+		x = point.x;
+		while ( x < point.x + sq)
+		{
+			pixel_put(&(instance->mlx_img), x, y, color);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	draw_square(t_session *instance, t_point point, int sq, int color)
 {
 	t_point	start;
 	t_point end;
@@ -108,31 +125,3 @@ void	draw_face(t_session *instance, int x, int y, int color)
 	draw_line(instance, (t_point){x, y}, end, color);
 }
 
-/*
-void	init_dda(t_dda *dda, int start_x, int start_y , int end_x, int end_y)
-{
-	dda->current_x = start_x;
-	dda->current_y = start_y;
-	dda->delta_x = end_x - start_x;
-	dda->delta_y = end_y - start_y;
-	dda->step = fmax(fabs(dda->delta_x), fabs(dda->delta_y));
-	dda->x_inc = dda->delta_x / dda->step;
-	dda->y_inc = dda->delta_y / dda->step;
-}
-
-void	draw_line(t_session *instance, int start_x, int end_x, int start_y, int end_y)
-{
-	t_dda	dda;
-	int		i;
-
-	i = 0;
-	init_dda(&dda, start_y, end_y, start_x, end_x);
-	while (i <= dda.step)
-	{
-		pixel_put(&instance->mlx_img, dda.current_x, dda.current_y, 0xff4500);
-		dda.current_x += dda.x_inc;
-		dda.current_y += dda.y_inc;
-		i++;
-	}
-}
-*/

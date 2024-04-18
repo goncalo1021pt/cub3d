@@ -1,17 +1,5 @@
 #include "../../includes/headers/cub3d.h"
 
-void fill_square(t_session *instance, t_point point, int sq, int color)
-{
-	int x, y;
-	for (y = point.y; y < point.y + sq; y++)
-	{
-		for (x = point.x; x < point.x + sq; x++)
-		{
-			pixel_put(&(instance->mlx_img), x, y, color); // Assuming pixel_put function exists
-		}
-	}
-}
-
 void	vp_player(t_session *instance, int x, int y)
 {
 	t_point	pos;
