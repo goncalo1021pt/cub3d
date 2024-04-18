@@ -147,8 +147,7 @@ void	vp_grid(t_session *instance);
 void	vp_scaled(t_session *instance);
 void	vp_player(t_session *instance, int x, int y);
 
-//create3d.c
-void	cast_3d(t_session *instance);
+
 
 // start.c
 bool	start_game(t_session *instance);

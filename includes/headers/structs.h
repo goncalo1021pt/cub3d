@@ -36,23 +36,7 @@ typedef struct s_map
 	int			colors[2];
 }				t_map;
 
-// typedef struct s_ray
-// {
-// 	t_point col_point;
-// 	int		texture;
-// 	float 	len;
-// 	float 	angle;
-// } t_ray;
 
-// typedef struct s_rcaster
-// {
-// 	float	fov;
-// 	float	angle;
-// 	float 	inc;
-// 	float	len;
-// 	int		n_rays;
-// 	t_ray	rays[1980];
-// } t_rcaster;
 
 typedef struct s_player
 {
@@ -60,7 +44,6 @@ typedef struct s_player
 	float		y;
 	int			keys_pressed;
 	double		angle;
-	//t_rcaster	raycaster;
 }				t_player;
 
 typedef struct s_session
@@ -77,14 +60,6 @@ typedef struct s_session
 	int			keys[MAX_KEYS];
 }				t_session;
 
-
-// typedef struct s_mode
-// {
-// 	int type;
-// 	int sub_type;
-
-// }	t_mode;
-
 typedef struct s_camera2d
 {
 	t_point		top_l;
@@ -92,7 +67,45 @@ typedef struct s_camera2d
 	t_point		p_pos;
 	t_point		size;
 	t_point		offset;
+
 }				t_camera2d;
+
+typedef	struct s_camera3D
+{
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	double	fov;
+	double	x;
+} t_camera3D;
+
+typedef struct s_ray
+{
+	int hit;
+	int side;
+	int x;
+	int y;
+	double ray_dir_x;
+	double ray_dir_y;
+	double delta_dist_x;
+	double delta_dist_y;
+	double side_dist_x;
+	double side_dist_y;
+	double perp_wall_dist;
+	double step_x;
+	double step_y;
+	int	wall_dir;
+	int	wall_x;
+} t_ray;
+
+typedef struct s_slice
+{
+	int	height;
+	int	start;
+	int	end;
+	int	color;
+} t_slice;
 
 typedef struct s_dda
 {

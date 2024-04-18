@@ -1,41 +1,41 @@
 #include "../../includes/headers/cub3d.h"
 
-typedef	struct s_camera3D
-{
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
-	double	fov;
-	double	x;
-} t_camera3D;
+// typedef	struct s_camera3D
+// {
+// 	double	dir_x;
+// 	double	dir_y;
+// 	double	plane_x;
+// 	double	plane_y;
+// 	double	fov;
+// 	double	x;
+// } t_camera3D;
 
-typedef struct s_ray
-{
-	int hit;
-	int side;
-	int x;
-	int y;
-	double ray_dir_x;
-	double ray_dir_y;
-	double delta_dist_x;
-	double delta_dist_y;
-	double side_dist_x;
-	double side_dist_y;
-	double perp_wall_dist;
-	double step_x;
-	double step_y;
-	int	wall_dir;
-	int	wall_x;
-} t_ray;
+// typedef struct s_ray
+// {
+// 	int hit;
+// 	int side;
+// 	int x;
+// 	int y;
+// 	double ray_dir_x;
+// 	double ray_dir_y;
+// 	double delta_dist_x;
+// 	double delta_dist_y;
+// 	double side_dist_x;
+// 	double side_dist_y;
+// 	double perp_wall_dist;
+// 	double step_x;
+// 	double step_y;
+// 	int	wall_dir;
+// 	int	wall_x;
+// } t_ray;
 
-typedef struct s_slice
-{
-	int	height;
-	int	start;
-	int	end;
-	int	color;
-} t_slice;
+// typedef struct s_slice
+// {
+// 	int	height;
+// 	int	start;
+// 	int	end;
+// 	int	color;
+// } t_slice;
 
 double	clamp_ray(double dir)
 {
