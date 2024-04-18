@@ -56,7 +56,7 @@ int	clamp_slice(int slice)
 
 int get_wall_dir(char **grid ,int x, int y, int side)
 {
-	if (grid[y + 1][x] != '1' && side == 1) 
+	if (grid[y + 1][x] != '1' && side == 1)
 		return (SOUTH_TEXTURE);
 	else if (grid[y - 1][x] != '1' && side == 1)
 		return (NORTH_TEXTURE);
@@ -130,21 +130,21 @@ void	cast_ray(t_session *instance, t_ray	*ray)
 			ray->side = 1;
 		}
 		//pixel_put(&instance->mlx_img, ray->x, ray->y, 0xFF0000); // check ray in 2Debug
-		if (!instance->map.grid[ray->y] || !instance->map.grid[ray->y][ray->x] 
+		if (!instance->map.grid[ray->y] || !instance->map.grid[ray->y][ray->x]
 			|| instance->map.grid[ray->y][ray->x] == '1' || instance->map.grid[ray->y][ray->x] == ' ')
-		{	
+		{
 			ray->wall_dir = get_wall_dir(instance->map.grid, ray->x, ray->y, ray->side);
 			hit = 1;
 		}
 	}
 	if (ray->side == 0)
-	{	
+	{
 		ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
 		ray->wall_x = ray->x % MAP_SCALE;
 		// ray->wall_x = (ray->y + ray->perp_wall_dist + ray->ray_dir_y);
 	}
 	else
-	{	
+	{
 		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
 		ray->wall_x = ray->y % MAP_SCALE;
 		// ray->wall_x = ray->x + ray->perp_wall_dist + ray->ray_dir_x;
@@ -172,15 +172,15 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 			slice.start = -slice.height / 2 + W_HEIGHT / 2;
 			slice.end = slice.height / 2 + W_HEIGHT / 2;
 			slice.start = clamp_slice(slice.start);
-			slice.end = clamp_slice(slice.end);			
+			slice.end = clamp_slice(slice.end);
 			if (ray.wall_dir == NORTH_TEXTURE)
-				slice.color = 0xff0000;
+				slice.color = 0x8fbc8f;
 			else if (ray.wall_dir == SOUTH_TEXTURE)
-				slice.color = 0x00ff00;
+				slice.color = 0x2e8b57;
 			else if (ray.wall_dir == EAST_TEXTURE)
-				slice.color = 0x0000ff;
+				slice.color = 0x3cb371;
 			else if (ray.wall_dir == WEST_TEXTURE)
-				slice.color = 0xff00ff;
+				slice.color = 0x20b2aa;
 			draw_line(instance, (t_point){i, slice.start}, (t_point){i, slice.end}, slice.color);
 		}
 		// printf("%d\n", ray.wall_x);

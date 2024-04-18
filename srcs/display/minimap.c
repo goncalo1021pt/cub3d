@@ -43,6 +43,8 @@ void vp_scaled(t_session *instance)
 			cam2d.offset.y = (y - cam2d.top_l.y) + (MAP_SCALE * 3.5  - (instance->player.y - cam2d.top_l.y));
 			if (instance->map.grid[y][x] == '1')
 				pixel_put(&(instance->mlx_img), cam2d.offset.x, cam2d.offset.y, 0xff4500);
+			else if (instance->map.grid[y][x] == '2')
+				pixel_put(&(instance->mlx_img), cam2d.offset.x, cam2d.offset.y, 0x004500);
 			else if (instance->map.grid[y][x] == '0')
 				pixel_put(&(instance->mlx_img), cam2d.offset.x, cam2d.offset.y, 0xffffff);
 			x++;
