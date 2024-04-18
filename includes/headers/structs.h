@@ -85,6 +85,13 @@ typedef struct s_session
 
 // }	t_mode;
 
+typedef struct s_texture
+{
+	int 	x;
+	int		line_h;
+	t_data	data;
+} t_texture;
+
 typedef struct s_camera2d
 {
 	t_point		top_l;

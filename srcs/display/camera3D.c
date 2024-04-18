@@ -172,7 +172,8 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 			slice.start = -slice.height / 2 + W_HEIGHT / 2;
 			slice.end = slice.height / 2 + W_HEIGHT / 2;
 			slice.start = clamp_slice(slice.start);
-			slice.end = clamp_slice(slice.end);			
+			slice.end = clamp_slice(slice.end);
+			// texture.line_h = ray.perp_wall_dist * MAP_SCALE;		
 			if (ray.wall_dir == NORTH_TEXTURE)
 				slice.color = 0xff0000;
 			else if (ray.wall_dir == SOUTH_TEXTURE)
