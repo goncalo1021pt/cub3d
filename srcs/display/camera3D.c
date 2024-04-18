@@ -26,6 +26,7 @@ typedef struct s_ray
 	double step_x;
 	double step_y;
 	int	wall_dir;
+	int	wall_x;
 } t_ray;
 
 typedef struct s_slice
@@ -137,12 +138,19 @@ void	cast_ray(t_session *instance, t_ray	*ray)
 		}
 	}
 	if (ray->side == 0)
+	{	
 		ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
+		ray->wall_x = ray->x % MAP_SCALE;
+		// ray->wall_x = (ray->y + ray->perp_wall_dist + ray->ray_dir_y);
+	}
 	else
+	{	
 		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
+		ray->wall_x = ray->y % MAP_SCALE;
+		// ray->wall_x = ray->x + ray->perp_wall_dist + ray->ray_dir_x;
+	}
+	//ray->wall_x -= floor(ray->wall_x);
 }
-
-
 
 void	camera3D(t_session *instance, double pos_x, double pos_y)
 {
@@ -175,6 +183,7 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 				slice.color = 0xff00ff;
 			draw_line(instance, (t_point){i, slice.start}, (t_point){i, slice.end}, slice.color);
 		}
+		// printf("%d\n", ray.wall_x);
 		i++;
 	}
 }
