@@ -21,6 +21,13 @@ typedef struct s_data
 	int			height;
 }				t_data;
 
+typedef struct s_texture
+{
+	int 	x;
+	int		line_h;
+	t_data	data;
+} t_texture;
+
 typedef struct s_map
 {
 	char		**buffer;
@@ -36,8 +43,6 @@ typedef struct s_map
 	int			colors[2];
 }				t_map;
 
-
-
 typedef struct s_player
 {
 	float		x;
@@ -45,6 +50,12 @@ typedef struct s_player
 	int			keys_pressed;
 	double		angle;
 }				t_player;
+
+typedef struct s_mode
+{
+	bool		pause;
+	bool		minimap;
+}				t_mode;
 
 typedef struct s_session
 {
@@ -54,7 +65,7 @@ typedef struct s_session
 	t_data		textures[6];
 	t_map		map;
 	t_player	player;
-	//t_mode		mode;
+	t_mode		mode;
 	int			width;
 	int			height;
 	int			keys[MAX_KEYS];
