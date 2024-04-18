@@ -2,7 +2,7 @@
 
 void init_array(t_session *instance)
 {
-	instance->textures[NORT_TEXTURE].img = NULL;
+	instance->textures[NORTH_TEXTURE].img = NULL;
 	instance->textures[SOUTH_TEXTURE].img = NULL;
 	instance->textures[WEST_TEXTURE].img = NULL;
 	instance->textures[EAST_TEXTURE].img = NULL;
