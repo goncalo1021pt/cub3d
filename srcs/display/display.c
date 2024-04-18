@@ -29,7 +29,7 @@ void	mlx_update(t_session *instance)
 	camera3D(instance, instance->player.x, instance->player.y);
 	//minimap
 	vp_scaled(instance);
-	//vp_player(instance, instance->width / 9, instance->height - (MAP_SCALE * 2));
+
 	//push to window
 	mlx_put_image_to_window(instance->mlx_ser,
 		instance->mlx_win, instance->mlx_img.img, 0, 0);
@@ -46,10 +46,10 @@ void	mlx_startup(t_session *instance)
 	camera3D(instance, (double)instance->player.x, (double)instance->player.y);
 	//minimap
 	vp_scaled(instance);
-	//vp_player(instance, instance->width / 9, instance->height - (MAP_SCALE * 2));
 	//push to window
 	mlx_put_image_to_window(instance->mlx_ser, instance->mlx_win, instance->mlx_img.img, 0, 0);
 	mlx_hook(instance->mlx_win, KeyPress, KeyPressMask, handle_key, instance);
+	//mlx_key_hook(instance->mlx_win, handle_static_keys, instance);
 	mlx_hook(instance->mlx_win, KeyRelease, KeyReleaseMask, handle_key_release, instance);
 	//mlx_hook(instance->mlx_win, MotionNotify, PointerMotionMask, mouse_movement, instance);
 	mlx_loop_hook(instance->mlx_ser, const_movement, instance);  // Use instance->mlx instead of instance->mlx_win

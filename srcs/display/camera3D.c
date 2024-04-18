@@ -25,6 +25,7 @@ typedef struct s_ray
 	double perp_wall_dist;
 	double step_x;
 	double step_y;
+	int	wall_dir;
 } t_ray;
 
 typedef struct s_slice
@@ -50,6 +51,18 @@ int	clamp_slice(int slice)
 	if (slice >= W_HEIGHT)
 		return (W_HEIGHT - 1);
 	return (slice);
+}
+
+int get_wall_dir(char **grid ,int x, int y, int side)
+{
+	if (grid[y + 1][x] != '1' && side == 1) 
+		return (SOUTH_TEXTURE);
+	else if (grid[y - 1][x] != '1' && side == 1)
+		return (NORTH_TEXTURE);
+	else if (grid[y][x + 1] != '1' )
+		return (EAST_TEXTURE);
+	else
+		return (WEST_TEXTURE);
 }
 
 void	init_camera3D(t_session *instance, t_camera3D *camera)
@@ -96,8 +109,6 @@ void	aim_ray(t_ray *ray)
 	}
 }
 
-// if (!instance->map.grid[r_pos.y] || !instance->map.grid[r_pos.y][r_pos.x] || instance->map.grid[r_pos.y][r_pos.x] == '1' || instance->map.grid[r_pos.y][r_pos.x] == ' ')
-
 void	cast_ray(t_session *instance, t_ray	*ray)
 {
 	int	hit;
@@ -120,13 +131,18 @@ void	cast_ray(t_session *instance, t_ray	*ray)
 		//pixel_put(&instance->mlx_img, ray->x, ray->y, 0xFF0000); // check ray in 2Debug
 		if (!instance->map.grid[ray->y] || !instance->map.grid[ray->y][ray->x] 
 			|| instance->map.grid[ray->y][ray->x] == '1' || instance->map.grid[ray->y][ray->x] == ' ')
+		{	
+			ray->wall_dir = get_wall_dir(instance->map.grid, ray->x, ray->y, ray->side);
 			hit = 1;
+		}
 	}
 	if (ray->side == 0)
 		ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
 	else
 		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
 }
+
+
 
 void	camera3D(t_session *instance, double pos_x, double pos_y)
 {
@@ -148,10 +164,15 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 			slice.start = -slice.height / 2 + W_HEIGHT / 2;
 			slice.end = slice.height / 2 + W_HEIGHT / 2;
 			slice.start = clamp_slice(slice.start);
-			slice.end = clamp_slice(slice.end);
-			slice.color = 0x7c71c4;
-			if (ray.side == 1)
-				slice.color = 0x2f4f4f;
+			slice.end = clamp_slice(slice.end);			
+			if (ray.wall_dir == NORTH_TEXTURE)
+				slice.color = 0xff0000;
+			else if (ray.wall_dir == SOUTH_TEXTURE)
+				slice.color = 0x00ff00;
+			else if (ray.wall_dir == EAST_TEXTURE)
+				slice.color = 0x0000ff;
+			else if (ray.wall_dir == WEST_TEXTURE)
+				slice.color = 0xff00ff;
 			draw_line(instance, (t_point){i, slice.start}, (t_point){i, slice.end}, slice.color);
 		}
 		i++;

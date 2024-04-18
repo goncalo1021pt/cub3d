@@ -61,7 +61,7 @@ typedef enum e_key_arr
 
 typedef enum e_sprite_order
 {
-	NORT_TEXTURE,
+	NORTH_TEXTURE,
 	SOUTH_TEXTURE,
 	EAST_TEXTURE,
 	WEST_TEXTURE,

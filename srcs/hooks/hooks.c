@@ -53,6 +53,12 @@ int	handle_key_release(int keycode, t_session *instance)
 	return (0);
 }
 
+// int handle_static_keys(int keycode, t_session *instance)
+// {
+// 	if (keycode == XK_Tab)
+// 		instance.
+// }
+
 int	const_movement(t_session *instance)
 {
 	int	speed;

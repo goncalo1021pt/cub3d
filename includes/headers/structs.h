@@ -71,11 +71,19 @@ typedef struct s_session
 	t_data		textures[6];
 	t_map		map;
 	t_player	player;
-	int			mode;
+	//t_mode		mode;
 	int			width;
 	int			height;
 	int			keys[MAX_KEYS];
 }				t_session;
+
+
+// typedef struct s_mode
+// {
+// 	int type;
+// 	int sub_type;
+
+// }	t_mode;
 
 typedef struct s_camera2d
 {
