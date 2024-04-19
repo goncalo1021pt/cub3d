@@ -47,6 +47,7 @@ bool	initialize_player(t_player *player, t_map *map)
 				player->x = x;
 				player->y = y;
 				set_angle(player, map->grid[y][x]);
+				map->grid[y][x] = '0';
 				return (true);
 			}
 		}

@@ -12,20 +12,37 @@ void	rotate_player(t_player *player, int angle)
 		player->angle += 360;
 }
 
-void	wall_slide(t_player *player, t_map *map, double x, double y)
+bool	is_in_colision(int x, int y, t_map *map, bool door_is_open)
 {
-	if (map->grid[(int)round(player->y)][(int)round(x)] == '0')
-		player->x = x;
-	else if (map->grid[(int)round(y)][(int)round(player->x)] == '0')
-		player->y = y;
-	else if (x > player->x && map->grid[(int)round(player->y)][(int)round(player->x + 1)] == '0')
-			player->x = x;
-	else if (x < player->x && map->grid[(int)round(player->y)][(int)round(player->x - 1)] == '0')
-			player->x = x;
-	else if (y > player->y && map->grid[(int)round(player->y + 1)][(int)round(player->x)] == '0')
-			player->y = y;
-	else if (y < player->y && map->grid[(int)round(player->y - 1)][(int)round(player->x)] == '0')
-			player->y = y;
+	int	ctd;
+
+	ctd = 0;
+	(void)door_is_open;
+	while (ctd <= HIT_BOX)
+	{
+		if (map->grid[y][x + ctd] == '1' || map->grid[y + ctd][x] == '1' || map->grid[y + ctd][x + ctd] == '1')
+			return (true);
+		if (map->grid[y - ctd][x] == '1' || map->grid[y][x - ctd] == '1' || map->grid[y - ctd][x - ctd] == '1')
+			return (true);
+		ctd++;
+	}
+	return (false);
+}
+
+void wall_slide(t_player *player, t_map *map, double x, double y)
+{
+    if (!is_in_colision((int)round(x), (int)round(player->y), map, false))
+        player->x = x;
+    else if (!is_in_colision((int)round(player->x), (int)round(y), map, false))
+        player->y = y;
+    else if (x > player->x && !is_in_colision((int)round(player->x + 1), (int)round(player->y), map, false))
+        player->x = x;
+    else if (x < player->x && !is_in_colision((int)round(player->x - 1), (int)round(player->y), map, false))
+        player->x = x;
+    else if (y > player->y && !is_in_colision((int)round(player->x), (int)round(player->y + 1), map, false))
+        player->y = y;
+    else if (y < player->y && !is_in_colision((int)round(player->x), (int)round(player->y - 1), map, false))
+        player->y = y;
 }
 
 void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
@@ -46,7 +63,7 @@ void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
 		x = player->x + speed * cos(angle * PI / 180);
 		y = player->y + speed * sin(angle * PI / 180);
 	}
-	if (map->grid[(int)round(y)][(int)round(x)] == '0')
+	if (!is_in_colision((int)round(x), (int)round(y), map, false))
 	{
 		map->grid[(int)round(player->y)][(int)round(player->x)] = '0';
 		player->x = x;

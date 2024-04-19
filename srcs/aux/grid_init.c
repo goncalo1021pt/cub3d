@@ -66,7 +66,7 @@ void	set_grid(t_map *map)
 		}
 		ctd++;
 	}
-	create_boarder(map->grid);
+	// create_boarder(map->grid);
 }
 
 bool	create_grid(t_map *map)
