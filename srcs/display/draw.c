@@ -60,24 +60,3 @@ void	clear_image(t_session *instance)
 	}
 }
 
-// void	draw_texture(t_session *instance, t_point start, t_point end, t_texture texture)
-// {
-// 	t_dda	dda;
-// 	int		i;
-// 	int color;
-// 	int	x_scale;
-// 	int	y_scale;
-
-// 	x_scale = (texture.data.width * texture.x) / MAP_SCALE;
-// 	init_dda(&dda, start, end);
-// 	while (i <= dda.step)
-// 	{
-// 		y_scale = (texture.data.height * )
-// 		color = get_pixel(&texture.data, x_scale, y_scale);
-// 		pixel_put(&instance->mlx_img, dda.current_x, dda.current_y, color);
-// 		dda.current_x += dda.x_inc;
-// 		dda.current_y += dda.y_inc;
-// 		i++;
-// 	}
-// }
-

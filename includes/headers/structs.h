@@ -21,13 +21,6 @@ typedef struct s_data
 	int			height;
 }				t_data;
 
-typedef struct s_texture
-{
-	int 	x;
-	int		line_h;
-	t_data	data;
-} t_texture;
-
 typedef struct s_map
 {
 	char		**buffer;
@@ -110,14 +103,6 @@ typedef struct s_ray
 	int	wall_x;
 } t_ray;
 
-typedef struct s_slice
-{
-	int	height;
-	int	start;
-	int	end;
-	int	color;
-} t_slice;
-
 typedef struct s_dda
 {
 	float		delta_x;
@@ -128,5 +113,21 @@ typedef struct s_dda
 	float		current_x;
 	float		current_y;
 }				t_dda;
+
+typedef struct s_slice
+{
+	int	height;
+	int	start;
+	int	end;
+	int	color;
+} t_slice;
+
+typedef struct s_texture
+{
+	int 	x;
+	int		line_h;
+	t_data	data;
+} t_texture;
+
 
 #endif
