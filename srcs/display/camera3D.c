@@ -136,14 +136,15 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 			slice.end = slice.height / 2 + W_HEIGHT / 2;
 			slice.start = clamp_slice(slice.start);
 			slice.end = clamp_slice(slice.end);
+			// texture.line_h = ray.perp_wall_dist * MAP_SCALE;
 			if (ray.wall_dir == NORTH_TEXTURE)
-				slice.color = 0x8fbc8f;
+				slice.color = 0xff0000;
 			else if (ray.wall_dir == SOUTH_TEXTURE)
-				slice.color = 0x2e8b57;
+				slice.color = 0x00ff00;
 			else if (ray.wall_dir == EAST_TEXTURE)
-				slice.color = 0x3cb371;
+				slice.color = 0x0000ff;
 			else if (ray.wall_dir == WEST_TEXTURE)
-				slice.color = 0x20b2aa;
+				slice.color = 0xff00ff;
 			draw_line(instance, (t_point){i, slice.start}, (t_point){i, slice.end}, slice.color);
 		}
 		// printf("%d\n", ray.wall_x);
