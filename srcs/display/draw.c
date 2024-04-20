@@ -11,14 +11,6 @@ void	pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	get_pixel(t_data *data, int x, int y)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
-	return (*(unsigned int *)dst);
-}
-
 void	init_dda(t_dda *dda, t_point start, t_point end)
 {
 	dda->current_x = start.x;
@@ -62,66 +54,11 @@ void	clear_image(t_session *instance)
 				pixel_put(&(instance->mlx_img), x, y, instance->map.colors[0]);
 			else
 				pixel_put(&(instance->mlx_img), x, y, instance->map.colors[1]);
-			// pixel_put(&(instance->mlx_img), x, y, color);
 			x++;
 		}
 		y++;
 	}
 }
 
-void fill_square(t_session *instance, t_point point, int sq, int color)
-{
-	int	x;
-	int	y;
-	y = point.y;
-	while (y < point.y + sq)
-	{
-		x = point.x;
-		while ( x < point.x + sq)
-		{
-			pixel_put(&(instance->mlx_img), x, y, color);
-			x++;
-		}
-		y++;
-	}
-}
 
-void	draw_square(t_session *instance, t_point point, int sq, int color)
-{
-	t_point	start;
-	t_point end;
-
-	// Draw top border
-	start = point;
-	end.x = point.x + sq;
-	end.y = point.y;
-	draw_line(instance, start, end, color);
-	// Draw left border
-	end.x = point.x;
-	end.y = point.y + sq;
-	draw_line(instance, start, end, color);
-	// Draw bottom border
-	start.x = point.x;
-	start.y = point.y + sq;
-	end.x = point.x + sq;
-	end.y = point.y + sq;
-	draw_line(instance, start, end, color);
-	// Draw right border
-	start.x = point.x + sq;
-	start.y = point.y;
-	end.x = point.x + sq;
-	end.y = point.y + sq;
-	draw_line(instance, start, end, color);
-}
-
-void	draw_face(t_session *instance, int x, int y, int color)
-{
-	int		length;
-	t_point	end;
-
-	length = MAP_SCALE / 4;
-	end.y = y + length * sin(instance->player.angle * PI / 180);
-	end.x = x + length * cos(instance->player.angle * PI / 180);
-	draw_line(instance, (t_point){x, y}, end, color);
-}
 

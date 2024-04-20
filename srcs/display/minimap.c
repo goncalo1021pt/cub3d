@@ -1,16 +1,56 @@
 #include "../../includes/headers/cub3d.h"
 
-void	vp_player(t_session *instance, int x, int y)
+void fill_square(t_session *instance, t_point point, int sq, int color)
 {
-	t_point	pos;
-	int		sq;
+	int	x;
+	int	y;
+	y = point.y;
+	while (y < point.y + sq)
+	{
+		x = point.x;
+		while ( x < point.x + sq)
+		{
+			pixel_put(&(instance->mlx_img), x, y, color);
+			x++;
+		}
+		y++;
+	}
+}
 
-	sq = MAP_SCALE / 4;
-	pos.y = y - (sq / 2);
-	pos.x = x - (sq / 2);
-	fill_square(instance, pos, sq, 0x000000); // temp player representation
-	draw_square(instance, pos, sq, 0xffffff); // temp player representation
-	draw_face(instance, x, y, 0xffffff); // representation of player facing dir
+// draw square faces counter clockwise start tih the top border
+void	draw_square(t_session *instance, t_point point, int sq, int color)
+{
+	t_point	start;
+	t_point end;
+
+	start = point;
+	end.x = point.x + sq;
+	end.y = point.y;
+	draw_line(instance, start, end, color);
+	end.x = point.x;
+	end.y = point.y + sq;
+	draw_line(instance, start, end, color);
+	start.x = point.x;
+	start.y = point.y + sq;
+	end.x = point.x + sq;
+	end.y = point.y + sq;
+	draw_line(instance, start, end, color);
+	start.x = point.x + sq;
+	start.y = point.y;
+	end.x = point.x + sq;
+	end.y = point.y + sq;
+	draw_line(instance, start, end, color);
+}
+
+void	draw_face(t_session *instance, int x, int y, int color)
+{
+	int		length;
+	t_point	end;
+
+	length = MAP_SCALE / 4;
+	end.y = y + length * sin(instance->player.angle * PI / 180);
+	end.x = x + length * cos(instance->player.angle * PI / 180);
+	draw_line(instance, (t_point){x, y}, end, color);
 }
 
 void	init_camera2d(t_session *instance, t_camera2d *cam2d)
@@ -25,6 +65,18 @@ void	init_camera2d(t_session *instance, t_camera2d *cam2d)
 	cam2d->bot_r.y = fmin(W_HEIGHT - 1, instance->player.y + cam2d->size.y / 2);
 }
 
+void	vp_player(t_session *instance, int x, int y)
+{
+	t_point	pos;
+	int		sq;
+
+	sq = MAP_SCALE / 4;
+	pos.y = y - (sq / 2);
+	pos.x = x - (sq / 2);
+	fill_square(instance, pos, sq, 0x000000);
+	draw_square(instance, pos, sq, 0xffffff);
+	draw_face(instance, x, y, 0xffffff);
+}
 
 void vp_scaled(t_session *instance)
 {
