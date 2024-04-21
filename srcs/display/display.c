@@ -33,6 +33,8 @@ void	mlx_update(t_session *instance)
 	//push to window
 	mlx_put_image_to_window(instance->mlx_ser,
 		instance->mlx_win, instance->mlx_img.img, 0, 0);
+	// mlx_put_image_to_window(instance->mlx_ser,
+	// 	instance->mlx_win, instance->textures[NORTH_TEXTURE].img, 0, 0);
 }
 
 void	mlx_startup(t_session *instance)

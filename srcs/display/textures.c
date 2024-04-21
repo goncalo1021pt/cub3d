@@ -20,7 +20,7 @@ int	get_pixel(t_data *data, int x, int y)
 // 	init_dda(&dda, start, end);
 // 	while (i <= dda.step)
 // 	{
-// 		y_scale = (texture.data.height * )
+// 		y_scale = (texture.data.height * texture.line_h) / MAP_SCALE;
 // 		color = get_pixel(&texture.data, x_scale, y_scale);
 // 		pixel_put(&instance->mlx_img, dda.current_x, dda.current_y, color);
 // 		dda.current_x += dda.x_inc;

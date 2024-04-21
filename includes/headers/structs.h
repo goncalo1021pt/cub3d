@@ -125,7 +125,7 @@ typedef struct s_slice
 typedef struct s_texture
 {
 	int 	x;
-	int		line_h;
+	int		slice_height;
 	t_data	data;
 } t_texture;
 

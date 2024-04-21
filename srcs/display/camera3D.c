@@ -104,17 +104,84 @@ void	cast_ray(t_session *instance, t_ray	*ray)
 	{
 		ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
 		ray->wall_x = ray->x % MAP_SCALE;
-		// ray->wall_x = (ray->y + ray->perp_wall_dist + ray->ray_dir_y);
+		//ray->wall_x = (ray->y + ray->perp_wall_dist + ray->ray_dir_y);
 	}
 	else
 	{
 		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
 		ray->wall_x = ray->y % MAP_SCALE;
-		// ray->wall_x = ray->x + ray->perp_wall_dist + ray->ray_dir_x;
+		//ray->wall_x = ray->x + ray->perp_wall_dist + ray->ray_dir_x;
 	}
 	//ray->wall_x -= floor(ray->wall_x);
 }
 
+void draw_textured_line(t_session *instance, t_point start, t_point end, t_texture *texture)
+{
+	t_dda dda;
+	int i;
+	int	tex_x;
+	int	tex_y;
+	int color;
+
+	i = 0;
+	init_dda(&dda, start, end);
+	while (i <= dda.step)
+	{
+		// Calculate the texture coordinates based on the current position along the line
+		tex_x = (int)((dda.current_x - start.x) / (float)(end.x - start.x) * texture->data.width);
+		tex_y = (int)((dda.current_y - start.y) / (float)(end.y - start.y) * texture->data.height);
+
+		// Retrieve the color of the pixel from the texture
+		color = get_pixel(&texture->data, tex_x, tex_y);
+
+		pixel_put(&(instance->mlx_img), dda.current_x, dda.current_y, color);
+
+		// Move to the next point along the line
+		dda.current_x += dda.x_inc;
+		dda.current_y += dda.y_inc;
+		i++;
+	}
+}
+
+void	camera3D(t_session *instance, double pos_x, double pos_y)
+{
+	t_camera3D	camera;
+	t_ray		ray;
+	t_slice		slice;
+	t_texture	tex;
+	int	i;
+
+	init_camera3D(instance, &camera);
+	i = 0;
+	while (i < W_WIDTH) //i < n_rays
+	{
+		init_ray(&camera, &ray, i, pos_x, pos_y);
+		aim_ray(&ray);
+		cast_ray(instance, &ray);
+		if (ray.perp_wall_dist > 0)
+		{
+			slice.height = (int)(W_HEIGHT / ray.perp_wall_dist * MAP_SCALE);
+			slice.start = -slice.height / 2 + W_HEIGHT / 2;
+			slice.end = slice.height / 2 + W_HEIGHT / 2;
+			slice.start = clamp_slice(slice.start);
+			slice.end = clamp_slice(slice.end);
+			tex.x = ray.wall_x;
+			tex.slice_height = slice.height;
+			if (ray.wall_dir == NORTH_TEXTURE)
+				tex.data = instance->textures[NORTH_TEXTURE];
+			else if (ray.wall_dir == SOUTH_TEXTURE)
+				tex.data = instance->textures[SOUTH_TEXTURE];
+			else if (ray.wall_dir == EAST_TEXTURE)
+				tex.data = instance->textures[EAST_TEXTURE];
+			else if (ray.wall_dir == WEST_TEXTURE)
+				tex.data = instance->textures[WEST_TEXTURE];
+			draw_textured_line(instance, (t_point){i, slice.start}, (t_point){i, slice.end}, &tex);
+		}
+		i++;
+	}
+}
+
+/*
 void	camera3D(t_session *instance, double pos_x, double pos_y)
 {
 	t_camera3D	camera;
@@ -151,3 +218,4 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 		i++;
 	}
 }
+*/
