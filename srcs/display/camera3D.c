@@ -40,8 +40,8 @@ void	init_camera3D(t_session *instance, t_camera3D *camera)
 
 void	init_ray(t_camera3D *canera, t_ray *ray, int i, double pos_x, double pos_y)
 {
-	ray->x = (int)pos_x;
-	ray->y = (int)pos_y;
+	ray->x = pos_x;
+	ray->y = pos_y;
 	canera->x = 2 * i / (double)W_WIDTH - 1;
 	ray->ray_dir_x = canera->dir_x + canera->plane_x * canera->x;
 	ray->ray_dir_y = canera->dir_y + canera->plane_y * canera->x;
