@@ -38,38 +38,38 @@ void	init_camera3D(t_session *instance, t_camera3D *camera)
 	camera->plane_y = camera->dir_x * tan(camera->fov / 2);
 }
 
-void	init_ray(t_camera3D *canera, t_ray *ray, int i, double pos_x, double pos_y)
+void	init_ray(t_camera3D *camera, t_ray *ray, int i, double pos_x, double pos_y)
 {
 	ray->x = pos_x;
 	ray->y = pos_y;
-	canera->x = 2 * i / (double)W_WIDTH - 1;
-	ray->ray_dir_x = canera->dir_x + canera->plane_x * canera->x;
-	ray->ray_dir_y = canera->dir_y + canera->plane_y * canera->x;
+	camera->x = 2 * i / (double)W_WIDTH - 1;
+	ray->ray_dir_x = camera->dir_x + camera->plane_x * camera->x;
+	ray->ray_dir_y = camera->dir_y + camera->plane_y * camera->x;
 	ray->delta_dist_x = clamp_ray(ray->ray_dir_x);
 	ray->delta_dist_y = clamp_ray(ray->ray_dir_y);
 }
 
-void	aim_ray(t_ray *ray)
+void	aim_ray(t_ray *ray, double pos_x, double pos_y)
 {
 	if (ray->ray_dir_x < 0)
 	{
 		ray->step_x = -1;
-		ray->side_dist_x = (ray->x - ray->x) * ray->delta_dist_x;
+		ray->side_dist_x = (pos_x - ray->x) * ray->delta_dist_x;
 	}
 	else
 	{
 		ray->step_x = 1;
-		ray->side_dist_x = (ray->x + 1.0 - ray->x) * ray->delta_dist_x;
+		ray->side_dist_x = (ray->x + 1.0 - pos_x) * ray->delta_dist_x;
 	}
 	if (ray->ray_dir_y < 0)
 	{
 		ray->step_y = -1;
-		ray->side_dist_y = (ray->y - ray->y) * ray->delta_dist_y;
+		ray->side_dist_y = (pos_y - ray->y) * ray->delta_dist_y;
 	}
 	else
 	{
 		ray->step_y = 1;
-		ray->side_dist_y = (ray->y + 1.0 - ray->y) * ray->delta_dist_y;
+		ray->side_dist_y = (ray->y + 1.0 - pos_y) * ray->delta_dist_y;
 	}
 }
 
@@ -148,15 +148,17 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 	while (i < W_WIDTH) //i < n_rays
 	{
 		init_ray(&camera, &ray, i, pos_x, pos_y);
-		aim_ray(&ray);
+		aim_ray(&ray, pos_x, pos_y);
 		cast_ray(instance, &ray);
 		if (ray.perp_wall_dist > 0)
 		{
 			slice.height = (int)(W_HEIGHT / ray.perp_wall_dist * MAP_SCALE);
 			slice.start = -slice.height / 2 + W_HEIGHT / 2;
 			slice.end = slice.height / 2 + W_HEIGHT / 2;
-			// slice.start = clamp_slice(slice.start);
-			// slice.end = clamp_slice(slice.end);
+			//slice.start = clamp_slice(slice.start);
+			//slice.end = clamp_slice(slice.end);
+
+
 
 			tex.slice_height = tex.slice_height;
 			if (ray.wall_dir == EAST_TEXTURE || ray.wall_dir == WEST_TEXTURE)
@@ -196,7 +198,7 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 // 	while (i < W_WIDTH) //i < n_rays
 // 	{
 // 		init_ray(&camera, &ray, i, pos_x, pos_y);
-// 		aim_ray(&ray);
+// 		aim_ray(&ray, pos_x, pos_y);
 // 		cast_ray(instance, &ray);
 // 		if (ray.perp_wall_dist > 0)
 // 		{

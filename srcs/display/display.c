@@ -28,8 +28,8 @@ void	mlx_update(t_session *instance)
 	//debug2D(instance);
 	camera3D(instance, instance->player.x, instance->player.y);
 	//minimap
-	//vp_scaled(instance);
-	vp_grid(instance);
+	vp_scaled(instance);
+	//vp_grid(instance);
 	//push to window
 	mlx_put_image_to_window(instance->mlx_ser,
 		instance->mlx_win, instance->mlx_img.img, 0, 0);
@@ -47,8 +47,8 @@ void	mlx_startup(t_session *instance)
 	//debug2D(instance);
 	camera3D(instance, (double)instance->player.x, (double)instance->player.y);
 	//minimap
-	//vp_scaled(instance);
-	vp_grid(instance);
+	vp_scaled(instance);
+	//vp_grid(instance);
 	//push to window
 	mlx_put_image_to_window(instance->mlx_ser, instance->mlx_win, instance->mlx_img.img, 0, 0);
 	mlx_hook(instance->mlx_win, KeyPress, KeyPressMask, handle_key, instance);
