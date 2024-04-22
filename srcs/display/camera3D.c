@@ -120,7 +120,7 @@ void draw_textured_line(t_session *instance, t_point start, t_point end, t_textu
 	{
 		// Calculate the texture coordinates based on the current position along the line
 		texture->t = (float)i / dda.step;
-		tex_x = texture->x;
+		tex_x = texture->x * texture->data.width / MAP_SCALE;
 		tex_y = texture->t * texture->data.height;
 		// Retrieve the color of the pixel from the texture
 		color = get_pixel(&texture->data, tex_x, tex_y);
