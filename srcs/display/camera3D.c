@@ -119,9 +119,9 @@ void draw_textured_line(t_session *instance, t_point start, t_point end, t_textu
 	while (i <= dda.step)
 	{
 		// Calculate the texture coordinates based on the current position along the line
+		texture->t = (float)i / dda.step;
 		tex_x = texture->x * texture->data.width;
-		tex_y = (int)((dda.current_y - start.y) / (float)(end.y - start.y) * texture->data.height);
-
+		tex_y = texture->t * texture->data.height;
 		// Retrieve the color of the pixel from the texture
 		color = get_pixel(&texture->data, tex_x, tex_y);
 
@@ -165,6 +165,8 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 			ray.wall_x -= floor(ray.wall_x);
 			tex.x = ray.wall_x;
 			printf("%d\n", ray.wall_x);
+
+
 			if (ray.wall_dir == NORTH_TEXTURE)
 				tex.data = instance->textures[NORTH_TEXTURE];
 			else if (ray.wall_dir == SOUTH_TEXTURE)
@@ -180,41 +182,41 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 	}
 }
 
-/*
-void	camera3D(t_session *instance, double pos_x, double pos_y)
-{
-	t_camera3D	camera;
-	t_ray		ray;
-	t_slice		slice;
-	int	i;
 
-	init_camera3D(instance, &camera);
-	i = 0;
-	while (i < W_WIDTH) //i < n_rays
-	{
-		init_ray(&camera, &ray, i, pos_x, pos_y);
-		aim_ray(&ray);
-		cast_ray(instance, &ray);
-		if (ray.perp_wall_dist > 0)
-		{
-			slice.height = (int)(W_HEIGHT / ray.perp_wall_dist * MAP_SCALE);
-			slice.start = -slice.height / 2 + W_HEIGHT / 2;
-			slice.end = slice.height / 2 + W_HEIGHT / 2;
-			slice.start = clamp_slice(slice.start);
-			slice.end = clamp_slice(slice.end);
-			// texture.line_h = ray.perp_wall_dist * MAP_SCALE;
-			if (ray.wall_dir == NORTH_TEXTURE)
-				slice.color = 0x8fbc8f;
-			else if (ray.wall_dir == SOUTH_TEXTURE)
-				slice.color = 0x2e8b57;
-			else if (ray.wall_dir == EAST_TEXTURE)
-				slice.color = 0x3cb371;
-			else if (ray.wall_dir == WEST_TEXTURE)
-				slice.color = 0x20b2aa;
-			draw_line(instance, (t_point){i, slice.start}, (t_point){i, slice.end}, slice.color);
-		}
-		// printf("%d\n", ray.wall_x);
-		i++;
-	}
-}
-*/
+// void	camera3D(t_session *instance, double pos_x, double pos_y)
+// {
+// 	t_camera3D	camera;
+// 	t_ray		ray;
+// 	t_slice		slice;
+// 	int	i;
+
+// 	init_camera3D(instance, &camera);
+// 	i = 0;
+// 	while (i < W_WIDTH) //i < n_rays
+// 	{
+// 		init_ray(&camera, &ray, i, pos_x, pos_y);
+// 		aim_ray(&ray);
+// 		cast_ray(instance, &ray);
+// 		if (ray.perp_wall_dist > 0)
+// 		{
+// 			slice.height = (int)(W_HEIGHT / ray.perp_wall_dist * MAP_SCALE);
+// 			slice.start = -slice.height / 2 + W_HEIGHT / 2;
+// 			slice.end = slice.height / 2 + W_HEIGHT / 2;
+// 			slice.start = clamp_slice(slice.start);
+// 			slice.end = clamp_slice(slice.end);
+// 			// texture.line_h = ray.perp_wall_dist * MAP_SCALE;
+// 			if (ray.wall_dir == NORTH_TEXTURE)
+// 				slice.color = 0x8fbc8f;
+// 			else if (ray.wall_dir == SOUTH_TEXTURE)
+// 				slice.color = 0x2e8b57;
+// 			else if (ray.wall_dir == EAST_TEXTURE)
+// 				slice.color = 0x3cb371;
+// 			else if (ray.wall_dir == WEST_TEXTURE)
+// 				slice.color = 0x20b2aa;
+// 			draw_line(instance, (t_point){i, slice.start}, (t_point){i, slice.end}, slice.color);
+// 		}
+// 		// printf("%d\n", ray.wall_x);
+// 		i++;
+// 	}
+// }
+
