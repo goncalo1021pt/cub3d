@@ -48,7 +48,7 @@ void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
 	}
 	if (map->grid[(int)round(y)][(int)round(x)] == '0')
 	{
-		map->grid[(int)round(player->y)][(int)round(player->x)] = '0';
+		// map->grid[(int)round(player->y)][(int)round(player->x)] = '0';
 		player->x = x;
 		player->y = y;
 	}

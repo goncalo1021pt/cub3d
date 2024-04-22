@@ -142,6 +142,7 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 	t_texture	tex;
 	int	i;
 
+	printf("pos x: %f | pos y: %f \n", round(pos_x), round(pos_y));
 	init_camera3D(instance, &camera);
 	i = 0;
 	while (i < W_WIDTH) //i < n_rays
@@ -154,8 +155,8 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 			slice.height = (int)(W_HEIGHT / ray.perp_wall_dist * MAP_SCALE);
 			slice.start = -slice.height / 2 + W_HEIGHT / 2;
 			slice.end = slice.height / 2 + W_HEIGHT / 2;
-			//slice.start = clamp_slice(slice.start);
-			//slice.end = clamp_slice(slice.end);
+			// slice.start = clamp_slice(slice.start);
+			// slice.end = clamp_slice(slice.end);
 
 			tex.slice_height = tex.slice_height;
 			if (ray.wall_dir == EAST_TEXTURE || ray.wall_dir == WEST_TEXTURE)
@@ -165,7 +166,7 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 			//ray.wall_x = floor(ray.wall_x);
 			ray.wall_x = floor(ray.wall_x % MAP_SCALE);
 			tex.x = ray.wall_x;
-			printf("%d\n", tex.x);
+
 
 
 			if (ray.wall_dir == NORTH_TEXTURE)
@@ -176,12 +177,10 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 				tex.data = instance->textures[EAST_TEXTURE];
 			else if (ray.wall_dir == WEST_TEXTURE)
 				tex.data = instance->textures[WEST_TEXTURE];
-
 			draw_textured_line(instance, (t_point){i, slice.start}, (t_point){i, slice.end}, &tex);
 		}
 		i++;
 	}
-	// exit(0);	
 }
 
 
