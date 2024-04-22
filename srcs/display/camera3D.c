@@ -154,16 +154,16 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 			slice.height = (int)(W_HEIGHT / ray.perp_wall_dist * MAP_SCALE);
 			slice.start = -slice.height / 2 + W_HEIGHT / 2;
 			slice.end = slice.height / 2 + W_HEIGHT / 2;
-			slice.start = clamp_slice(slice.start);
-			slice.end = clamp_slice(slice.end);
+			//slice.start = clamp_slice(slice.start);
+			//slice.end = clamp_slice(slice.end);
 
-			tex.slice_height = slice.height;
+			tex.slice_height = tex.slice_height;
 			if (ray.wall_dir == EAST_TEXTURE || ray.wall_dir == WEST_TEXTURE)
-				ray.wall_x = pos_y - ray.perp_wall_dist * ray.ray_dir_y;
+				ray.wall_x = pos_y + ray.perp_wall_dist * ray.ray_dir_y ;
 			else
-				ray.wall_x = pos_x - ray.perp_wall_dist * ray.ray_dir_x;
-			ray.wall_x = ray.wall_x % MAP_SCALE;
-			//ray.wall_x -= floor(ray.wall_x);
+				ray.wall_x = pos_x + ray.perp_wall_dist * ray.ray_dir_x ;
+			//ray.wall_x = floor(ray.wall_x);
+			ray.wall_x = floor(ray.wall_x % MAP_SCALE);
 			tex.x = ray.wall_x;
 			printf("%d\n", tex.x);
 
