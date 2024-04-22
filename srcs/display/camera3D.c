@@ -101,18 +101,9 @@ void	cast_ray(t_session *instance, t_ray	*ray)
 		}
 	}
 	if (ray->side == 0)
-	{
 		ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
-		ray->wall_x = ray->x % MAP_SCALE;
-		//ray->wall_x = (ray->y + ray->perp_wall_dist + ray->ray_dir_y);
-	}
 	else
-	{
 		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
-		ray->wall_x = ray->y % MAP_SCALE;
-		//ray->wall_x = ray->x + ray->perp_wall_dist + ray->ray_dir_x;
-	}
-	//ray->wall_x -= floor(ray->wall_x);
 }
 
 void draw_textured_line(t_session *instance, t_point start, t_point end, t_texture *texture)
@@ -128,7 +119,7 @@ void draw_textured_line(t_session *instance, t_point start, t_point end, t_textu
 	while (i <= dda.step)
 	{
 		// Calculate the texture coordinates based on the current position along the line
-		tex_x = (int)((dda.current_x - start.x) / (float)(end.x - start.x) * texture->data.width);
+		tex_x = texture->x * texture->data.width;
 		tex_y = (int)((dda.current_y - start.y) / (float)(end.y - start.y) * texture->data.height);
 
 		// Retrieve the color of the pixel from the texture
@@ -165,8 +156,15 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 			slice.end = slice.height / 2 + W_HEIGHT / 2;
 			slice.start = clamp_slice(slice.start);
 			slice.end = clamp_slice(slice.end);
-			tex.x = ray.wall_x;
+
 			tex.slice_height = slice.height;
+			if (ray.wall_dir == EAST_TEXTURE || ray.wall_dir == WEST_TEXTURE)
+				ray.wall_x = pos_y - ray.perp_wall_dist * ray.ray_dir_y;
+			else
+				ray.wall_x = pos_x - ray.perp_wall_dist * ray.ray_dir_x;
+			ray.wall_x -= floor(ray.wall_x);
+			tex.x = ray.wall_x;
+			printf("%d\n", ray.wall_x);
 			if (ray.wall_dir == NORTH_TEXTURE)
 				tex.data = instance->textures[NORTH_TEXTURE];
 			else if (ray.wall_dir == SOUTH_TEXTURE)
@@ -175,6 +173,7 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 				tex.data = instance->textures[EAST_TEXTURE];
 			else if (ray.wall_dir == WEST_TEXTURE)
 				tex.data = instance->textures[WEST_TEXTURE];
+
 			draw_textured_line(instance, (t_point){i, slice.start}, (t_point){i, slice.end}, &tex);
 		}
 		i++;
