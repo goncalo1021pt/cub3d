@@ -120,7 +120,7 @@ void draw_textured_line(t_session *instance, t_point start, t_point end, t_textu
 	{
 		// Calculate the texture coordinates based on the current position along the line
 		texture->t = (float)i / dda.step;
-		tex_x = texture->x * texture->data.width;
+		tex_x = texture->x;
 		tex_y = texture->t * texture->data.height;
 		// Retrieve the color of the pixel from the texture
 		color = get_pixel(&texture->data, tex_x, tex_y);
@@ -162,9 +162,10 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 				ray.wall_x = pos_y - ray.perp_wall_dist * ray.ray_dir_y;
 			else
 				ray.wall_x = pos_x - ray.perp_wall_dist * ray.ray_dir_x;
-			ray.wall_x -= floor(ray.wall_x);
+			ray.wall_x = ray.wall_x % MAP_SCALE;
+			//ray.wall_x -= floor(ray.wall_x);
 			tex.x = ray.wall_x;
-			printf("%d\n", ray.wall_x);
+			printf("%d\n", tex.x);
 
 
 			if (ray.wall_dir == NORTH_TEXTURE)
@@ -180,6 +181,7 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 		}
 		i++;
 	}
+	// exit(0);	
 }
 
 
