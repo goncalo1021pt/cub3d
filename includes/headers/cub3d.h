@@ -19,7 +19,7 @@
 
 # define VALID_CHAR "01NSEW "
 # define PLAYER "NSEW"
-# define MAP_SCALE 64
+# define MAP_SCALE 64 * 10
 # define ROTATION_SPEED 5
 # define SPEED_MULTIPLIER 2
 # define PI 3.14159265358979323846
