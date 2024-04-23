@@ -46,8 +46,9 @@ typedef struct s_player
 
 typedef struct s_mode
 {
-	bool		pause;
-	bool		minimap;
+	int			type;
+	int			previous;
+	int			sub;
 }				t_mode;
 
 typedef struct s_session

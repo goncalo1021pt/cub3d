@@ -8,22 +8,21 @@ int	exit_hook(t_session *instance)
 
 int	handle_key(int keycode, t_session *instance)
 {
-	//printf("\033[1;33mINPUT -> %d <- /////\033[0m\n", keycode);
 	if (keycode == XK_Left)
 		instance->keys[LEFT_ARROW] = 1;
-	if (keycode == XK_Right)
+	else if (keycode == XK_Right)
 		instance->keys[RIGHT_ARROW] = 1;
-	if (keycode == XK_Shift_L)
+	else if (keycode == XK_Shift_L)
 		instance->keys[L_SHIFT] = 1;
-	if (keycode == ESC)
+	else if (keycode == XK_Escape)
 		mlx_shutdown(instance);
-	if (keycode == 'a')
+	if (keycode == XK_a)
 		instance->keys[A] = 1;
-	else if (keycode == 'd')
+	else if (keycode == XK_d)
 		instance->keys[D] = 1;
-	else if (keycode == 'w')
+	else if (keycode == XK_w)
 		instance->keys[W] = 1;
-	else if (keycode == 's')
+	else if (keycode == XK_s)
 		instance->keys[S] = 1;
 	else 
 		return (0);
@@ -31,14 +30,41 @@ int	handle_key(int keycode, t_session *instance)
 	return (0);
 }
 
+int	handle_mode(int keycode, t_session *instance)
+{
+	if (keycode == XK_p)
+	{
+		if (instance->mode.type == PAUSE)
+		{
+			instance->mode.type = PLAY;
+			mlx_mouse_hide(instance->mlx_ser, instance->mlx_win);
+		}
+		else
+		{
+			instance->mode.type = PAUSE;
+			mlx_mouse_show(instance->mlx_ser, instance->mlx_win);
+			pause_menu(instance);
+		}
+	}
+	else if (keycode == XK_Tab && instance->mode.type == PLAY && instance->mode.sub == DEFAULT)
+		instance->mode.sub = MINIMAP;
+	else if (keycode == XK_Tab && instance->mode.type == PLAY && instance->mode.sub == MINIMAP)
+		instance->mode.sub = DEFAULT;
+	return (0);
+}
+
 int	handle_key_release(int keycode, t_session *instance)
 {
 	if (keycode == XK_Left)
 		instance->keys[LEFT_ARROW] = 0;
-	if (keycode == XK_Right)
+	else if (keycode == XK_Right)
 		instance->keys[RIGHT_ARROW] = 0;
-	if (keycode == XK_Shift_L)
+	else if (keycode == XK_Shift_L)
 		instance->keys[L_SHIFT] = 0;
+	else if (keycode == XK_p)
+		handle_mode(keycode, instance);
+	else if (keycode == XK_Tab)
+		handle_mode(keycode, instance);
 	if (keycode == 'a')
 		instance->keys[A] = 0;
 	else if (keycode == 'd')
@@ -63,6 +89,8 @@ int	const_movement(t_session *instance)
 {
 	int	speed;
 
+	if (instance->mode.type == PAUSE)
+		return (0);
 	speed = get_player_speed(instance);
 	if (instance->keys[W])
 		move_player(&instance->player, &instance->map, speed, W_ANGLE);

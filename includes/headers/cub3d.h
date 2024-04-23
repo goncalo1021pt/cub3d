@@ -24,12 +24,15 @@
 # define SPEED_MULTIPLIER 2
 # define PI 3.14159265358979323846
 # define MOUSE_SENSITIVITY 200
-# define ESC 65307
-# define UP 65362
-# define DOWN 65364
-# define LEFT 65361
-# define RIGHT 65363
-# define PAUSE 0
+
+typedef enum e_mode_type
+{
+	DEFAULT,
+	PLAY,
+	PAUSE,
+	MAIN_MENU,
+	MINIMAP
+}	t_mode_type;
 
 typedef enum e_keys_angle
 {
@@ -54,6 +57,7 @@ typedef enum e_key_arr
 	A,
 	D,
 	P,
+	TAB,
 	L_SHIFT,
 	LEFT_ARROW,
 	RIGHT_ARROW
@@ -123,10 +127,15 @@ void	destroy_textures(t_session *instance);
 int		handle_key(int keycode, t_session *instance);
 int		const_movement(t_session *instance);
 int		handle_key_release(int keycode, t_session *instance);
+int		handle_single_key(int keycode, t_session *instance);
 int		exit_hook(t_session *instance);
+
+// pause_menu.c
+void	pause_menu(t_session *instance);
 
 // mouse_hooks.c
 int		mouse_movement(int x, int y, t_session *instance);
+int	ignore_mouse_keys(int button, int x, int y, t_session *instance);
 
 // draw.c
 void	pixel_put(t_data *data, int x, int y, int color);

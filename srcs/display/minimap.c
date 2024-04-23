@@ -84,8 +84,9 @@ void vp_scaled(t_session *instance)
 	int	x;
 	t_camera2d	cam2d;
 
+	if (instance->mode.type == PLAY && instance->mode.sub != MINIMAP)
+		return ;
 	init_camera2d(instance, &cam2d);
-
 	y = cam2d.top_l.y;
 	while (y < cam2d.bot_r.y && instance->map.grid[y])
 	{
@@ -94,7 +95,7 @@ void vp_scaled(t_session *instance)
 		while (x < cam2d.bot_r.x && instance->map.grid[y][x])
 		{
 			cam2d.offset.x = (x - cam2d.top_l.x) + (MAP_SCALE * 3.5 - (instance->player.x - cam2d.top_l.x));
-			//pixel_put(&(instance->mlx_img), cam2d.offset.x, cam2d.offset.y, 0x004500);
+			// pixel_put(&(instance->mlx_img), cam2d.offset.x, cam2d.offset.y, 0x004500);
 			if (instance->map.grid[y][x] == '1')
 				pixel_put(&(instance->mlx_img), cam2d.offset.x, cam2d.offset.y, 0xff4500);
 			else if (instance->map.grid[y][x] == '0')

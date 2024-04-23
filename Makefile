@@ -5,12 +5,12 @@ S = $(addprefix aux/, $(AUX_SRCS)) $(addprefix display/, $(DISPLAY_SRCS)) $(addp
 
 AUX_SRCS = aux grid_init map_aux
 DISPLAY_SRCS = camera3D debug2D display display_init draw minimap load_textures textures
-HOOKS_SRCS = hooks mouse_hooks player_movment player_movment2
+HOOKS_SRCS = hooks mouse_hooks player_movment player_movment2 pause_menu
 PARSER_SRCS = main parser map_check textures textures_check start
 
 COMPRESS = ar rcs
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror #-g3
+CFLAGS = -Wall -Wextra -Werror -O3 #-g3
 SFLAGS = -fsanitize=address
 VFLAGS = --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes #--suppressions="supression.supp"
 CC = cc
