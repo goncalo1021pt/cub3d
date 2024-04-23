@@ -1,12 +1,16 @@
 NAME = cub3d
 
 SRCS = $(addprefix srcs/,$(addsuffix .c, $(S)))
-S = main parser map_aux aux textures map_check textures_check grid_init start player_movment  display hooks draw debug2D player \
-	minimap mouse_hooks player_movment2 load_textures display_init
+S = $(addprefix aux/, $(AUX_SRCS)) $(addprefix display/, $(DISPLAY_SRCS)) $(addprefix hooks/, $(HOOKS_SRCS)) $(addprefix parser/, $(PARSER_SRCS))
+
+AUX_SRCS = aux grid_init map_aux
+DISPLAY_SRCS = camera3D debug2D display display_init draw minimap load_textures textures raycaster raycast_utils
+HOOKS_SRCS = hooks mouse_hooks player_movment player_movment2
+PARSER_SRCS = main parser map_check textures textures_check start
 
 COMPRESS = ar rcs
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror #-g3
+CFLAGS = -Wall -Wextra -Werror -O3 #-Ofast #-g3
 SFLAGS = -fsanitize=address
 VFLAGS = --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes #--suppressions="supression.supp"
 CC = cc

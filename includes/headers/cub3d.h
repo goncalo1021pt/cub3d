@@ -13,6 +13,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/time.h>
 
 # define W_WIDTH 1920
 # define W_HEIGHT 1080
@@ -30,6 +31,9 @@
 # define LEFT 65361
 # define RIGHT 65363
 # define PAUSE 0
+# define FPS 60
+# define FRAME_TIME (1000000 / FPS)
+
 
 typedef enum e_keys_angle
 {
@@ -51,8 +55,8 @@ typedef enum e_key_arr
 {
 	W,
 	S,
-	A, 
- 	D,
+	A,
+	D,
 	P,
 	L_SHIFT,
 	LEFT_ARROW,
@@ -61,7 +65,7 @@ typedef enum e_key_arr
 
 typedef enum e_sprite_order
 {
-	NORT_TEXTURE,
+	NORTH_TEXTURE,
 	SOUTH_TEXTURE,
 	EAST_TEXTURE,
 	WEST_TEXTURE,
@@ -85,21 +89,34 @@ bool	get_args(t_map *map);
 
 // aux.c
 bool	is_in_array(char *arr, char c);
+int		ft_strslen(char **strs);
+bool	is_number(char *str);
+int		get_hexa_color(char *color);
 
 // map_check.c
 bool	check_char(t_map *map);
 bool	initiate_flood(t_map *map);
 bool	check_sorroundings(t_map *map);
+void	create_boarder(char **grid);
 
 // textures_check.c
 bool	validate_textures(t_map *map);
-int		ft_strslen(char **strs);
 
 // movment_grid.c
 bool	create_grid(t_map *map);
 
-//player.c
-void	update_player(t_session *instance, int x, int y);
+//Camera3D.c
+void	camera3d(t_session *instance, double pos_x, double pos_y);
+//raycaster.c
+void	init_ray(t_camera3D *camera, t_ray *ray, int i, t_point pos);
+void	aim_ray(t_ray *ray, double pos_x, double pos_y);
+void	cast_ray(t_session *instance, t_ray	*ray);
+//raycaster_utils.c
+double	clamp_ray(double dir);
+double	get_pwall_distance(t_ray *ray);
+int		get_wall_dir(char **grid ,int x, int y, int side);
+t_data	*get_tex_data(t_session *instance, t_ray *ray);
+
 
 // player_movment.c
 bool	initialize_player(t_player *player, t_map *map);
@@ -126,13 +143,14 @@ int		exit_hook(t_session *instance);
 int		mouse_movement(int x, int y, t_session *instance);
 
 // draw.c
-void	pixel_put(t_data *data, int x, int y, int color);
+void	pixel_put(t_session *instance, int x, int y, int color);
 int		get_pixel(t_data *data, int x, int y);
 void	init_dda(t_dda *dda, t_point start, t_point end);
 void	draw_line(t_session *instance, t_point start, t_point end, int color);
 void	draw_square(t_session *instance, t_point point, int sq, int color);
+void	fill_square(t_session *instance, t_point point, int sq, int color);
 void 	draw_face(t_session *instance, int x, int y, int color);
-void	clear_image(t_session *instance, int color);
+void	clear_image(t_session *instance);
 
 // load_textures.c
 bool load_textures(t_session *ist);
@@ -140,12 +158,11 @@ bool load_textures(t_session *ist);
 // grid.c // debug2D.c
 void	debug2D(t_session *instance);
 //minimap.c
-void 	vp_grid(t_session *instance);
-void 	vp_scaled(t_session *instance);
+void	vp_grid(t_session *instance);
+void	vp_scaled(t_session *instance);
 void	vp_player(t_session *instance, int x, int y);
 
-//create3d.c
-void cast_3d(t_session *instance);
+
 
 // start.c
 bool	start_game(t_session *instance);
