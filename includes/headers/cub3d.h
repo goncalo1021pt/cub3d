@@ -106,7 +106,17 @@ bool	validate_textures(t_map *map);
 bool	create_grid(t_map *map);
 
 //Camera3D.c
-void	camera3D(t_session *instance, double pos_x, double pos_y);
+void	camera3d(t_session *instance, double pos_x, double pos_y);
+//raycaster.c
+void	init_ray(t_camera3D *camera, t_ray *ray, int i, double pos_x, double pos_y);
+void	aim_ray(t_ray *ray, double pos_x, double pos_y);
+void	cast_ray(t_session *instance, t_ray	*ray);
+//raycaster_utils.c
+double	clamp_ray(double dir);
+double	get_pwall_distance(t_ray *ray);
+int		get_wall_dir(char **grid ,int x, int y, int side);
+t_data	*get_tex_data(t_session *instance, t_ray *ray);
+
 
 // player_movment.c
 bool	initialize_player(t_player *player, t_map *map);
