@@ -10,7 +10,7 @@ PARSER_SRCS = main parser map_check textures textures_check start
 
 COMPRESS = ar rcs
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror #-g3
+CFLAGS = -Wall -Wextra -Werror -O3 #-Ofast #-g3
 SFLAGS = -fsanitize=address
 VFLAGS = --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes #--suppressions="supression.supp"
 CC = cc

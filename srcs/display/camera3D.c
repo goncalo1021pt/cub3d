@@ -8,7 +8,7 @@ double	clamp_ray(double dir)
 		return (fabs(1 / dir));
 }
 
-int	clamp_slice(int slice)
+int	clamp_slice(int slice) // no need
 {
 	if (slice < 0)
 		return (0);
@@ -101,7 +101,7 @@ void	cast_ray(t_session *instance, t_ray	*ray)
 		}
 	}
 	if (ray->side == 0)
-		ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
+		ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x); // one func to return value
 	else
 		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
 }
@@ -116,21 +116,24 @@ void draw_textured_line(t_session *instance, t_point start, t_point end, t_textu
 
 	i = 0;
 	init_dda(&dda, start, end);
+	while (dda.current_y < 0)
+	{
+		dda.current_y += dda.y_inc;
+		i++;
+	}
+	tex_x = texture->x * texture->data.width / MAP_SCALE;
 	while (i <= dda.step)
 	{
-		// Calculate the texture coordinates based on the current position along the line
-		texture->t = (float)i / dda.step;
-		tex_x = texture->x * texture->data.width / MAP_SCALE;
-		tex_y = texture->t * texture->data.height;
-		// Retrieve the color of the pixel from the texture
-		//if (tex_x > 0 && tex_x < texture->data.width && tex_y > 0 && tex_y < texture->data.height)
-		color = get_pixel(&texture->data, tex_x, tex_y);
-		//if (dda.current_x > 0 && dda.current_x < W_HEIGHT)
-		pixel_put(&(instance->mlx_img), dda.current_x, dda.current_y, color);
-
-		// Move to the next point along the line
-		dda.current_x += dda.x_inc;
+		tex_y = (i / dda.step) * texture->data.height;
+		if (tex_y >= 0 && tex_y <= texture->data.height
+			&& dda.current_y > 0 && dda.current_y < W_HEIGHT)
+		{
+			color = get_pixel(&texture->data, tex_x, tex_y);
+			pixel_put(&(instance->mlx_img), dda.current_x, dda.current_y, color);
+		}
 		dda.current_y += dda.y_inc;
+		if (dda.current_y > W_HEIGHT)
+			break;
 		i++;
 	}
 }
@@ -160,7 +163,7 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 
 
 
-			tex.slice_height = slice.height;
+			tex.slice_height = slice.height; // no need
 			if (ray.wall_dir == EAST_TEXTURE || ray.wall_dir == WEST_TEXTURE)
 				ray.wall_x = pos_y + ray.perp_wall_dist * ray.ray_dir_y ;
 			else

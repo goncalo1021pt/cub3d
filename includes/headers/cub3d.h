@@ -13,6 +13,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/time.h>
 
 # define W_WIDTH 1920
 # define W_HEIGHT 1080
@@ -30,6 +31,9 @@
 # define LEFT 65361
 # define RIGHT 65363
 # define PAUSE 0
+# define FPS 60
+# define FRAME_TIME (1000000 / FPS)
+
 
 typedef enum e_keys_angle
 {
