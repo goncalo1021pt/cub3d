@@ -26,7 +26,7 @@ void	mlx_update(t_session *instance)
 	clear_image(instance);
 	//raycast
 	//debug2D(instance);
-	camera3D(instance, instance->player.x, instance->player.y);
+	camera3d(instance, instance->player.x, instance->player.y);
 	//minimap
 	vp_scaled(instance);
 	//vp_grid(instance);
@@ -45,7 +45,7 @@ void	mlx_startup(t_session *instance)
 		mlx_shutdown(instance);
 	//raycast
 	//debug2D(instance);
-	camera3D(instance, (double)instance->player.x, (double)instance->player.y);
+	camera3d(instance, (double)instance->player.x, (double)instance->player.y);
 	//minimap
 	vp_scaled(instance);
 	//vp_grid(instance);

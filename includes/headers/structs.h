@@ -125,10 +125,11 @@ typedef struct s_slice
 
 typedef struct s_texture
 {
-	int 	x;
-	double	t;
-	int		slice_height;
-	t_data	data;
+	int 	wall_x;
+	int		x;
+	int		y;
+	int		color;
+	t_data	*data;
 } t_texture;
 
 

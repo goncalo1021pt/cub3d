@@ -24,7 +24,7 @@ int	handle_key(int keycode, t_session *instance)
 		instance->keys[W] = 1;
 	else if (keycode == XK_s)
 		instance->keys[S] = 1;
-	else 
+	else
 		return (0);
 	instance->player.keys_pressed++;
 	return (0);
@@ -85,6 +85,20 @@ int	handle_key_release(int keycode, t_session *instance)
 // 		instance.
 // }
 
+void	check_time(void)
+{
+	struct timeval		tv;
+	long long			current_time;
+	static long long	last_time = 0;
+
+	gettimeofday(&tv, NULL);
+	current_time = (tv.tv_sec * (long)1000) + (tv.tv_usec / 1000);
+	if (last_time && current_time - last_time <= FRAME_TIME)
+		usleep(FRAME_TIME - (current_time - last_time <= FRAME_TIME));
+	gettimeofday(&tv, NULL);
+	last_time = (tv.tv_sec * (long)1000) + (tv.tv_usec / 1000);
+}
+
 int	const_movement(t_session *instance)
 {
 	int	speed;
@@ -104,6 +118,7 @@ int	const_movement(t_session *instance)
 		rotate_player(&instance->player, LEFT_ARROW);
 	if (instance->keys[RIGHT_ARROW])
 		rotate_player(&instance->player, RIGHT_ARROW);
+	check_time();
 	mlx_update(instance);
 	return (0);
 }
