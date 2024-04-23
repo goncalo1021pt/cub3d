@@ -128,9 +128,7 @@ typedef struct s_texture
 	int		x;
 	int		y;
 	int		color;
-
-// /
-	t_data	data;
+	t_data	*data;
 } t_texture;
 
 

@@ -26,6 +26,19 @@ int get_wall_dir(char **grid ,int x, int y, int side)
 	else
 		return (WEST_TEXTURE);
 }
+t_data	*get_tex_data(t_session *instance, t_ray *ray)
+{
+		if (ray->wall_dir == NORTH_TEXTURE)
+			return (&instance->textures[NORTH_TEXTURE]);
+		else if (ray->wall_dir == SOUTH_TEXTURE)
+			return (&instance->textures[SOUTH_TEXTURE]);
+		else if (ray->wall_dir == EAST_TEXTURE)
+			return (&instance->textures[EAST_TEXTURE]);
+		else if (ray->wall_dir == WEST_TEXTURE)
+			return (&instance->textures[WEST_TEXTURE]);
+		return (NULL);
+
+}
 
 void	init_camera3D(t_session *instance, t_camera3D *camera)
 {
@@ -112,14 +125,14 @@ void draw_textured_line(t_session *instance, t_point start, t_point end, t_textu
 		dda.current_y += dda.y_inc;
 		i++;
 	}
-	tex->x = tex->wall_x * tex->data.width / MAP_SCALE;
+	tex->x = tex->wall_x * tex->data->width / MAP_SCALE;
 	while (i <= dda.step)
 	{
-		tex->y = (i / dda.step) * tex->data.height;
-		if (tex->y >= 0 && tex->y <= tex->data.height
+		tex->y = (i / dda.step) * tex->data->height;
+		if (tex->y >= 0 && tex->y <= tex->data->height
 			&& dda.current_y > 0 && dda.current_y < W_HEIGHT)
 		{
-			tex->color = get_pixel(&tex->data, tex->x, tex->y);
+			tex->color = get_pixel(tex->data, tex->x, tex->y);
 			pixel_put(&(instance->mlx_img), dda.current_x, dda.current_y, tex->color);
 		}
 		dda.current_y += dda.y_inc;
@@ -144,72 +157,18 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 		init_ray(&camera, &ray, i, pos_x, pos_y);
 		aim_ray(&ray, pos_x, pos_y);
 		cast_ray(instance, &ray);
-		if (ray.perp_wall_dist > 0)
-		{
-			slice.height = (int)(W_HEIGHT / ray.perp_wall_dist * MAP_SCALE);
-			slice.start = -slice.height / 2 + W_HEIGHT / 2;
-			slice.end = slice.height / 2 + W_HEIGHT / 2;
-
-
-			if (ray.wall_dir == EAST_TEXTURE || ray.wall_dir == WEST_TEXTURE)
-				ray.wall_x = pos_y + ray.perp_wall_dist * ray.ray_dir_y ;
-			else
-				ray.wall_x = pos_x + ray.perp_wall_dist * ray.ray_dir_x ;
-			ray.wall_x = floor(ray.wall_x % MAP_SCALE);
-			tex.wall_x = ray.wall_x;
-
-
-
-			if (ray.wall_dir == NORTH_TEXTURE)
-				tex.data = instance->textures[NORTH_TEXTURE];
-			else if (ray.wall_dir == SOUTH_TEXTURE)
-				tex.data = instance->textures[SOUTH_TEXTURE];
-			else if (ray.wall_dir == EAST_TEXTURE)
-				tex.data = instance->textures[EAST_TEXTURE];
-			else if (ray.wall_dir == WEST_TEXTURE)
-				tex.data = instance->textures[WEST_TEXTURE];
-
-			draw_textured_line(instance, (t_point){i, slice.start}, (t_point){i, slice.end}, &tex);
-		}
+		slice.height = (int)(W_HEIGHT / ray.perp_wall_dist * MAP_SCALE);
+		slice.start = -slice.height / 2 + W_HEIGHT / 2;
+		slice.end = slice.height / 2 + W_HEIGHT / 2;
+		if (ray.wall_dir == EAST_TEXTURE || ray.wall_dir == WEST_TEXTURE)
+			ray.wall_x = pos_y + ray.perp_wall_dist * ray.ray_dir_y ;
+		else
+			ray.wall_x = pos_x + ray.perp_wall_dist * ray.ray_dir_x ;
+		tex.wall_x = floor(ray.wall_x % MAP_SCALE);
+		tex.data = get_tex_data(instance, &ray);
+		draw_textured_line(instance, (t_point){i, slice.start}, (t_point){i, slice.end}, &tex);
 		i++;
 	}
 }
 
-
-// void	camera3D(t_session *instance, double pos_x, double pos_y)
-// {
-// 	t_camera3D	camera;
-// 	t_ray		ray;
-// 	t_slice		slice;
-// 	int	i;
-
-// 	init_camera3D(instance, &camera);
-// 	i = 0;
-// 	while (i < W_WIDTH) //i < n_rays
-// 	{
-// 		init_ray(&camera, &ray, i, pos_x, pos_y);
-// 		aim_ray(&ray, pos_x, pos_y);
-// 		cast_ray(instance, &ray);
-// 		if (ray.perp_wall_dist > 0)
-// 		{
-// 			slice.height = (int)(W_HEIGHT / ray.perp_wall_dist * MAP_SCALE);
-// 			slice.start = -slice.height / 2 + W_HEIGHT / 2;
-// 			slice.end = slice.height / 2 + W_HEIGHT / 2;
-// 			slice.start = clamp_slice(slice.start);
-// 			slice.end = clamp_slice(slice.end);
-// 			// texture.line_h = ray.perp_wall_dist * MAP_SCALE;
-// 			if (ray.wall_dir == NORTH_TEXTURE)
-// 				slice.color = 0x8fbc8f;
-// 			else if (ray.wall_dir == SOUTH_TEXTURE)
-// 				slice.color = 0x2e8b57;
-// 			else if (ray.wall_dir == EAST_TEXTURE)
-// 				slice.color = 0x3cb371;
-// 			else if (ray.wall_dir == WEST_TEXTURE)
-// 				slice.color = 0x20b2aa;
-// 			draw_line(instance, (t_point){i, slice.start}, (t_point){i, slice.end}, slice.color);
-// 		}
-// 		// printf("%d\n", ray.wall_x);
-// 		i++;
-// 	}
-// }
 
