@@ -123,8 +123,9 @@ void draw_textured_line(t_session *instance, t_point start, t_point end, t_textu
 		tex_x = texture->x * texture->data.width / MAP_SCALE;
 		tex_y = texture->t * texture->data.height;
 		// Retrieve the color of the pixel from the texture
+		//if (tex_x > 0 && tex_x < texture->data.width && tex_y > 0 && tex_y < texture->data.height)
 		color = get_pixel(&texture->data, tex_x, tex_y);
-
+		//if (dda.current_x > 0 && dda.current_x < W_HEIGHT)
 		pixel_put(&(instance->mlx_img), dda.current_x, dda.current_y, color);
 
 		// Move to the next point along the line
@@ -142,7 +143,6 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 	t_texture	tex;
 	int	i;
 
-	printf("pos x: %f | pos y: %f \n", round(pos_x), round(pos_y));
 	init_camera3D(instance, &camera);
 	i = 0;
 	while (i < W_WIDTH) //i < n_rays
@@ -160,7 +160,7 @@ void	camera3D(t_session *instance, double pos_x, double pos_y)
 
 
 
-			tex.slice_height = tex.slice_height;
+			tex.slice_height = slice.height;
 			if (ray.wall_dir == EAST_TEXTURE || ray.wall_dir == WEST_TEXTURE)
 				ray.wall_x = pos_y + ray.perp_wall_dist * ray.ray_dir_y ;
 			else
