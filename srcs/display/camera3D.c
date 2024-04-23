@@ -23,13 +23,13 @@ void draw_textured_line(t_session *instance, t_point start, t_point end, t_textu
 	{
 		tex->y = (i / dda.step) * tex->data->height;
 		if (tex->y >= 0 && tex->y <= tex->data->height
-			&& dda.current_y > 0 && dda.current_y < W_HEIGHT)
+			&& dda.current_y >= 0 && dda.current_y <= instance->height)
 		{
 			tex->color = get_pixel(tex->data, tex->x, tex->y);
-			pixel_put(&(instance->mlx_img), dda.current_x, dda.current_y, tex->color);
+			pixel_put(instance, dda.current_x, dda.current_y, tex->color);
 		}
 		dda.current_y += dda.y_inc;
-		if (dda.current_y > W_HEIGHT)
+		if (dda.current_y > instance->height)
 			break;
 		i++;
 	}
@@ -45,14 +45,14 @@ void	camera3d(t_session *instance, double pos_x, double pos_y)
 
 	init_camera3D(instance, &camera);
 	i = 0;
-	while (i < W_WIDTH)
+	while (i < instance->width)
 	{
-		init_ray(&camera, &ray, i, pos_x, pos_y);
+		init_ray(&camera, &ray, i, (t_point){pos_x, pos_y});
 		aim_ray(&ray, pos_x, pos_y);
 		cast_ray(instance, &ray);
-		slice.height = (int)(W_HEIGHT / ray.perp_wall_dist * MAP_SCALE);
-		slice.start = -slice.height / 2 + W_HEIGHT / 2;
-		slice.end = slice.height / 2 + W_HEIGHT / 2;
+		slice.height = (int)(instance->height / ray.perp_wall_dist * MAP_SCALE);
+		slice.start = -slice.height / 2 + instance->height / 2;
+		slice.end = slice.height / 2 + instance->height / 2;
 		if (ray.wall_dir == EAST_TEXTURE || ray.wall_dir == WEST_TEXTURE)
 			ray.wall_x = pos_y + ray.perp_wall_dist * ray.ray_dir_y ;
 		else
@@ -63,5 +63,3 @@ void	camera3d(t_session *instance, double pos_x, double pos_y)
 		i++;
 	}
 }
-
-

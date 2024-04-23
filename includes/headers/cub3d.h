@@ -108,7 +108,7 @@ bool	create_grid(t_map *map);
 //Camera3D.c
 void	camera3d(t_session *instance, double pos_x, double pos_y);
 //raycaster.c
-void	init_ray(t_camera3D *camera, t_ray *ray, int i, double pos_x, double pos_y);
+void	init_ray(t_camera3D *camera, t_ray *ray, int i, t_point pos);
 void	aim_ray(t_ray *ray, double pos_x, double pos_y);
 void	cast_ray(t_session *instance, t_ray	*ray);
 //raycaster_utils.c
@@ -143,7 +143,7 @@ int		exit_hook(t_session *instance);
 int		mouse_movement(int x, int y, t_session *instance);
 
 // draw.c
-void	pixel_put(t_data *data, int x, int y, int color);
+void	pixel_put(t_session *instance, int x, int y, int color);
 int		get_pixel(t_data *data, int x, int y);
 void	init_dda(t_dda *dda, t_point start, t_point end);
 void	draw_line(t_session *instance, t_point start, t_point end, int color);

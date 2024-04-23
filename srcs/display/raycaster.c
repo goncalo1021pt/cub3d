@@ -1,15 +1,26 @@
 #include "../../includes/headers/cub3d.h"
 
-void	init_ray(t_camera3D *camera, t_ray *ray, int i, double pos_x, double pos_y)
+void	init_ray(t_camera3D *camera, t_ray *ray, int i, t_point pos)
 {
-	ray->x = pos_x;
-	ray->y = pos_y;
+	ray->x = pos.x;
+	ray->y = pos.y;
 	camera->x = 2 * i / (double)W_WIDTH - 1;
 	ray->ray_dir_x = camera->dir_x + camera->plane_x * camera->x;
 	ray->ray_dir_y = camera->dir_y + camera->plane_y * camera->x;
 	ray->delta_dist_x = clamp_ray(ray->ray_dir_x);
 	ray->delta_dist_y = clamp_ray(ray->ray_dir_y);
 }
+
+// void	init_ray(t_session *instance, t_camera3D *camera, t_ray *ray, int i, t_point pos)
+// {
+// 	ray->x = pos.x;
+// 	ray->y = pos.y;
+// 	camera->x = 2 * i / (double)instance->width - 1;
+// 	ray->ray_dir_x = camera->dir_x + camera->plane_x * camera->x;
+// 	ray->ray_dir_y = camera->dir_y + camera->plane_y * camera->x;
+// 	ray->delta_dist_x = clamp_ray(ray->ray_dir_x);
+// 	ray->delta_dist_y = clamp_ray(ray->ray_dir_y);
+// }
 
 void	aim_ray(t_ray *ray, double pos_x, double pos_y)
 {

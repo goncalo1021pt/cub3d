@@ -3,7 +3,7 @@
 double	clamp_ray(double dir)
 {
 	if (dir == 0)
-		return (W_WIDTH);
+		return (1e30);
 	else
 		return (fabs(1 / dir));
 }

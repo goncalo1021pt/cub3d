@@ -39,8 +39,8 @@ void	mlx_update(t_session *instance)
 
 void	mlx_startup(t_session *instance)
 {
-	instance->width = W_WIDTH;
-	instance->height = W_HEIGHT;
+	// instance->width = W_WIDTH;
+	// instance->height = W_HEIGHT;
 	if (!mlx_vars_init(instance) || !instance->mlx_ser || !instance->mlx_win || !instance->mlx_img.img)
 		mlx_shutdown(instance);
 	//raycast

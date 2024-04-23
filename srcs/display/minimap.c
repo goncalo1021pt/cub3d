@@ -10,7 +10,7 @@ void fill_square(t_session *instance, t_point point, int sq, int color)
 		x = point.x;
 		while ( x < point.x + sq)
 		{
-			pixel_put(&(instance->mlx_img), x, y, color);
+			pixel_put(instance, x, y, color);
 			x++;
 		}
 		y++;
@@ -61,8 +61,8 @@ void	init_camera2d(t_session *instance, t_camera2d *cam2d)
 	cam2d->p_pos.y = instance->player.y;
 	cam2d->top_l.x = fmax(0, instance->player.x - cam2d->size.x / 2);
 	cam2d->top_l.y = fmax(0, instance->player.y - cam2d->size.y / 2);
-	cam2d->bot_r.x = fmin(W_WIDTH - 1, instance->player.x + cam2d->size.x / 2);
-	cam2d->bot_r.y = fmin(W_HEIGHT - 1, instance->player.y + cam2d->size.y / 2);
+	cam2d->bot_r.x = fmin(instance->width - 1, instance->player.x + cam2d->size.x / 2);
+	cam2d->bot_r.y = fmin(instance->height - 1, instance->player.y + cam2d->size.y / 2);
 }
 
 void	vp_player(t_session *instance, int x, int y)
@@ -96,9 +96,9 @@ void vp_scaled(t_session *instance)
 			cam2d.offset.x = (x - cam2d.top_l.x) + (MAP_SCALE * 3.5 - (instance->player.x - cam2d.top_l.x));
 			//pixel_put(&(instance->mlx_img), cam2d.offset.x, cam2d.offset.y, 0x004500);
 			if (instance->map.grid[y][x] == '1')
-				pixel_put(&(instance->mlx_img), cam2d.offset.x, cam2d.offset.y, 0xff4500);
+				pixel_put(instance, cam2d.offset.x, cam2d.offset.y, 0xff4500);
 			else if (instance->map.grid[y][x] == '0')
-				pixel_put(&(instance->mlx_img), cam2d.offset.x, cam2d.offset.y, 0xffffff);
+				pixel_put(instance, cam2d.offset.x, cam2d.offset.y, 0xffffff);
 			x++;
 		}
 		y++;

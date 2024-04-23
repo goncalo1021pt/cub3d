@@ -1,13 +1,23 @@
 
 #include "../../includes/headers/cub3d.h"
 
-void	pixel_put(t_data *data, int x, int y, int color)
+// void	pixel_put(t_data *data, int x, int y, int color)
+// {
+// 	char	*dst;
+
+// 	if (x < 0 || y < 0 || x > W_WIDTH || y > W_HEIGHT)
+// 		return ;
+// 	dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
+// 	*(unsigned int *)dst = color;
+// }
+
+void	pixel_put(t_session *instance, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x < 0 || y < 0 || x > W_WIDTH - 1 || y > W_HEIGHT - 1)
+	if (x < 0 || y < 0 || x > instance->width || y > instance->height)
 		return ;
-	dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
+	dst = instance->mlx_img.addr + (y * instance->mlx_img.line_length + x * 4); // instance->mlx_img.bpp / 8 = 4
 	*(unsigned int *)dst = color;
 }
 
@@ -31,7 +41,7 @@ void	draw_line(t_session *instance, t_point start, t_point end, int color)
 	init_dda(&dda, start, end);
 	while (i <= dda.step)
 	{
-		pixel_put(&instance->mlx_img, dda.current_x, dda.current_y, color);
+		pixel_put(instance, dda.current_x, dda.current_y, color);
 		dda.current_x += dda.x_inc;
 		dda.current_y += dda.y_inc;
 		i++;
@@ -51,9 +61,9 @@ void	clear_image(t_session *instance)
 		while (x < instance->width)
 		{
 			if (y < instance->height / 2)
-				pixel_put(&(instance->mlx_img), x, y, instance->map.colors[0]);
+				pixel_put(instance, x, y, instance->map.colors[0]);
 			else
-				pixel_put(&(instance->mlx_img), x, y, instance->map.colors[1]);
+				pixel_put(instance, x, y, instance->map.colors[1]);
 			x++;
 		}
 		y++;
