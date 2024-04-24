@@ -55,8 +55,8 @@ void	draw_face(t_session *instance, int x, int y, int color)
 
 void	init_camera2d(t_session *instance, t_camera2d *cam2d)
 {
-	cam2d->size.x = MAP_SCALE * 5;
-	cam2d->size.y = MAP_SCALE * 5;
+	cam2d->size.x = instance->width / 5;
+	cam2d->size.y = instance->height / 5;
 	cam2d->p_pos.x = instance->player.x;
 	cam2d->p_pos.y = instance->player.y;
 	cam2d->top_l.x = fmax(0, instance->player.x - cam2d->size.x / 2);
@@ -75,8 +75,11 @@ void	vp_player(t_session *instance, int x, int y)
 	pos.x = x - (sq / 2);
 	fill_square(instance, pos, sq, 0x000000);
 	draw_square(instance, pos, sq, 0xffffff);
-	draw_face(instance, x, y, 0xffffff);
+	draw_face(instance, x, y, 0xff4500);
 }
+
+# define H_SCALE instance->height / 7
+# define W_SCALE instance->width / 8
 
 void vp_scaled(t_session *instance)
 {
@@ -85,26 +88,25 @@ void vp_scaled(t_session *instance)
 	t_camera2d	cam2d;
 
 	init_camera2d(instance, &cam2d);
-
 	y = cam2d.top_l.y;
 	while (y < cam2d.bot_r.y && instance->map.grid[y])
 	{
-		cam2d.offset.y = (y - cam2d.top_l.y) + (MAP_SCALE * 3.5  - (instance->player.y - cam2d.top_l.y));
+		cam2d.offset.y = (y - cam2d.top_l.y) + (H_SCALE  - (instance->player.y - cam2d.top_l.y));
 		x = cam2d.top_l.x;
 		while (x < cam2d.bot_r.x && instance->map.grid[y][x])
 		{
-			cam2d.offset.x = (x - cam2d.top_l.x) + (MAP_SCALE * 3.5 - (instance->player.x - cam2d.top_l.x));
-			//pixel_put(&(instance->mlx_img), cam2d.offset.x, cam2d.offset.y, 0x004500);
+			cam2d.offset.x = (x - cam2d.top_l.x) + (W_SCALE - (instance->player.x - cam2d.top_l.x));
 			if (instance->map.grid[y][x] == '1')
-				pixel_put(instance, cam2d.offset.x, cam2d.offset.y, 0xff4500);
+				pixel_put(instance, cam2d.offset.x, cam2d.offset.y, 0x004550);
 			else if (instance->map.grid[y][x] == '0')
 				pixel_put(instance, cam2d.offset.x, cam2d.offset.y, 0xffffff);
+			// else if (instance->map.grid[y][x] == 'D')
+			// 	pixel_put(instance, cam2d.offset.x, cam2d.offset.y, 0x000000);
 			x++;
 		}
 		y++;
 	}
-
-	vp_player(instance, MAP_SCALE * 3.5, MAP_SCALE * 3.5);
+	vp_player(instance, W_SCALE, H_SCALE);
 }
 
 
