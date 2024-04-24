@@ -87,6 +87,8 @@ void vp_scaled(t_session *instance)
 	int	x;
 	t_camera2d	cam2d;
 
+	if (instance->mode.type == PLAY && instance->mode.sub != MINIMAP)
+		return ;
 	init_camera2d(instance, &cam2d);
 	y = cam2d.top_l.y;
 	while (y < cam2d.bot_r.y && instance->map.grid[y])

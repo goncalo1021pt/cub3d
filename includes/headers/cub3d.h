@@ -18,22 +18,25 @@
 # define W_WIDTH 2560
 # define W_HEIGHT 1440
 
-# define VALID_CHAR "01NSEW "
+# define VALID_CHAR "01NSEWD "
 # define PLAYER "NSEW"
 # define MAP_SCALE 64
+# define PLAYER_SIZE 2
 # define ROTATION_SPEED 5
 # define SPEED_MULTIPLIER 2
 # define PI 3.14159265358979323846
 # define MOUSE_SENSITIVITY 200
-# define ESC 65307
-# define UP 65362
-# define DOWN 65364
-# define LEFT 65361
-# define RIGHT 65363
-# define PAUSE 0
 # define FPS 60
 # define FRAME_TIME (1000000 / FPS)
 
+typedef enum e_mode_type
+{
+	DEFAULT,
+	PLAY,
+	PAUSE,
+	MAIN_MENU,
+	MINIMAP
+}	t_mode_type;
 
 typedef enum e_keys_angle
 {
@@ -58,6 +61,7 @@ typedef enum e_key_arr
 	A,
 	D,
 	P,
+	TAB,
 	L_SHIFT,
 	LEFT_ARROW,
 	RIGHT_ARROW
@@ -75,6 +79,7 @@ typedef enum e_sprite_order
 
 // parser.c
 bool	validate_map(t_map *map);
+bool	check_doors(t_map *map);
 bool	parser(int argc, char **argv, t_map *map);
 
 // map_aux.c
@@ -92,6 +97,11 @@ bool	is_in_array(char *arr, char c);
 int		ft_strslen(char **strs);
 bool	is_number(char *str);
 int		get_hexa_color(char *color);
+void	free_prev(char **arr_str, int ctd);
+int		min(int n1, int n2);
+int		max(int n1, int n2);
+bool	is_in_colision(int x, int y, t_session *instance, char type);
+void	check_time(void);
 
 // map_check.c
 bool	check_char(t_map *map);
@@ -121,7 +131,7 @@ t_data	*get_tex_data(t_session *instance, t_ray *ray);
 // player_movment.c
 bool	initialize_player(t_player *player, t_map *map);
 void	rotate_player(t_player *player, int angle);
-void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir);
+void	move_player(t_player *player, t_session *instance, int speed, t_keys_angle dir);
 float	get_player_speed(t_session *instance);
 
 // display.c
@@ -137,10 +147,19 @@ void	destroy_textures(t_session *instance);
 int		handle_key(int keycode, t_session *instance);
 int		const_movement(t_session *instance);
 int		handle_key_release(int keycode, t_session *instance);
+int		handle_single_key(int keycode, t_session *instance);
 int		exit_hook(t_session *instance);
+
+// mode_handler
+int		handle_mode(int keycode, t_session *instance);
+void	handle_door(t_session *instance);
+
+// pause_menu.c
+void pause_menu(t_session *instance);
 
 // mouse_hooks.c
 int		mouse_movement(int x, int y, t_session *instance);
+int		ignore_mouse_keys(int button, int x, int y, t_session *instance);
 
 // draw.c
 void	pixel_put(t_session *instance, int x, int y, int color);
@@ -149,11 +168,11 @@ void	init_dda(t_dda *dda, t_point start, t_point end);
 void	draw_line(t_session *instance, t_point start, t_point end, int color);
 void	draw_square(t_session *instance, t_point point, int sq, int color);
 void	fill_square(t_session *instance, t_point point, int sq, int color);
-void 	draw_face(t_session *instance, int x, int y, int color);
+void	draw_face(t_session *instance, int x, int y, int color);
 void	clear_image(t_session *instance);
 
 // load_textures.c
-bool load_textures(t_session *ist);
+bool	load_textures(t_session *ist);
 
 // grid.c // debug2D.c
 void	debug2D(t_session *instance);
@@ -169,4 +188,5 @@ size_t	max_len(char **split);
 bool	start_game(t_session *instance);
 // main.c
 void	clean_parser(t_map *map);
+
 #endif

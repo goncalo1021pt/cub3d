@@ -3,10 +3,10 @@ NAME = cub3d
 SRCS = $(addprefix srcs/,$(addsuffix .c, $(S)))
 S = $(addprefix aux/, $(AUX_SRCS)) $(addprefix display/, $(DISPLAY_SRCS)) $(addprefix hooks/, $(HOOKS_SRCS)) $(addprefix parser/, $(PARSER_SRCS))
 
-AUX_SRCS = aux grid_init map_aux minimap_aux
+AUX_SRCS = aux grid_init map_aux aux2 minimap_aux
+HOOKS_SRCS = hooks mouse_hooks player_movment player_movment2 pause_menu mode_handler
 DISPLAY_SRCS = camera3D debug2D display display_init draw minimap load_textures textures raycaster raycast_utils
-HOOKS_SRCS = hooks mouse_hooks player_movment player_movment2
-PARSER_SRCS = main parser map_check textures textures_check start
+PARSER_SRCS = main parser map_check textures textures_check start validate_doors
 
 COMPRESS = ar rcs
 RM = rm -f

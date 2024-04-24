@@ -43,13 +43,16 @@ typedef struct s_player
 	float		x;
 	float		y;
 	int			keys_pressed;
+	bool		door;
+	int			time_door;
 	double		angle;
 }				t_player;
 
 typedef struct s_mode
 {
-	bool		pause;
-	bool		minimap;
+	int			type;
+	int			previous;
+	int			sub;
 }				t_mode;
 
 typedef struct s_session
