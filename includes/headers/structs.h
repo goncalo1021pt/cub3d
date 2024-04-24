@@ -55,6 +55,26 @@ typedef struct s_mode
 	int			sub;
 }				t_mode;
 
+typedef struct s_ray
+{
+	int		hit;
+	int		side;
+	int		x;
+	int		y;
+	int		wall_dir;
+	int		wall_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	perp_wall_dist;
+	double	step_x;
+	double	step_y;
+	bool	door;
+} t_ray;
+
 typedef struct s_session
 {
 	void		*mlx_ser;
@@ -64,6 +84,7 @@ typedef struct s_session
 	t_map		map;
 	t_player	player;
 	t_mode		mode;
+	t_ray		aux_ray;
 	int			width;
 	int			height;
 	int			keys[MAX_KEYS];
@@ -88,26 +109,6 @@ typedef	struct s_camera3D
 	double	fov;
 	double	x;
 } t_camera3D;
-
-typedef struct s_ray
-{
-	int		hit;
-	int		side;
-	int		x;
-	int		y;
-	int		wall_dir;
-	int		wall_x;
-	double	ray_dir_x;
-	double	ray_dir_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	double	perp_wall_dist;
-	double	step_x;
-	double	step_y;
-	bool	door;
-} t_ray;
 
 typedef struct s_dda
 {

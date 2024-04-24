@@ -11,17 +11,6 @@ void	init_ray(t_camera3D *camera, t_ray *ray, int i, t_point pos)
 	ray->delta_dist_y = clamp_ray(ray->ray_dir_y);
 }
 
-// void	init_ray(t_session *instance, t_camera3D *camera, t_ray *ray, int i, t_point pos)
-// {
-// 	ray->x = pos.x;
-// 	ray->y = pos.y;
-// 	camera->x = 2 * i / (double)instance->width - 1;
-// 	ray->ray_dir_x = camera->dir_x + camera->plane_x * camera->x;
-// 	ray->ray_dir_y = camera->dir_y + camera->plane_y * camera->x;
-// 	ray->delta_dist_x = clamp_ray(ray->ray_dir_x);
-// 	ray->delta_dist_y = clamp_ray(ray->ray_dir_y);
-// }
-
 void	aim_ray(t_ray *ray, double pos_x, double pos_y)
 {
 	if (ray->ray_dir_x < 0)
@@ -46,6 +35,15 @@ void	aim_ray(t_ray *ray, double pos_x, double pos_y)
 	}
 }
 
+
+t_ray copy_ray(t_ray *ray)
+{
+	t_ray new;
+
+	ft_memcpy(&new, ray, sizeof(t_ray));
+	return (new);
+}
+
 void	cast_ray(t_session *instance, t_ray	*ray)
 {
 	int	hit;
@@ -68,16 +66,14 @@ void	cast_ray(t_session *instance, t_ray	*ray)
 		}
 		if (!instance->map.grid[ray->y] || !instance->map.grid[ray->y][ray->x]
 			|| instance->map.grid[ray->y][ray->x] == '1' || instance->map.grid[ray->y][ray->x] == ' ')
-		{
 			hit = 1;
-			break;
-		}
-		else if (!instance->map.grid[ray->y] || !instance->map.grid[ray->y][ray->x]
-			|| instance->map.grid[ray->y][ray->x] == 'D')
+		else if (instance->map.grid[ray->y][ray->x] == 'D')
 		{
-			ray->door = true;
-			hit = 1;
-			break ;
+			ray->door= true;
+			instance->aux_ray = copy_ray(ray);
+			instance->aux_ray.wall_dir = get_wall_dir(instance->map.grid, instance->aux_ray.x, instance->aux_ray.y, instance->aux_ray.side);
+			instance->aux_ray.perp_wall_dist = get_pwall_distance(ray);
+			//break ;
 		}
 	}
 	ray->wall_dir = get_wall_dir(instance->map.grid, ray->x, ray->y, ray->side);

@@ -26,11 +26,11 @@ int get_wall_dir(char **grid ,int x, int y, int side)
 	else
 		return (WEST_TEXTURE);
 }
-t_data	*get_tex_data(t_session *instance, t_ray *ray)
+t_data	*get_tex_data(t_session *instance, t_ray *ray, bool select)
 {
-		if (ray->wall_dir >= 0 && ray->door)
+		if (select)
 			return (&instance->textures[DOOR_TEXTURE_1]);
-		if (ray->wall_dir == NORTH_TEXTURE)
+		else if (ray->wall_dir == NORTH_TEXTURE)
 			return (&instance->textures[NORTH_TEXTURE]);
 		else if (ray->wall_dir == SOUTH_TEXTURE)
 			return (&instance->textures[SOUTH_TEXTURE]);

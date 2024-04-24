@@ -15,8 +15,8 @@
 # include <unistd.h>
 # include <sys/time.h>
 
-# define W_WIDTH 2560
-# define W_HEIGHT 1440
+# define W_WIDTH 1980
+# define W_HEIGHT 1080
 
 # define VALID_CHAR "01NSEWD "
 # define PLAYER "NSEW"
@@ -127,7 +127,7 @@ void	cast_ray(t_session *instance, t_ray	*ray);
 double	clamp_ray(double dir);
 double	get_pwall_distance(t_ray *ray);
 int		get_wall_dir(char **grid ,int x, int y, int side);
-t_data	*get_tex_data(t_session *instance, t_ray *ray);
+t_data	*get_tex_data(t_session *instance, t_ray *ray, bool select);
 
 
 // player_movment.c
