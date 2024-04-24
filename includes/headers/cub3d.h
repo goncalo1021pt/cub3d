@@ -20,6 +20,7 @@
 # define VALID_CHAR "01NSEWD "
 # define PLAYER "NSEW"
 # define MAP_SCALE 64
+# define PLAYER_SIZE 2
 # define ROTATION_SPEED 5
 # define SPEED_MULTIPLIER 2
 # define PI 3.14159265358979323846
@@ -96,6 +97,7 @@ int		get_hexa_color(char *color);
 void	free_prev(char **arr_str, int ctd);
 int		min(int n1, int n2);
 int		max(int n1, int n2);
+bool	is_in_colision(int x, int y, t_map *map, char type);
 
 // map_check.c
 bool	check_char(t_map *map);

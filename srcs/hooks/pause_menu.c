@@ -35,6 +35,6 @@ void	pause_menu(t_session *instance)
 			y++;
 		}
 		x++;
-	}
+	}	
 	mlx_put_image_to_window(instance->mlx_ser, instance->mlx_win, instance->mlx_img.img, 0, 0);
 }
