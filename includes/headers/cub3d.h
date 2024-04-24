@@ -18,9 +18,10 @@
 # define W_WIDTH 1920
 # define W_HEIGHT 1080
 
-# define VALID_CHAR "01NSEW "
+# define VALID_CHAR "01NSEWD "
 # define PLAYER "NSEW"
 # define MAP_SCALE 64
+# define PLAYER_SIZE 2
 # define ROTATION_SPEED 5
 # define SPEED_MULTIPLIER 2
 # define PI 3.14159265358979323846
@@ -78,6 +79,7 @@ typedef enum e_sprite_order
 
 // parser.c
 bool	validate_map(t_map *map);
+bool	check_doors(t_map *map);
 bool	parser(int argc, char **argv, t_map *map);
 
 // map_aux.c
@@ -95,6 +97,10 @@ bool	is_in_array(char *arr, char c);
 int		ft_strslen(char **strs);
 bool	is_number(char *str);
 int		get_hexa_color(char *color);
+void	free_prev(char **arr_str, int ctd);
+int		min(int n1, int n2);
+int		max(int n1, int n2);
+bool	is_in_colision(int x, int y, t_map *map, char type);
 
 // map_check.c
 bool	check_char(t_map *map);
@@ -148,7 +154,7 @@ void pause_menu(t_session *instance);
 
 // mouse_hooks.c
 int		mouse_movement(int x, int y, t_session *instance);
-int	ignore_mouse_keys(int button, int x, int y, t_session *instance);
+int		ignore_mouse_keys(int button, int x, int y, t_session *instance);
 
 // draw.c
 void	pixel_put(t_data *data, int x, int y, int color);
@@ -157,11 +163,11 @@ void	init_dda(t_dda *dda, t_point start, t_point end);
 void	draw_line(t_session *instance, t_point start, t_point end, int color);
 void	draw_square(t_session *instance, t_point point, int sq, int color);
 void	fill_square(t_session *instance, t_point point, int sq, int color);
-void 	draw_face(t_session *instance, int x, int y, int color);
+void	draw_face(t_session *instance, int x, int y, int color);
 void	clear_image(t_session *instance);
 
 // load_textures.c
-bool load_textures(t_session *ist);
+bool	load_textures(t_session *ist);
 
 // grid.c // debug2D.c
 void	debug2D(t_session *instance);

@@ -18,5 +18,5 @@
 # define INV_EA "Invalid EA texture"
 # define INV_C "Invalid ceiling color"
 # define INV_F "Invalid floor color"
-
+# define INV_DOOR "Invalid door placement"
 #endif

@@ -16,14 +16,28 @@ int	get_max_len(t_map *map)
 	return (max_len);
 }
 
-void	free_prev(char **arr_str, int ctd)
+void	set_door(t_map *map, int x, int y)
 {
-	while (ctd >= 0)
+	int ctd;
+
+	if (map->map[x - 1][y] == '0')
 	{
-		free(arr_str[ctd]);
-		ctd--;
+		ctd = y * MAP_SCALE;
+		while (ctd < (y + 1) * MAP_SCALE)
+		{
+			map->grid[(x * MAP_SCALE) + (MAP_SCALE / 2)][ctd] = 'D';
+			ctd++;
+		}
 	}
-	free(arr_str);
+	else
+	{
+		ctd = x * MAP_SCALE;
+		while (ctd < (x + 1) * MAP_SCALE)
+		{
+			map->grid[ctd][(y * MAP_SCALE) + (MAP_SCALE / 2)] = 'D';
+			ctd++;
+		}
+	}
 }
 
 void	scale_grid(t_map *map, int x, int y)
@@ -37,7 +51,7 @@ void	scale_grid(t_map *map, int x, int y)
 		ctd2 = 0;
 		while (ctd2 < MAP_SCALE)
 		{
-			if (is_in_array(PLAYER, map->map[x][y]))
+			if (is_in_array(PLAYER, map->map[x][y]) || map->map[x][y] == 'D')
 				map->grid[(x * MAP_SCALE) + ctd][(y * MAP_SCALE) + ctd2] = '0';
 			else
 				map->grid[(x * MAP_SCALE) + ctd][(y * MAP_SCALE)
@@ -48,6 +62,8 @@ void	scale_grid(t_map *map, int x, int y)
 	}
 	if (is_in_array(PLAYER, map->map[x][y]))
 		map->grid[(x * MAP_SCALE) + (MAP_SCALE / 2)][(y * MAP_SCALE) + (MAP_SCALE / 2)] = map->map[x][y];
+	else if (map->map[x][y] == 'D')
+		set_door(map, x, y);
 }
 
 void	set_grid(t_map *map)
@@ -66,7 +82,6 @@ void	set_grid(t_map *map)
 		}
 		ctd++;
 	}
-	create_boarder(map->grid);
 }
 
 bool	create_grid(t_map *map)

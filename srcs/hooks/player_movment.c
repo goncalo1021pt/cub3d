@@ -14,18 +14,51 @@ void	rotate_player(t_player *player, int angle)
 
 void	wall_slide(t_player *player, t_map *map, double x, double y)
 {
-	if (map->grid[(int)round(player->y)][(int)round(x)] == '0')
+	if (!is_in_colision((int)round(x), (int)round(player->y), map, '1') && !is_in_colision((int)round(x), (int)round(player->y), map, 'D'))
 		player->x = x;
-	else if (map->grid[(int)round(y)][(int)round(player->x)] == '0')
+	else if (!is_in_colision((int)round(player->x), (int)round(y), map, '1') && !is_in_colision((int)round(player->x), (int)round(y), map, 'D'))
 		player->y = y;
-	else if (x > player->x && map->grid[(int)round(player->y)][(int)round(player->x + 1)] == '0')
-			player->x = x;
-	else if (x < player->x && map->grid[(int)round(player->y)][(int)round(player->x - 1)] == '0')
-			player->x = x;
-	else if (y > player->y && map->grid[(int)round(player->y + 1)][(int)round(player->x)] == '0')
-			player->y = y;
-	else if (y < player->y && map->grid[(int)round(player->y - 1)][(int)round(player->x)] == '0')
-			player->y = y;
+	else if (x > player->x && !is_in_colision((int)round(player->x + 1), (int)round(player->y), map, '1') && !is_in_colision((int)round(player->x + 1), (int)round(player->y), map, 'D'))
+		player->x = x;
+	else if (x < player->x && !is_in_colision((int)round(player->x - 1), (int)round(player->y), map, '1') && !is_in_colision((int)round(player->x - 1), (int)round(player->y), map, 'D'))
+		player->x = x;
+	else if (y > player->y && !is_in_colision((int)round(player->x), (int)round(player->y + 1), map, '1') && !is_in_colision((int)round(player->x), (int)round(player->y + 1), map, 'D'))
+		player->y = y;
+	else if (y < player->y && !is_in_colision((int)round(player->x), (int)round(player->y - 1), map, '1') && !is_in_colision((int)round(player->x), (int)round(player->y - 1), map, 'D'))
+		player->y = y;
+}
+
+void	meve_door(t_player *player, t_map *map, double x, double y)
+{
+	printf("door\n");
+	if (player->door == true)
+	{
+		player->x = x;
+		player->y = y;
+	}
+	else
+		wall_slide(player, map, x, y);
+}
+
+bool	check_collision_door(t_player *player, t_map *map, int x, int y)
+{
+	int	ctd;
+
+	ctd = min(player->x, x);
+	while (ctd <= max(player->x, x))
+	{
+		if (is_in_colision(ctd, (int)round(y), map, 'D'))
+			return (true);
+		ctd++;
+	}
+	ctd = min(player->y, y);
+	while (ctd <= max(player->y, y))
+	{
+		if (is_in_colision((int)round(x), ctd, map, 'D'))
+			return (true);
+		ctd++;
+	}
+	return (false);
 }
 
 void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
@@ -46,9 +79,10 @@ void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
 		x = player->x + speed * cos(angle * PI / 180);
 		y = player->y + speed * sin(angle * PI / 180);
 	}
-	if (map->grid[(int)round(y)][(int)round(x)] == '0')
+	if (check_collision_door(player, map, x, y))
+		meve_door(player, map, x, y);
+	else if (!is_in_colision((int)round(x), (int)round(y), map, '1'))
 	{
-		// map->grid[(int)round(player->y)][(int)round(player->x)] = '0';
 		player->x = x;
 		player->y = y;
 	}
