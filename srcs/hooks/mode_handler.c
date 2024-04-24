@@ -30,5 +30,11 @@ void	handle_door(t_session *instance)
 	if (!instance->player.door)
 		return ;
 	gettimeofday(&tv, NULL);
-	instance->player.time_door = 
+	instance->player.time_door = tv.tv_sec;
 }
+
+// bool close_door(t_session *instance)
+// {
+// 	if (instance->player.time_door)
+		
+// }

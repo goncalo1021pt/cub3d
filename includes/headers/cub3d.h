@@ -100,7 +100,7 @@ int		get_hexa_color(char *color);
 void	free_prev(char **arr_str, int ctd);
 int		min(int n1, int n2);
 int		max(int n1, int n2);
-bool	is_in_colision(int x, int y, t_map *map, char type);
+bool	is_in_colision(int x, int y, t_session *instance, char type);
 void	check_time(void);
 
 // map_check.c
@@ -131,7 +131,7 @@ t_data	*get_tex_data(t_session *instance, t_ray *ray);
 // player_movment.c
 bool	initialize_player(t_player *player, t_map *map);
 void	rotate_player(t_player *player, int angle);
-void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir);
+void	move_player(t_player *player, t_session *instance, int speed, t_keys_angle dir);
 float	get_player_speed(t_session *instance);
 
 // display.c
@@ -149,6 +149,10 @@ int		const_movement(t_session *instance);
 int		handle_key_release(int keycode, t_session *instance);
 int		handle_single_key(int keycode, t_session *instance);
 int		exit_hook(t_session *instance);
+
+// mode_handler
+int		handle_mode(int keycode, t_session *instance);
+void	handle_door(t_session *instance);
 
 // pause_menu.c
 void pause_menu(t_session *instance);
@@ -183,4 +187,5 @@ void	vp_player(t_session *instance, int x, int y);
 bool	start_game(t_session *instance);
 // main.c
 void	clean_parser(t_map *map);
+
 #endif
