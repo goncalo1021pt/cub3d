@@ -101,6 +101,7 @@ void	free_prev(char **arr_str, int ctd);
 int		min(int n1, int n2);
 int		max(int n1, int n2);
 bool	is_in_colision(int x, int y, t_map *map, char type);
+void	check_time(void);
 
 // map_check.c
 bool	check_char(t_map *map);

@@ -40,28 +40,28 @@ void	meve_door(t_player *player, t_map *map, double x, double y)
 		wall_slide(player, map, x, y);
 }
 
-bool	check_collision_door(t_player *player, t_map *map, int x, int y)
+bool	check_collision_door(t_player *player, t_session *instance, int x, int y)
 {
 	int	ctd;
 
 	ctd = min(player->x, x);
 	while (ctd <= max(player->x, x))
 	{
-		if (is_in_colision(ctd, (int)round(y), map, 'D'))
+		if (is_in_colision(ctd, (int)round(y), instance, 'D'))
 			return (true);
 		ctd++;
 	}
 	ctd = min(player->y, y);
 	while (ctd <= max(player->y, y))
 	{
-		if (is_in_colision((int)round(x), ctd, map, 'D'))
+		if (is_in_colision((int)round(x), ctd, instance, 'D'))
 			return (true);
 		ctd++;
 	}
 	return (false);
 }
 
-void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
+void	move_player(t_player *player, t_session *instance, int speed, t_keys_angle dir)
 {
 	double	x;
 	double	y;
@@ -79,13 +79,13 @@ void	move_player(t_player *player, t_map *map, int speed, t_keys_angle dir)
 		x = player->x + speed * cos(angle * PI / 180);
 		y = player->y + speed * sin(angle * PI / 180);
 	}
-	if (check_collision_door(player, map, x, y))
-		meve_door(player, map, x, y);
-	else if (!is_in_colision((int)round(x), (int)round(y), map, '1'))
+	if (check_collision_door(player, instance, x, y))
+		meve_door(player, instance, x, y);
+	else if (!is_in_colision((int)round(x), (int)round(y), instance, '1'))
 	{
 		player->x = x;
 		player->y = y;
 	}
 	else if ((int)angle % 90 != 0)
-		wall_slide(player, map, x, y);
+		wall_slide(player, instance, x, y);
 }
