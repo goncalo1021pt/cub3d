@@ -67,13 +67,19 @@ void	cast_ray(t_session *instance, t_ray	*ray)
 			ray->side = 1;
 		}
 		if (!instance->map.grid[ray->y] || !instance->map.grid[ray->y][ray->x]
-			|| instance->map.grid[ray->y][ray->x] == '1' || instance->map.grid[ray->y][ray->x] == ' ' || instance->map.grid[ray->y][ray->x] == 'D')
+			|| instance->map.grid[ray->y][ray->x] == '1' || instance->map.grid[ray->y][ray->x] == ' ')
 		{
-			if (instance->map.grid[ray->y][ray->x] == 'D')
-				ray->door = true;
-			ray->wall_dir = get_wall_dir(instance->map.grid, ray->x, ray->y, ray->side);
+
+			hit = 1;
+			break;
+		}
+		else if (!instance->map.grid[ray->y] || !instance->map.grid[ray->y][ray->x]
+			|| instance->map.grid[ray->y][ray->x] == 'D')
+		{
+			ray->door = true;
 			hit = 1;
 		}
 	}
+	ray->wall_dir = get_wall_dir(instance->map.grid, ray->x, ray->y, ray->side);
 	ray->perp_wall_dist = get_pwall_distance(ray);
 }
