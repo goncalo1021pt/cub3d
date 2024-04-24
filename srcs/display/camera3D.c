@@ -63,6 +63,36 @@ void	rndr_doors(t_session *instance, t_camera3D camera, int i, double pos_x, dou
 	draw_textured_line(instance, (t_point){i, slice.start}, (t_point){i, slice.end}, &tex);
 }
 
+void	cast_aux_ray(t_session *instance, t_ray	*ray)
+{
+	int	hit;
+
+	hit = 0;
+	ray->door = false;
+	while (hit == 0)
+	{
+		if (ray->side_dist_x < ray->side_dist_y)
+		{
+			ray->side_dist_x += ray->delta_dist_x;
+			ray->x += ray->step_x;
+			ray->side = 0;
+		}
+		else
+		{
+			ray->side_dist_y += ray->delta_dist_y;
+			ray->y += ray->step_y;
+			ray->side = 1;
+		}
+		if (instance->map.grid[ray->y][ray->x] == 'D')
+		{
+			ray->door= true;
+			break ;
+		}
+	}
+	ray->wall_dir = get_wall_dir(instance->map.grid, ray->x, ray->y, ray->side);
+	ray->perp_wall_dist = get_pwall_distance(ray);
+}
+
 void	camera3d(t_session *instance, double pos_x, double pos_y)
 {
 	t_camera3D	camera;
@@ -89,7 +119,23 @@ void	camera3d(t_session *instance, double pos_x, double pos_y)
 		tex.data = get_tex_data(instance, &ray, false);
 		draw_textured_line(instance, (t_point){i, slice.start}, (t_point){i, slice.end}, &tex);
 		if (ray.door)
-			rndr_doors(instance, camera, i, pos_x, pos_y);
+		{
+
+			init_ray(&camera, &instance->aux_ray, i, (t_point){pos_x, pos_y});
+			aim_ray(&instance->aux_ray, pos_x, pos_y);
+			cast_aux_ray(instance, &instance->aux_ray);
+			slice.height = (int)(instance->height / instance->aux_ray.perp_wall_dist * MAP_SCALE);
+			slice.start = -slice.height / 2 + instance->height / 2;
+			slice.end = slice.height / 2 + instance->height / 2;
+			if (instance->aux_ray.wall_dir == EAST_TEXTURE || instance->aux_ray.wall_dir == WEST_TEXTURE)
+				instance->aux_ray.wall_x = pos_y + instance->aux_ray.perp_wall_dist * instance->aux_ray.ray_dir_y ;
+			else
+				instance->aux_ray.wall_x = pos_x + instance->aux_ray.perp_wall_dist * instance->aux_ray.ray_dir_x ;
+			tex.wall_x = floor(instance->aux_ray.wall_x % MAP_SCALE);
+			tex.data = get_tex_data(instance, &ray, true);
+			draw_textured_line(instance, (t_point){i, slice.start}, (t_point){i, slice.end}, &tex);
+		}
+
 
 		i++;
 	}
