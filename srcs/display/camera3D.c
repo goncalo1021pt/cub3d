@@ -26,7 +26,7 @@ void draw_textured_line(t_session *instance, t_point start, t_point end, t_textu
 	i = -dda.current_y / dda.y_inc;
 	dda.current_y = 0;
 	tex->x = tex->wall_x * tex->data->width / MAP_SCALE;
-	while (i <= dda.step)
+	while (i < dda.step) // cant be <=
 	{
 		tex->y = (i / dda.step) * tex->data->height;
 		if (tex->y >= 0 && tex->y <= tex->data->height

@@ -39,7 +39,7 @@ void	draw_line(t_session *instance, t_point start, t_point end, int color)
 
 	i = 0;
 	init_dda(&dda, start, end);
-	while (i <= dda.step)
+	while (i <= dda.step) // should be < instead of <=
 	{
 		pixel_put(instance, dda.current_x, dda.current_y, color);
 		dda.current_x += dda.x_inc;
