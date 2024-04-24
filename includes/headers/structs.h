@@ -34,6 +34,8 @@ typedef struct s_map
 	char		*c;
 	char		*f;
 	int			colors[2];
+	int			grid_h;
+	int			grid_w;
 }				t_map;
 
 typedef struct s_player

@@ -15,8 +15,8 @@
 # include <unistd.h>
 # include <sys/time.h>
 
-# define W_WIDTH 1920
-# define W_HEIGHT 1080
+# define W_WIDTH 2560
+# define W_HEIGHT 1440
 
 # define VALID_CHAR "01NSEW "
 # define PLAYER "NSEW"
@@ -161,8 +161,9 @@ void	debug2D(t_session *instance);
 void	vp_grid(t_session *instance);
 void	vp_scaled(t_session *instance);
 void	vp_player(t_session *instance, int x, int y);
-
-
+//minimap aux.c
+int	split_size(char **split);
+size_t	max_len(char **split);
 
 // start.c
 bool	start_game(t_session *instance);
