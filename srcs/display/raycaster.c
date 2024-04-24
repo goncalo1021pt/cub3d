@@ -69,7 +69,6 @@ void	cast_ray(t_session *instance, t_ray	*ray)
 		if (!instance->map.grid[ray->y] || !instance->map.grid[ray->y][ray->x]
 			|| instance->map.grid[ray->y][ray->x] == '1' || instance->map.grid[ray->y][ray->x] == ' ')
 		{
-
 			hit = 1;
 			break;
 		}
@@ -78,6 +77,7 @@ void	cast_ray(t_session *instance, t_ray	*ray)
 		{
 			ray->door = true;
 			hit = 1;
+			break ;
 		}
 	}
 	ray->wall_dir = get_wall_dir(instance->map.grid, ray->x, ray->y, ray->side);
