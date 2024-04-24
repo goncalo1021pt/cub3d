@@ -121,6 +121,7 @@ void	camera3d(t_session *instance, double pos_x, double pos_y);
 void	init_ray(t_camera3D *camera, t_ray *ray, int i, double pos_x, double pos_y);
 void	aim_ray(t_ray *ray, double pos_x, double pos_y);
 void	cast_ray(t_session *instance, t_ray	*ray);
+
 //raycaster_utils.c
 double	clamp_ray(double dir);
 double	get_pwall_distance(t_ray *ray);
@@ -153,7 +154,7 @@ int		exit_hook(t_session *instance);
 // mode_handler
 int		handle_mode(int keycode, t_session *instance);
 void	handle_door(t_session *instance);
-
+void	close_door(t_session *instance);
 // pause_menu.c
 void pause_menu(t_session *instance);
 
@@ -180,8 +181,6 @@ void	debug2D(t_session *instance);
 void	vp_grid(t_session *instance);
 void	vp_scaled(t_session *instance);
 void	vp_player(t_session *instance, int x, int y);
-
-
 
 // start.c
 bool	start_game(t_session *instance);

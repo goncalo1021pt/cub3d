@@ -27,14 +27,19 @@ void	handle_door(t_session *instance)
 {
 	struct timeval		tv;
 
-	if (!instance->player.door)
+	if (instance->player.door)
 		return ;
 	gettimeofday(&tv, NULL);
 	instance->player.time_door = tv.tv_sec;
+	instance->player.door = true;
 }
 
-// bool close_door(t_session *instance)
-// {
-// 	if (instance->player.time_door)
-		
-// }
+void close_door(t_session *instance)
+{
+	struct timeval		tv;
+
+	gettimeofday(&tv, NULL);
+	if (instance->player.time_door + 3 > tv.tv_sec)
+		return ;
+	instance->player.door = false;
+}

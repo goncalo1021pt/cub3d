@@ -30,7 +30,6 @@ void	wall_slide(t_player *player, t_session *instance, double x, double y)
 
 void	meve_door(t_player *player, t_session *instance, double x, double y)
 {
-	printf("door\n");
 	if (player->door == true)
 	{
 		player->x = x;
