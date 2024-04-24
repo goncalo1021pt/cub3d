@@ -26,7 +26,7 @@
 # define SPEED_MULTIPLIER 2
 # define PI 3.14159265358979323846
 # define MOUSE_SENSITIVITY 200
-# define FPS 60
+# define FPS 120
 # define FRAME_TIME (1000000 / FPS)
 
 typedef enum e_mode_type
@@ -73,8 +73,10 @@ typedef enum e_sprite_order
 	SOUTH_TEXTURE,
 	EAST_TEXTURE,
 	WEST_TEXTURE,
-	CEALING_TEXTURE,
-	FLOOR_TEXTURE
+	DOOR_TEXTURE_1,
+	DOOR_TEXTURE_2,
+	DOOR_TEXTURE_3,
+	DOOR_TEXTURE_4,
 }	t_sprite_order;
 
 // parser.c

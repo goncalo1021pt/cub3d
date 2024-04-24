@@ -51,6 +51,7 @@ void	cast_ray(t_session *instance, t_ray	*ray)
 	int	hit;
 
 	hit = 0;
+	ray->door = false;
 	while (hit == 0)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
@@ -66,8 +67,10 @@ void	cast_ray(t_session *instance, t_ray	*ray)
 			ray->side = 1;
 		}
 		if (!instance->map.grid[ray->y] || !instance->map.grid[ray->y][ray->x]
-			|| instance->map.grid[ray->y][ray->x] == '1' || instance->map.grid[ray->y][ray->x] == ' ')
+			|| instance->map.grid[ray->y][ray->x] == '1' || instance->map.grid[ray->y][ray->x] == ' ' || instance->map.grid[ray->y][ray->x] == 'D')
 		{
+			if (instance->map.grid[ray->y][ray->x] == 'D')
+				ray->door = true;
 			ray->wall_dir = get_wall_dir(instance->map.grid, ray->x, ray->y, ray->side);
 			hit = 1;
 		}

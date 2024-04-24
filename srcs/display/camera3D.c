@@ -8,6 +8,13 @@ void	init_camera3D(t_session *instance, t_camera3D *camera)
 	camera->plane_x = -camera->dir_y * tan(camera->fov / 2);
 	camera->plane_y = camera->dir_x * tan(camera->fov / 2);
 }
+int	get_pixel(t_data *data, int x, int y)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
+	return (*(unsigned int *)dst);
+}
 
 void draw_textured_line(t_session *instance, t_point start, t_point end, t_texture *tex)
 {
@@ -26,6 +33,7 @@ void draw_textured_line(t_session *instance, t_point start, t_point end, t_textu
 			&& dda.current_y >= 0 && dda.current_y <= instance->height)
 		{
 			tex->color = get_pixel(tex->data, tex->x, tex->y);
+			//if (tex->color != TRANPARENT)
 			pixel_put(instance, dda.current_x, dda.current_y, tex->color);
 		}
 		dda.current_y += dda.y_inc;
