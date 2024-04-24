@@ -12,7 +12,7 @@ int	get_pixel(t_data *data, int x, int y)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
+	dst = data->addr + (y * data->line_length + x * 4); // (data->bpp / 8) = 4;
 	return (*(unsigned int *)dst);
 }
 
@@ -33,8 +33,8 @@ void draw_textured_line(t_session *instance, t_point start, t_point end, t_textu
 			&& dda.current_y >= 0 && dda.current_y <= instance->height)
 		{
 			tex->color = get_pixel(tex->data, tex->x, tex->y);
-			//if (tex->color != TRANPARENT)
-			pixel_put(instance, dda.current_x, dda.current_y, tex->color);
+			if (tex->color != 0xF900FF)
+				pixel_put(instance, dda.current_x, dda.current_y, tex->color);
 		}
 		dda.current_y += dda.y_inc;
 		if (dda.current_y > instance->height)
