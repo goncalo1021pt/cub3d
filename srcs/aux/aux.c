@@ -49,3 +49,13 @@ int	get_hexa_color(char *color)
 	free_file(rgb);
 	return (color_value[0] << 16 | color_value[1] << 8 | color_value[2]);
 }
+
+void	free_prev(char **arr_str, int ctd)
+{
+	while (ctd >= 0)
+	{
+		free(arr_str[ctd]);
+		ctd--;
+	}
+	free(arr_str);
+}

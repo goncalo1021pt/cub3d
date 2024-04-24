@@ -19,11 +19,11 @@ int	create_rgb(float ratio, int start, int end)
 	return ((r << 16) | (g << 8) | b);
 }
 
-void pause_menu(t_session *instance)
+void	pause_menu(t_session *instance)
 {
-	int x;
-	int y;
-	
+	int	x;
+	int	y;
+
 	x = BOARDER_SIZE;
 	while (x < instance->width - BOARDER_SIZE)
 	{
@@ -32,8 +32,6 @@ void pause_menu(t_session *instance)
 		{
 			if ((x > BOARDER_SIZE && x < instance->width - BOARDER_SIZE - 1) && (y > BOARDER_SIZE || y < instance->height - BOARDER_SIZE - 1))
 				pixel_put(&instance->mlx_img, x, y, 0x0000000);
-			// else
-			// 	pixel_put(&instance->mlx_img, x, y, create_rgb(0.5, get_pixel(&instance->mlx_img, x, y), 0x00FFFFFF));
 			y++;
 		}
 		x++;

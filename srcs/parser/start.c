@@ -37,6 +37,7 @@ bool	initialize_player(t_player *player, t_map *map)
 
 	y = -1;
 	player->keys_pressed = 0;
+	player->door = false;
 	while (map->grid[++y])
 	{
 		x = -1;
@@ -54,7 +55,6 @@ bool	initialize_player(t_player *player, t_map *map)
 	return (true);
 }
 
-
 bool	start_game(t_session *instance)
 {
 	t_map		*map;
@@ -66,6 +66,7 @@ bool	start_game(t_session *instance)
 		return (false);
 	if (!initialize_player(player, map))
 		return (false);
+	// print_grid(map->grid);
 	init_keys(instance);
 	mlx_startup(instance);
 	// print_player(player);

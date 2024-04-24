@@ -41,6 +41,7 @@ typedef struct s_player
 	float		x;
 	float		y;
 	int			keys_pressed;
+	bool		door;
 	double		angle;
 }				t_player;
 

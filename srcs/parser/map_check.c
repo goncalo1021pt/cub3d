@@ -75,7 +75,8 @@ bool	initiate_flood(t_map *map)
 bool	flood_fill(t_map *map, int cols, int rows)
 {
 	if (cols < 0 || rows < 0 || !map->map[cols]
-		|| rows >= (int)ft_strlen(map->map[cols]) || map->map[cols][rows] == ' ')
+		|| rows >= (int)ft_strlen(map->map[cols])
+		|| map->map[cols][rows] == ' ')
 		return (false);
 	if (map->map[cols][rows] == '1' || map->visited[cols][rows])
 		return (true);
@@ -103,7 +104,7 @@ bool	check_sorroundings(t_map *map)
 		while (map->map[cols][rows])
 		{
 			if ((map->map[cols][rows] == '0' || is_in_array(PLAYER,
-					map->map[cols][rows]))
+						map->map[cols][rows]))
 				&& map->visited[cols][rows] == false)
 			{
 				if (!flood_fill(map, cols, rows))

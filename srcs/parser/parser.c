@@ -58,6 +58,8 @@ bool	validate_map(t_map *map)
 {
 	if (!check_char(map))
 		return (false);
+	if (!check_doors(map))
+		return (false);
 	if (!initiate_flood(map))
 		return (false);
 	if (!check_sorroundings(map))
