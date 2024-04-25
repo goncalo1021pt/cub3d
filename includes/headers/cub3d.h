@@ -15,8 +15,8 @@
 # include <unistd.h>
 # include <sys/time.h>
 
-# define W_WIDTH 1980
-# define W_HEIGHT 1080
+# define W_WIDTH 2560
+# define W_HEIGHT 1440
 
 # define VALID_CHAR "01NSEWD "
 # define PLAYER "NSEW"
@@ -173,9 +173,6 @@ void	pixel_put(t_session *instance, int x, int y, int color);
 int		get_pixel(t_data *data, int x, int y);
 void	init_dda(t_dda *dda, t_point start, t_point end);
 void	draw_line(t_session *instance, t_point start, t_point end, int color);
-void	draw_square(t_session *instance, t_point point, int sq, int color);
-void	fill_square(t_session *instance, t_point point, int sq, int color);
-void	draw_face(t_session *instance, int x, int y, int color);
 void	clear_image(t_session *instance);
 
 // load_textures.c
@@ -187,6 +184,13 @@ void	debug2D(t_session *instance);
 void	vp_grid(t_session *instance);
 void	vp_scaled(t_session *instance);
 void	vp_player(t_session *instance, int x, int y);
+
+//minimap utils.c
+void	draw_square(t_session *instance, t_point point, int sq, int color);
+void	fill_square(t_session *instance, t_point point, int sq, int color);
+void	draw_face(t_session *instance, int x, int y, int color);
+int		split_size(char **split);
+size_t	max_len(char **split);
 
 // start.c
 bool	start_game(t_session *instance);

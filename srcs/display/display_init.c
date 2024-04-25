@@ -31,6 +31,8 @@ bool mlx_vars_init(t_session *instance)
 {
 	instance->width = W_WIDTH;
 	instance->height = W_HEIGHT;
+	instance->map.grid_h = split_size(instance->map.grid);
+	instance->map.grid_w = max_len(instance->map.grid);
 	instance->mlx_ser = mlx_init();
 	init_array(instance);
 	// mlx_get_screen_size(instance->mlx_ser, &instance->width, &instance->height);

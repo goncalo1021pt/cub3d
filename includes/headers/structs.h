@@ -97,6 +97,7 @@ typedef struct s_camera2d
 	t_point		p_pos;
 	t_point		size;
 	t_point		offset;
+	int			color;
 
 }				t_camera2d;
 
