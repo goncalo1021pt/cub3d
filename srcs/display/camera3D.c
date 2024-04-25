@@ -51,6 +51,8 @@ void	rndr_doors(t_session *instance, t_camera3D camera, int i, double pos_x, dou
 	init_ray(&camera, &instance->aux_ray, i, (t_point){pos_x, pos_y});
 	aim_ray(&instance->aux_ray, pos_x, pos_y);
 	cast_aux_ray(instance, &instance->aux_ray);
+	if (instance->aux_ray.perp_wall_dist <= 0)
+		return ;
 	slice.height = (int)(instance->height / instance->aux_ray.perp_wall_dist * MAP_SCALE);
 	slice.start = -slice.height / 2 + instance->height / 2;
 	slice.end = slice.height / 2 + instance->height / 2;
