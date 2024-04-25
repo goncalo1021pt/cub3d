@@ -1,9 +1,9 @@
 #include "../../includes/headers/cub3d.h"
 
-void	init_ray(t_camera3D *camera, t_ray *ray, int i, double pos_x, double pos_y)
+void	init_ray(t_camera3D *camera, t_ray *ray, int i, t_point pos)
 {
-	ray->x = pos_x;
-	ray->y = pos_y;
+	ray->x = pos.x;
+	ray->y = pos.y;
 	camera->x = 2 * i / (double)W_WIDTH - 1;
 	ray->ray_dir_x = camera->dir_x + camera->plane_x * camera->x;
 	ray->ray_dir_y = camera->dir_y + camera->plane_y * camera->x;
@@ -35,11 +35,21 @@ void	aim_ray(t_ray *ray, double pos_x, double pos_y)
 	}
 }
 
+
+t_ray copy_ray(t_ray *ray)
+{
+	t_ray new;
+
+	ft_memcpy(&new, ray, sizeof(t_ray));
+	return (new);
+}
+
 void	cast_ray(t_session *instance, t_ray	*ray)
 {
 	int	hit;
 
 	hit = 0;
+	ray->door = false;
 	while (hit == 0)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
@@ -56,10 +66,10 @@ void	cast_ray(t_session *instance, t_ray	*ray)
 		}
 		if (!instance->map.grid[ray->y] || !instance->map.grid[ray->y][ray->x]
 			|| instance->map.grid[ray->y][ray->x] == '1' || instance->map.grid[ray->y][ray->x] == ' ')
-		{
-			ray->wall_dir = get_wall_dir(instance->map.grid, ray->x, ray->y, ray->side);
 			hit = 1;
-		}
+		else if (instance->map.grid[ray->y][ray->x] == 'D')
+			ray->door= true;
 	}
+	ray->wall_dir = get_wall_dir(instance->map.grid, ray->x, ray->y, ray->side);
 	ray->perp_wall_dist = get_pwall_distance(ray);
 }

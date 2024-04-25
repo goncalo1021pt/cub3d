@@ -31,10 +31,10 @@ void	pause_menu(t_session *instance)
 		while (y < instance->height - BOARDER_SIZE)
 		{
 			if ((x > BOARDER_SIZE && x < instance->width - BOARDER_SIZE - 1) && (y > BOARDER_SIZE || y < instance->height - BOARDER_SIZE - 1))
-				pixel_put(&instance->mlx_img, x, y, 0x0000000);
+				pixel_put(instance, x, y, 0x0000000);
 			y++;
 		}
 		x++;
-	}	
+	}
 	mlx_put_image_to_window(instance->mlx_ser, instance->mlx_win, instance->mlx_img.img, 0, 0);
 }

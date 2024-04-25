@@ -15,7 +15,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 
-# define W_WIDTH 1920
+# define W_WIDTH 1980
 # define W_HEIGHT 1080
 
 # define VALID_CHAR "01NSEWD "
@@ -26,7 +26,7 @@
 # define SPEED_MULTIPLIER 2
 # define PI 3.14159265358979323846
 # define MOUSE_SENSITIVITY 200
-# define FPS 60
+# define FPS 120
 # define FRAME_TIME (1000000 / FPS)
 
 typedef enum e_mode_type
@@ -73,8 +73,10 @@ typedef enum e_sprite_order
 	SOUTH_TEXTURE,
 	EAST_TEXTURE,
 	WEST_TEXTURE,
-	CEALING_TEXTURE,
-	FLOOR_TEXTURE
+	DOOR_TEXTURE_1,
+	DOOR_TEXTURE_2,
+	DOOR_TEXTURE_3,
+	DOOR_TEXTURE_4,
 }	t_sprite_order;
 
 // parser.c
@@ -118,7 +120,7 @@ bool	create_grid(t_map *map);
 //Camera3D.c
 void	camera3d(t_session *instance, double pos_x, double pos_y);
 //raycaster.c
-void	init_ray(t_camera3D *camera, t_ray *ray, int i, double pos_x, double pos_y);
+void	init_ray(t_camera3D *camera, t_ray *ray, int i, t_point pos);
 void	aim_ray(t_ray *ray, double pos_x, double pos_y);
 void	cast_ray(t_session *instance, t_ray	*ray);
 
@@ -126,7 +128,7 @@ void	cast_ray(t_session *instance, t_ray	*ray);
 double	clamp_ray(double dir);
 double	get_pwall_distance(t_ray *ray);
 int		get_wall_dir(char **grid ,int x, int y, int side);
-t_data	*get_tex_data(t_session *instance, t_ray *ray);
+t_data	*get_tex_data(t_session *instance, t_ray *ray, bool select);
 
 
 // player_movment.c
@@ -163,7 +165,7 @@ int		mouse_movement(int x, int y, t_session *instance);
 int		ignore_mouse_keys(int button, int x, int y, t_session *instance);
 
 // draw.c
-void	pixel_put(t_data *data, int x, int y, int color);
+void	pixel_put(t_session *instance, int x, int y, int color);
 int		get_pixel(t_data *data, int x, int y);
 void	init_dda(t_dda *dda, t_point start, t_point end);
 void	draw_line(t_session *instance, t_point start, t_point end, int color);

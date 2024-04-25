@@ -31,9 +31,9 @@ void	debug2D(t_session *instance)
 		while (instance->map.grid[y][x])
 		{
 			if (instance->map.grid[y][x] == '1')
-				pixel_put(&(instance->mlx_img), x, y, 0xff4500);
+				pixel_put(instance, x, y, 0xff4500);
 			else if (instance->map.grid[y][x] == '0')
-				pixel_put(&(instance->mlx_img), x, y, 0xffffff);
+				pixel_put(instance, x, y, 0xffffff);
 			x++;
 		}
 		y++;
