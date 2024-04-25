@@ -31,8 +31,7 @@ void	vp_player(t_session *instance, int x, int y)
 void vp_scaled(t_session *instance)
 {
 	int			y;
-	int			x;
-	int			color;
+	int			x; // pass to cam struct
 	t_camera2d	cam2d;
 
 	if (instance->mode.type == PLAY && instance->mode.sub != MINIMAP)
@@ -46,11 +45,11 @@ void vp_scaled(t_session *instance)
 		while (x < cam2d.bot_r.x && instance->map.grid[y][x])
 		{
 			cam2d.offset.x = (x - cam2d.top_l.x) + (W_SCALE - (instance->player.x - cam2d.top_l.x));
-			color = get_pixel(&instance->mlx_img, cam2d.offset.x, cam2d.offset.y);
+			cam2d.color = get_pixel(&instance->mlx_img, cam2d.offset.x, cam2d.offset.y);
 			if (instance->map.grid[y][x] == '1')
-				pixel_put(instance, cam2d.offset.x, cam2d.offset.y, color + 0xf0f010);
+				pixel_put(instance, cam2d.offset.x, cam2d.offset.y, cam2d.color + 0xf0f010);
 			else if (instance->map.grid[y][x] == '0')
-				pixel_put(instance, cam2d.offset.x, cam2d.offset.y, color + 0x004550);
+				pixel_put(instance, cam2d.offset.x, cam2d.offset.y, cam2d.color + 0x004550);
 			x++;
 		}
 		y++;
