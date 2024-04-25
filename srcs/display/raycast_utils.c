@@ -26,6 +26,14 @@ int get_wall_dir(char **grid ,int x, int y, int side)
 	else
 		return (WEST_TEXTURE);
 }
+
+int	get_walx(t_ray *ray, double pos_x, double pos_y)
+{
+	if (ray->wall_dir == EAST_TEXTURE || ray->wall_dir == WEST_TEXTURE)
+		return (pos_y + ray->perp_wall_dist * ray->ray_dir_y );
+	else
+		return (pos_x + ray->perp_wall_dist * ray->ray_dir_x );
+}
 t_data	*get_tex_data(t_session *instance, t_ray *ray, bool select)
 {
 		if (ray->door && select)

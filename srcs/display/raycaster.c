@@ -35,15 +35,6 @@ void	aim_ray(t_ray *ray, double pos_x, double pos_y)
 	}
 }
 
-
-t_ray copy_ray(t_ray *ray)
-{
-	t_ray new;
-
-	ft_memcpy(&new, ray, sizeof(t_ray));
-	return (new);
-}
-
 void	cast_ray(t_session *instance, t_ray	*ray)
 {
 	int	hit;
@@ -69,6 +60,36 @@ void	cast_ray(t_session *instance, t_ray	*ray)
 			hit = 1;
 		else if (instance->map.grid[ray->y][ray->x] == 'D')
 			ray->door= true;
+	}
+	ray->wall_dir = get_wall_dir(instance->map.grid, ray->x, ray->y, ray->side);
+	ray->perp_wall_dist = get_pwall_distance(ray);
+}
+
+void	cast_aux_ray(t_session *instance, t_ray	*ray)
+{
+	int	hit;
+
+	hit = 0;
+	ray->door = false;
+	while (hit == 0)
+	{
+		if (ray->side_dist_x < ray->side_dist_y)
+		{
+			ray->side_dist_x += ray->delta_dist_x;
+			ray->x += ray->step_x;
+			ray->side = 0;
+		}
+		else
+		{
+			ray->side_dist_y += ray->delta_dist_y;
+			ray->y += ray->step_y;
+			ray->side = 1;
+		}
+		if (instance->map.grid[ray->y][ray->x] == 'D')
+		{
+			ray->door= true;
+			break ;
+		}
 	}
 	ray->wall_dir = get_wall_dir(instance->map.grid, ray->x, ray->y, ray->side);
 	ray->perp_wall_dist = get_pwall_distance(ray);

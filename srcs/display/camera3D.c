@@ -42,43 +42,6 @@ void draw_textured_line(t_session *instance, t_point start, t_point end, t_textu
 		i++;
 	}
 }
-void	cast_aux_ray(t_session *instance, t_ray	*ray)
-{
-	int	hit;
-
-	hit = 0;
-	ray->door = false;
-	while (hit == 0)
-	{
-		if (ray->side_dist_x < ray->side_dist_y)
-		{
-			ray->side_dist_x += ray->delta_dist_x;
-			ray->x += ray->step_x;
-			ray->side = 0;
-		}
-		else
-		{
-			ray->side_dist_y += ray->delta_dist_y;
-			ray->y += ray->step_y;
-			ray->side = 1;
-		}
-		if (instance->map.grid[ray->y][ray->x] == 'D')
-		{
-			ray->door= true;
-			break ;
-		}
-	}
-	ray->wall_dir = get_wall_dir(instance->map.grid, ray->x, ray->y, ray->side);
-	ray->perp_wall_dist = get_pwall_distance(ray);
-}
-
-int	get_walx(t_ray *ray, double pos_x, double pos_y)
-{
-	if (ray->wall_dir == EAST_TEXTURE || ray->wall_dir == WEST_TEXTURE)
-		return (pos_y + ray->perp_wall_dist * ray->ray_dir_y );
-	else
-		return (pos_x + ray->perp_wall_dist * ray->ray_dir_x );
-}
 
 void	rndr_doors(t_session *instance, t_camera3D camera, int i, double pos_x, double pos_y)
 {

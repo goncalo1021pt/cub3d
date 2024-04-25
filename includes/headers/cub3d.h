@@ -123,13 +123,14 @@ void	camera3d(t_session *instance, double pos_x, double pos_y);
 void	init_ray(t_camera3D *camera, t_ray *ray, int i, t_point pos);
 void	aim_ray(t_ray *ray, double pos_x, double pos_y);
 void	cast_ray(t_session *instance, t_ray	*ray);
+void	cast_aux_ray(t_session *instance, t_ray	*ray);
 
 //raycaster_utils.c
 double	clamp_ray(double dir);
 double	get_pwall_distance(t_ray *ray);
 int		get_wall_dir(char **grid ,int x, int y, int side);
+int		get_walx(t_ray *ray, double pos_x, double pos_y);
 t_data	*get_tex_data(t_session *instance, t_ray *ray, bool select);
-
 
 // player_movment.c
 bool	initialize_player(t_player *player, t_map *map);
@@ -157,6 +158,7 @@ int		exit_hook(t_session *instance);
 int		handle_mode(int keycode, t_session *instance);
 void	handle_door(t_session *instance);
 void	close_door(t_session *instance);
+
 // pause_menu.c
 void pause_menu(t_session *instance);
 
