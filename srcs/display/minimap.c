@@ -1,5 +1,31 @@
 #include "../../includes/headers/cub3d.h"
 
+int	split_size(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+		i++;
+	return (i);
+}
+
+size_t	max_len(char **split)
+{
+	int		i;
+	size_t	max;
+
+	i = 0;
+	max = 0;
+	while (split[i])
+	{
+		if (ft_strlen(split[i]) > max)
+			max = ft_strlen(split[i]);
+		i++;
+	}
+	return (max);
+}
+
 void fill_square(t_session *instance, t_point point, int sq, int color)
 {
 	int	x;
@@ -47,7 +73,7 @@ void	draw_face(t_session *instance, int x, int y, int color)
 	int		length;
 	t_point	end;
 
-	length = MAP_SCALE / 4;
+	length = 16;
 	end.y = y + length * sin(instance->player.angle * PI / 180);
 	end.x = x + length * cos(instance->player.angle * PI / 180);
 	draw_line(instance, (t_point){x, y}, end, color);
@@ -61,8 +87,8 @@ void	init_camera2d(t_session *instance, t_camera2d *cam2d)
 	cam2d->p_pos.y = instance->player.y;
 	cam2d->top_l.x = fmax(0, instance->player.x - cam2d->size.x / 2);
 	cam2d->top_l.y = fmax(0, instance->player.y - cam2d->size.y / 2);
-	cam2d->bot_r.x = fmin(instance->width - 1, instance->player.x + cam2d->size.x / 2);
-	cam2d->bot_r.y = fmin(instance->height - 1, instance->player.y + cam2d->size.y / 2);
+	cam2d->bot_r.x = fmin(instance->map.grid_w, instance->player.x + cam2d->size.x / 2);
+	cam2d->bot_r.y = fmin(instance->map.grid_h, instance->player.y + cam2d->size.y / 2);
 }
 
 void	vp_player(t_session *instance, int x, int y)
@@ -70,7 +96,7 @@ void	vp_player(t_session *instance, int x, int y)
 	t_point	pos;
 	int		sq;
 
-	sq = MAP_SCALE / 4;
+	sq = 16;
 	pos.y = y - (sq / 2);
 	pos.x = x - (sq / 2);
 	fill_square(instance, pos, sq, 0x000000);
@@ -83,8 +109,9 @@ void	vp_player(t_session *instance, int x, int y)
 
 void vp_scaled(t_session *instance)
 {
-	int	y;
-	int	x;
+	int			y;
+	int			x;
+	int			color;
 	t_camera2d	cam2d;
 
 	if (instance->mode.type == PLAY && instance->mode.sub != MINIMAP)
@@ -98,12 +125,11 @@ void vp_scaled(t_session *instance)
 		while (x < cam2d.bot_r.x && instance->map.grid[y][x])
 		{
 			cam2d.offset.x = (x - cam2d.top_l.x) + (W_SCALE - (instance->player.x - cam2d.top_l.x));
+			color = get_pixel(&instance->mlx_img, cam2d.offset.x, cam2d.offset.y);
 			if (instance->map.grid[y][x] == '1')
-				pixel_put(instance, cam2d.offset.x, cam2d.offset.y, 0x004550);
+				pixel_put(instance, cam2d.offset.x, cam2d.offset.y, color + 0xf0f010);
 			else if (instance->map.grid[y][x] == '0')
-				pixel_put(instance, cam2d.offset.x, cam2d.offset.y, 0xffffff);
-			// else if (instance->map.grid[y][x] == 'D')
-			// 	pixel_put(instance, cam2d.offset.x, cam2d.offset.y, 0x000000);
+				pixel_put(instance, cam2d.offset.x, cam2d.offset.y, color + 0x004550);
 			x++;
 		}
 		y++;
