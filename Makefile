@@ -5,7 +5,7 @@ S = $(addprefix aux/, $(AUX_SRCS)) $(addprefix display/, $(DISPLAY_SRCS)) $(addp
 
 AUX_SRCS = aux grid_init map_aux aux2
 HOOKS_SRCS = hooks mouse_hooks player_movment player_movment2 pause_menu mode_handler
-DISPLAY_SRCS = camera3D debug2D display display_init draw minimap load_textures raycaster raycast_utils
+DISPLAY_SRCS = camera3D debug2D display display_init draw minimap minimap_utils load_textures raycaster raycast_utils
 PARSER_SRCS = main parser map_check textures textures_check start validate_doors
 
 COMPRESS = ar rcs
