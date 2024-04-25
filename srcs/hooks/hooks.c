@@ -65,7 +65,7 @@ int	const_movement(t_session *instance)
 	if (instance->mode.type == PAUSE)
 		return (0);
 	speed = get_player_speed(instance);
-		close_door(instance);
+	close_door(instance);
 	if (instance->keys[W])
 		move_player(&instance->player, instance, speed, W_ANGLE);
 	if (instance->keys[S])

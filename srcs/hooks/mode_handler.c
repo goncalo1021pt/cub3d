@@ -34,12 +34,44 @@ void	handle_door(t_session *instance)
 	instance->player.door = true;
 }
 
-void close_door(t_session *instance)
+void	choose_door_texture(t_session *instance, struct timeval tv)
+{
+	if (instance->player.door == false)
+		return ;
+	if (tv.tv_sec < instance->player.time_door + 1)
+	{
+		if ((float)instance->player.time_door - tv.tv_usec / 1000000 < 1 / 4)
+			instance->textures[DOOR_TEXTURE] = instance->textures[DOOR_TEXTURE_2];
+		else if ((float)instance->player.time_door - tv.tv_usec / 1000000 < 2 / 4)
+			instance->textures[DOOR_TEXTURE] = instance->textures[DOOR_TEXTURE_3];
+		else if ((float)instance->player.time_door - tv.tv_usec / 1000000 < 3 / 4)
+			instance->textures[DOOR_TEXTURE] = instance->textures[DOOR_TEXTURE_4];
+		else
+			instance->textures[DOOR_TEXTURE] = instance->textures[DOOR_TEXTURE_5];
+	}
+	else if (tv.tv_sec > instance->player.time_door + 4)
+	{
+		if ((float)instance->player.time_door + 4 - tv.tv_usec / 1000000 < 1 / 4)
+			instance->textures[DOOR_TEXTURE] = instance->textures[DOOR_TEXTURE_4];
+		else if ((float)instance->player.time_door - tv.tv_usec / 1000000 < 2 / 4)
+			instance->textures[DOOR_TEXTURE] = instance->textures[DOOR_TEXTURE_3];
+		else if ((float)instance->player.time_door - tv.tv_usec / 1000000 < 3 / 4)
+			instance->textures[DOOR_TEXTURE] = instance->textures[DOOR_TEXTURE_2];
+		else
+			instance->textures[DOOR_TEXTURE] = instance->textures[DOOR_TEXTURE_1];
+	}
+}
+
+void	close_door(t_session *instance)
 {
 	struct timeval		tv;
 
+	if (instance->player.door == false)
+		return ;
 	gettimeofday(&tv, NULL);
-	if (instance->player.time_door + 3 > tv.tv_sec)
+	if (tv.tv_sec < instance->player.time_door + 1 || tv.tv_sec > instance->player.time_door + 4)
+		choose_door_texture(instance, tv);
+	if (instance->player.time_door + 5 > tv.tv_sec)
 		return ;
 	instance->player.door = false;
 }

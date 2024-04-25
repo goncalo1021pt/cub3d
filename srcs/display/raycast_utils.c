@@ -34,17 +34,18 @@ int	get_walx(t_ray *ray, double pos_x, double pos_y)
 	else
 		return (pos_x + ray->perp_wall_dist * ray->ray_dir_x );
 }
+
 t_data	*get_tex_data(t_session *instance, t_ray *ray, bool select)
 {
-		if (ray->door && select)
-			return (&instance->textures[DOOR_TEXTURE_1]);
-		else if (ray->wall_dir == NORTH_TEXTURE)
-			return (&instance->textures[NORTH_TEXTURE]);
-		else if (ray->wall_dir == SOUTH_TEXTURE)
-			return (&instance->textures[SOUTH_TEXTURE]);
-		else if (ray->wall_dir == EAST_TEXTURE)
-			return (&instance->textures[EAST_TEXTURE]);
-		else if (ray->wall_dir == WEST_TEXTURE)
-			return (&instance->textures[WEST_TEXTURE]);
-		return (NULL);
+	if (ray->door && select)
+		return (&instance->textures[DOOR_TEXTURE]);
+	else if (ray->wall_dir == NORTH_TEXTURE)
+		return (&instance->textures[NORTH_TEXTURE]);
+	else if (ray->wall_dir == SOUTH_TEXTURE)
+		return (&instance->textures[SOUTH_TEXTURE]);
+	else if (ray->wall_dir == EAST_TEXTURE)
+		return (&instance->textures[EAST_TEXTURE]);
+	else if (ray->wall_dir == WEST_TEXTURE)
+		return (&instance->textures[WEST_TEXTURE]);
+	return (NULL);
 }

@@ -77,6 +77,8 @@ typedef enum e_sprite_order
 	DOOR_TEXTURE_2,
 	DOOR_TEXTURE_3,
 	DOOR_TEXTURE_4,
+	DOOR_TEXTURE_5,
+	DOOR_TEXTURE,
 }	t_sprite_order;
 
 // parser.c

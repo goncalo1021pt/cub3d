@@ -80,7 +80,7 @@ typedef struct s_session
 	void		*mlx_ser;
 	void		*mlx_win;
 	t_data		mlx_img;
-	t_data		textures[8];
+	t_data		textures[10];
 	t_map		map;
 	t_player	player;
 	t_mode		mode;
