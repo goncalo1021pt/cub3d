@@ -27,7 +27,7 @@
 # define PI 3.14159265358979323846
 # define MOUSE_SENSITIVITY 200
 # define FPS 120
-# define FRAME_TIME (1000000 / FPS)
+# define FRAME_TIME 8333.33333
 
 typedef enum e_mode_type
 {
@@ -160,9 +160,10 @@ int		exit_hook(t_session *instance);
 int		handle_mode(int keycode, t_session *instance);
 void	handle_door(t_session *instance);
 void	close_door(t_session *instance);
+void	choose_door_texture(t_session *instance, struct timeval tv);
 
 // pause_menu.c
-void pause_menu(t_session *instance);
+void	pause_menu(t_session *instance);
 
 // mouse_hooks.c
 int		mouse_movement(int x, int y, t_session *instance);
