@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   door_textures.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rlandolt <rlandolt@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/26 12:45:16 by rlandolt          #+#    #+#             */
+/*   Updated: 2024/04/26 12:45:17 by rlandolt         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/headers/cub3d.h"
 
 void	choose_open_textures(t_session *instance, float elapsed_time)

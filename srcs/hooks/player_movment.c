@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player_movment.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rlandolt <rlandolt@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/26 12:46:12 by rlandolt          #+#    #+#             */
+/*   Updated: 2024/04/26 12:46:13 by rlandolt         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/headers/cub3d.h"
 
 void	wall_slide_2(t_player *player, t_session *instance, double x, double y)

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rlandolt <rlandolt@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/26 12:44:37 by rlandolt          #+#    #+#             */
+/*   Updated: 2024/04/26 12:44:39 by rlandolt         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/headers/cub3d.h"
 
@@ -54,7 +65,7 @@ void	clear_image(t_session *instance)
 	int	x;
 
 	y = 0;
-	mlx_clear_window(instance->mlx_ser, instance->mlx_win);
+	//mlx_clear_window(instance->mlx_ser, instance->mlx_win);
 	while (y < instance->height)
 	{
 		x = 0;

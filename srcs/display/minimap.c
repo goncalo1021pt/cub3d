@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rlandolt <rlandolt@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/26 12:45:06 by rlandolt          #+#    #+#             */
+/*   Updated: 2024/04/26 12:45:07 by rlandolt         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/headers/cub3d.h"
 
 void	init_camera2d(t_session *instance, t_camera2d *cam2d)
@@ -74,7 +86,7 @@ void	vp_scaled(t_session *instance)
 // 	y = fmax(0, (cam2d.top_l.y - MAP_SCALE));
 // 	while (y < cam2d.bot_r.y && instance->map.grid[y])
 // 	{
-// 		cam2d.offset.y = (y - cam2d.top_l.y) + (MAP_SCALE * 3.5 
+// 		cam2d.offset.y = (y - cam2d.top_l.y) + (MAP_SCALE * 3.5
 				// - (instance->player.y - cam2d.top_l.y));
 // 		x = fmax(0, (cam2d.top_l.x - MAP_SCALE));
 // 		while (x < cam2d.bot_r.x && instance->map.grid[y][x])
