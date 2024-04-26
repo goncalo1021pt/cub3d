@@ -6,7 +6,7 @@
 /*   By: rlandolt <rlandolt@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:40:29 by rlandolt          #+#    #+#             */
-/*   Updated: 2024/04/26 12:41:02 by rlandolt         ###   ########.fr       */
+/*   Updated: 2024/04/26 13:32:19 by rlandolt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # include <time.h>
 # include <unistd.h>
 
-# define W_WIDTH 2560
-# define W_HEIGHT 1440
+# define W_WIDTH 1980
+# define W_HEIGHT 1080
 
 # define VALID_CHAR "01NSEWD "
 # define PLAYER "NSEW"
@@ -38,7 +38,7 @@
 # define SPEED_MULTIPLIER 2
 # define PI 3.14159265358979323846
 # define MOUSE_SENSITIVITY 200
-# define FPS 120
+# define FPS 60
 # define FRAME_TIME 8333.33333
 
 typedef enum e_mode_type
@@ -194,8 +194,6 @@ bool	load_textures(t_session *ist);
 void	get_tex_data_1(t_session *ist);
 void	read_textures(t_session *ist);
 
-// grid.c // debug2D.c
-void	debug2D(t_session *instance);
 //minimap.c
 void	vp_grid(t_session *instance);
 void	vp_scaled(t_session *instance);

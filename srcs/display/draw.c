@@ -6,21 +6,11 @@
 /*   By: rlandolt <rlandolt@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:44:37 by rlandolt          #+#    #+#             */
-/*   Updated: 2024/04/26 12:44:39 by rlandolt         ###   ########.fr       */
+/*   Updated: 2024/04/26 13:38:14 by rlandolt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/headers/cub3d.h"
-
-// void	pixel_put(t_data *data, int x, int y, int color)
-// {
-// 	char	*dst;
-
-// 	if (x < 0 || y < 0 || x > W_WIDTH || y > W_HEIGHT)
-// 		return ;
-// 	dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
-// 	*(unsigned int *)dst = color;
-// }
 
 void	pixel_put(t_session *instance, int x, int y, int color)
 {
@@ -28,7 +18,7 @@ void	pixel_put(t_session *instance, int x, int y, int color)
 
 	if (x < 0 || y < 0 || x > instance->width || y > instance->height)
 		return ;
-	dst = instance->mlx_img.addr + (y * instance->mlx_img.line_length + x * 4); // instance->mlx_img.bpp / 8 = 4
+	dst = instance->mlx_img.addr + (y * instance->mlx_img.line_length + x * 4);
 	*(unsigned int *)dst = color;
 }
 
@@ -50,7 +40,7 @@ void	draw_line(t_session *instance, t_point start, t_point end, int color)
 
 	i = 0;
 	init_dda(&dda, start, end);
-	while (i <= dda.step) // should be < instead of <=
+	while (i <= dda.step)
 	{
 		pixel_put(instance, dda.current_x, dda.current_y, color);
 		dda.current_x += dda.x_inc;
@@ -65,7 +55,6 @@ void	clear_image(t_session *instance)
 	int	x;
 
 	y = 0;
-	//mlx_clear_window(instance->mlx_ser, instance->mlx_win);
 	while (y < instance->height)
 	{
 		x = 0;
@@ -80,4 +69,3 @@ void	clear_image(t_session *instance)
 		y++;
 	}
 }
-

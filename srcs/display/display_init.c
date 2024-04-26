@@ -6,13 +6,13 @@
 /*   By: rlandolt <rlandolt@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:44:21 by rlandolt          #+#    #+#             */
-/*   Updated: 2024/04/26 12:44:23 by rlandolt         ###   ########.fr       */
+/*   Updated: 2024/04/26 13:36:57 by rlandolt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/headers/cub3d.h"
 
-void init_array(t_session *instance)
+void	init_array(t_session *instance)
 {
 	instance->textures[NORTH_TEXTURE].img = NULL;
 	instance->textures[SOUTH_TEXTURE].img = NULL;
@@ -26,9 +26,9 @@ void init_array(t_session *instance)
 	instance->mode.sub = DEFAULT;
 }
 
-void destroy_textures(t_session *instance)
+void	destroy_textures(t_session *instance)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 9)
@@ -47,9 +47,10 @@ bool	mlx_vars_init(t_session *instance)
 	instance->map.grid_w = max_len(instance->map.grid);
 	instance->mlx_ser = mlx_init();
 	init_array(instance);
-	instance->mlx_win = mlx_new_window(instance->mlx_ser, instance->width, instance->height, "cub3d");
-	// mlx_mouse_hide(instance->mlx_ser, instance->mlx_win);
-	instance->mlx_img.img = mlx_new_image(instance->mlx_ser, instance->width, instance->height);
+	instance->mlx_win = mlx_new_window(instance->mlx_ser,
+			instance->width, instance->height, "cub3d");
+	instance->mlx_img.img = mlx_new_image(instance->mlx_ser,
+			instance->width, instance->height);
 	instance->mlx_img.addr = mlx_get_data_addr(instance->mlx_img.img,
 			&instance->mlx_img.bpp, &instance->mlx_img.line_length,
 			&instance->mlx_img.endian);

@@ -6,7 +6,7 @@
 /*   By: rlandolt <rlandolt@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:42:38 by rlandolt          #+#    #+#             */
-/*   Updated: 2024/04/26 12:42:40 by rlandolt         ###   ########.fr       */
+/*   Updated: 2024/04/26 13:11:44 by rlandolt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,13 @@ typedef struct s_camera2d
 	t_point		bot_r;
 	t_point		p_pos;
 	t_point		size;
-	t_point		offset;
+	t_point		off;
 	int			color;
-
+	int			h_scale;
+	int			w_scale;
+	int			y;
+	int			x;
+	t_player	p;
 }				t_camera2d;
 
 typedef struct s_camera3D

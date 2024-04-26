@@ -6,7 +6,7 @@
 /*   By: rlandolt <rlandolt@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:41:09 by rlandolt          #+#    #+#             */
-/*   Updated: 2024/04/26 12:41:10 by rlandolt         ###   ########.fr       */
+/*   Updated: 2024/04/26 13:23:30 by rlandolt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,10 @@ void	aim_ray(t_ray *ray, double pos_x, double pos_y)
 	}
 }
 
-void	cast_ray(t_session *instance, t_ray	*ray)
+void	cast_ray(t_session *ist, t_ray	*ray)
 {
-	int	hit;
-
-	hit = 0;
 	ray->door = false;
-	while (hit == 0)
+	while (true)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
 		{
@@ -67,23 +64,21 @@ void	cast_ray(t_session *instance, t_ray	*ray)
 			ray->y += ray->step_y;
 			ray->side = 1;
 		}
-		if (!instance->map.grid[ray->y] || !instance->map.grid[ray->y][ray->x]
-			|| instance->map.grid[ray->y][ray->x] == '1' || instance->map.grid[ray->y][ray->x] == ' ')
-			hit = 1;
-		else if (instance->map.grid[ray->y][ray->x] == 'D')
-			ray->door= true;
+		if (!ist->map.grid[ray->y] || !ist->map.grid[ray->y][ray->x]
+			|| ist->map.grid[ray->y][ray->x] == '1'
+			|| ist->map.grid[ray->y][ray->x] == ' ')
+			break ;
+		else if (ist->map.grid[ray->y][ray->x] == 'D')
+			ray->door = true;
 	}
-	ray->wall_dir = get_wall_dir(instance->map.grid, ray->x, ray->y, ray->side);
+	ray->wall_dir = get_wall_dir(ist->map.grid, ray->x, ray->y, ray->side);
 	ray->perp_wall_dist = get_pwall_distance(ray);
 }
 
-void	cast_aux_ray(t_session *instance, t_ray	*ray)
+void	cast_aux_ray(t_session *ist, t_ray	*ray)
 {
-	int	hit;
-
-	hit = 0;
 	ray->door = false;
-	while (hit == 0)
+	while (true)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
 		{
@@ -97,12 +92,12 @@ void	cast_aux_ray(t_session *instance, t_ray	*ray)
 			ray->y += ray->step_y;
 			ray->side = 1;
 		}
-		if (instance->map.grid[ray->y][ray->x] == 'D')
+		if (ist->map.grid[ray->y][ray->x] == 'D')
 		{
-			ray->door= true;
+			ray->door = true;
 			break ;
 		}
 	}
-	ray->wall_dir = get_wall_dir(instance->map.grid, ray->x, ray->y, ray->side);
+	ray->wall_dir = get_wall_dir(ist->map.grid, ray->x, ray->y, ray->side);
 	ray->perp_wall_dist = get_pwall_distance(ray);
 }

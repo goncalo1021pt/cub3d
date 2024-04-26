@@ -6,7 +6,7 @@
 /*   By: rlandolt <rlandolt@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:44:43 by rlandolt          #+#    #+#             */
-/*   Updated: 2024/04/26 12:44:45 by rlandolt         ###   ########.fr       */
+/*   Updated: 2024/04/26 13:04:35 by rlandolt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 void	read_textures_2(t_session *ist)
 {
 	ist->textures[DOOR_TEXTURE_1].img = mlx_xpm_file_to_image(ist->mlx_ser,
-			"./includes/assets/door_1.xpm", &ist->textures[DOOR_TEXTURE_1].width,
+			"./includes/assets/dr1.xpm", &ist->textures[DOOR_TEXTURE_1].width,
 			&ist->textures[DOOR_TEXTURE_1].height);
 	ist->textures[DOOR_TEXTURE_2].img = mlx_xpm_file_to_image(ist->mlx_ser,
-			"./includes/assets/door_2.xpm", &ist->textures[DOOR_TEXTURE_2].width,
+			"./includes/assets/dr2.xpm", &ist->textures[DOOR_TEXTURE_2].width,
 			&ist->textures[DOOR_TEXTURE_2].height);
 	ist->textures[DOOR_TEXTURE_3].img = mlx_xpm_file_to_image(ist->mlx_ser,
-			"./includes/assets/door_3.xpm", &ist->textures[DOOR_TEXTURE_3].width,
+			"./includes/assets/dr3.xpm", &ist->textures[DOOR_TEXTURE_3].width,
 			&ist->textures[DOOR_TEXTURE_3].height);
 	ist->textures[DOOR_TEXTURE_4].img = mlx_xpm_file_to_image(ist->mlx_ser,
-			"./includes/assets/door_4.xpm", &ist->textures[DOOR_TEXTURE_4].width,
+			"./includes/assets/dr4.xpm", &ist->textures[DOOR_TEXTURE_4].width,
 			&ist->textures[DOOR_TEXTURE_4].height);
 	ist->textures[DOOR_TEXTURE_5].img = mlx_xpm_file_to_image(ist->mlx_ser,
-			"./includes/assets/door_5.xpm", &ist->textures[DOOR_TEXTURE_5].width,
+			"./includes/assets/dr5.xpm", &ist->textures[DOOR_TEXTURE_5].width,
 			&ist->textures[DOOR_TEXTURE_5].height);
 }
 
