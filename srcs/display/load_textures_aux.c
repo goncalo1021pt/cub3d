@@ -3,19 +3,19 @@
 void	read_textures_2(t_session *ist)
 {
 	ist->textures[DOOR_TEXTURE_1].img = mlx_xpm_file_to_image(ist->mlx_ser,
-			"./includes/assets/IMG_5.xpm", &ist->textures[DOOR_TEXTURE_1].width,
+			"./includes/assets/door_1.xpm", &ist->textures[DOOR_TEXTURE_1].width,
 			&ist->textures[DOOR_TEXTURE_1].height);
 	ist->textures[DOOR_TEXTURE_2].img = mlx_xpm_file_to_image(ist->mlx_ser,
-			"./includes/assets/IMG_6.xpm", &ist->textures[DOOR_TEXTURE_2].width,
+			"./includes/assets/door_2.xpm", &ist->textures[DOOR_TEXTURE_2].width,
 			&ist->textures[DOOR_TEXTURE_2].height);
 	ist->textures[DOOR_TEXTURE_3].img = mlx_xpm_file_to_image(ist->mlx_ser,
-			"./includes/assets/IMG_7.xpm", &ist->textures[DOOR_TEXTURE_3].width,
+			"./includes/assets/door_3.xpm", &ist->textures[DOOR_TEXTURE_3].width,
 			&ist->textures[DOOR_TEXTURE_3].height);
 	ist->textures[DOOR_TEXTURE_4].img = mlx_xpm_file_to_image(ist->mlx_ser,
-			"./includes/assets/IMG_8.xpm", &ist->textures[DOOR_TEXTURE_4].width,
+			"./includes/assets/door_4.xpm", &ist->textures[DOOR_TEXTURE_4].width,
 			&ist->textures[DOOR_TEXTURE_4].height);
 	ist->textures[DOOR_TEXTURE_5].img = mlx_xpm_file_to_image(ist->mlx_ser,
-			"./includes/assets/IMG_9.xpm", &ist->textures[DOOR_TEXTURE_5].width,
+			"./includes/assets/door_5.xpm", &ist->textures[DOOR_TEXTURE_5].width,
 			&ist->textures[DOOR_TEXTURE_5].height);
 }
 
@@ -52,11 +52,6 @@ void	get_tex_data_3(t_session *ist)
 
 void	get_tex_data_2(t_session *ist)
 {
-	ist->textures[EAST_TEXTURE].addr
-		= mlx_get_data_addr(ist->textures[EAST_TEXTURE].img,
-			&ist->textures[EAST_TEXTURE].bpp,
-			&ist->textures[EAST_TEXTURE].line_length,
-			&ist->textures[EAST_TEXTURE].endian);
 	ist->textures[DOOR_TEXTURE_1].addr
 		= mlx_get_data_addr(ist->textures[DOOR_TEXTURE_1].img,
 			&ist->textures[DOOR_TEXTURE_1].bpp,

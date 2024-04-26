@@ -45,8 +45,8 @@ void	check_time(void)
 	last_time = 0;
 	gettimeofday(&tv, NULL);
 	current_time = (tv.tv_sec * (long)1000) + (tv.tv_usec / 1000);
-	if (last_time && current_time - last_time <= FRAME_TIME)
-		usleep(FRAME_TIME - (current_time - last_time <= FRAME_TIME));
+	if (last_time && (current_time - last_time <= FRAME_TIME))
+		usleep(FRAME_TIME - (current_time - last_time));
 	gettimeofday(&tv, NULL);
 	last_time = (tv.tv_sec * (long)1000) + (tv.tv_usec / 1000);
 }
