@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mode_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlandolt <rlandolt@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: gfontao- <gfontao-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:45:48 by rlandolt          #+#    #+#             */
-/*   Updated: 2024/04/26 12:45:49 by rlandolt         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:07:04 by gfontao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ int	handle_mode(int keycode, t_session *instance)
 		if (instance->mode.type == PAUSE)
 		{
 			instance->mode.type = PLAY;
-			mlx_mouse_hide(instance->mlx_ser, instance->mlx_win);
+			if (instance->mode.mouse)
+				mlx_mouse_hide(instance->mlx_ser, instance->mlx_win);
 		}
 		else
 		{
 			instance->mode.type = PAUSE;
-			mlx_mouse_show(instance->mlx_ser, instance->mlx_win);
+			if (instance->mode.mouse)
+				mlx_mouse_show(instance->mlx_ser, instance->mlx_win);
 			pause_menu(instance);
 		}
 	}

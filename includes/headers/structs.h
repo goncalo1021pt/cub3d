@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlandolt <rlandolt@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: gfontao- <gfontao-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:42:38 by rlandolt          #+#    #+#             */
-/*   Updated: 2024/04/26 13:11:44 by rlandolt         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:01:39 by gfontao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ typedef struct s_player
 typedef struct s_mode
 {
 	int			type;
-	int			previous;
 	int			sub;
+	int			mouse;
 }				t_mode;
 
 typedef struct s_ray

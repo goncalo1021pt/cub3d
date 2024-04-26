@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlandolt <rlandolt@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: gfontao- <gfontao-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:44:21 by rlandolt          #+#    #+#             */
-/*   Updated: 2024/04/26 13:36:57 by rlandolt         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:04:38 by gfontao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	init_array(t_session *instance)
 	instance->textures[DOOR_TEXTURE_4].img = NULL;
 	instance->mode.type = PLAY;
 	instance->mode.sub = DEFAULT;
+	instance->mode.mouse = false;
 }
 
 void	destroy_textures(t_session *instance)

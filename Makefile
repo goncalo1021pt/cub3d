@@ -1,4 +1,4 @@
-NAME = cub3d
+NAME = cub3D
 
 SRCS = $(addprefix srcs/,$(addsuffix .c, $(S)))
 S = $(addprefix aux/, $(AUX_SRCS)) $(addprefix display/, $(DISPLAY_SRCS)) $(addprefix hooks/, $(HOOKS_SRCS)) $(addprefix parser/, $(PARSER_SRCS))
@@ -75,7 +75,7 @@ clean:
 	@$(RM) -r $(OBJS_DIR_BONUS)
 	@$(RM) -r $(OBJS_DIR_S)
 	@$(MAKE) -C $(LIBFT_DIR) clean --no-print-directory
-#	@$(MAKE) -C $(MLX_DIR) clean --no-print-directory
+	@$(MAKE) -C $(MLX_DIR) clean --no-print-directory
 	@echo "$(RED)$(NAME)$(NC) OBJS cleaned!"
 
 fclean: clean

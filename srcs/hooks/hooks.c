@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlandolt <rlandolt@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: gfontao- <gfontao-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:45:24 by rlandolt          #+#    #+#             */
-/*   Updated: 2024/04/26 12:45:34 by rlandolt         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:11:15 by gfontao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,26 @@ int	handle_key(int keycode, t_session *instance)
 	return (0);
 }
 
+void	special_modes(int keycode, t_session *instance)
+{
+	if (keycode == XK_p)
+		handle_mode(keycode, instance);
+	else if (keycode == XK_Tab)
+		handle_mode(keycode, instance);
+	else if (keycode == XK_e)
+		handle_door(instance);
+	else if (keycode == XK_m)
+	{
+		if (instance->mode.type == PAUSE)
+			return ;
+		instance->mode.mouse = !instance->mode.mouse;
+		if (instance->mode.mouse)
+			mlx_mouse_hide(instance->mlx_ser, instance->mlx_win);
+		else 
+			mlx_mouse_show(instance->mlx_ser, instance->mlx_win);
+	}
+}
+
 int	handle_key_release(int keycode, t_session *instance)
 {
 	if (keycode == XK_Left)
@@ -50,12 +70,7 @@ int	handle_key_release(int keycode, t_session *instance)
 		instance->keys[RIGHT_ARROW] = 0;
 	else if (keycode == XK_Shift_L)
 		instance->keys[L_SHIFT] = 0;
-	else if (keycode == XK_p)
-		handle_mode(keycode, instance);
-	else if (keycode == XK_Tab)
-		handle_mode(keycode, instance);
-	if (keycode == XK_e)
-		handle_door(instance);
+	special_modes(keycode, instance);
 	if (keycode == 'a')
 		instance->keys[A] = 0;
 	else if (keycode == 'd')
