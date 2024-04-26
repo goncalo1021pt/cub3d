@@ -1,4 +1,3 @@
-
 #include "../../includes/headers/cub3d.h"
 
 void	clean_parser(t_map *map)

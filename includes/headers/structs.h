@@ -57,23 +57,23 @@ typedef struct s_mode
 
 typedef struct s_ray
 {
-	int		hit;
-	int		side;
-	int		x;
-	int		y;
-	int		wall_dir;
-	int		wall_x;
-	double	ray_dir_x;
-	double	ray_dir_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	double	perp_wall_dist;
-	double	step_x;
-	double	step_y;
-	bool	door;
-} t_ray;
+	int			hit;
+	int			side;
+	int			x;
+	int			y;
+	int			wall_dir;
+	int			wall_x;
+	double		ray_dir_x;
+	double		ray_dir_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		perp_wall_dist;
+	double		step_x;
+	double		step_y;
+	bool		door;
+}				t_ray;
 
 typedef struct s_session
 {
@@ -101,15 +101,15 @@ typedef struct s_camera2d
 
 }				t_camera2d;
 
-typedef	struct s_camera3D
+typedef struct s_camera3D
 {
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
-	double	fov;
-	double	x;
-} t_camera3D;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
+	double		fov;
+	double		x;
+}				t_camera3D;
 
 typedef struct s_dda
 {
@@ -124,20 +124,19 @@ typedef struct s_dda
 
 typedef struct s_slice
 {
-	int	height;
-	int	start;
-	int	end;
-	int	color;
-} t_slice;
+	int			height;
+	int			start;
+	int			end;
+	int			color;
+}				t_slice;
 
 typedef struct s_texture
 {
-	int 	wall_x;
-	int		x;
-	int		y;
-	int		color;
-	t_data	*data;
-} t_texture;
-
+	int			wall_x;
+	int			x;
+	int			y;
+	int			color;
+	t_data		*data;
+}				t_texture;
 
 #endif

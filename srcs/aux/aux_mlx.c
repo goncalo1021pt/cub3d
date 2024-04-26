@@ -1,4 +1,4 @@
-
+#include "../../includes/headers/cub3d.h"
 
 int	interpolate(float ratio, int start, int end)
 {

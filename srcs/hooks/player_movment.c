@@ -1,6 +1,6 @@
 #include "../../includes/headers/cub3d.h"
 
-void wall_slide_2(t_player *player, t_session *instance, double x, double y)
+void	wall_slide_2(t_player *player, t_session *instance, double x, double y)
 {
 	if (x < player->x && !is_in_colision((int)round(player->x - 1),
 			(int)round(player->y), instance, '1')

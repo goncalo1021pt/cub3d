@@ -9,11 +9,11 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <math.h>
-# include <time.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
 # include <sys/time.h>
+# include <time.h>
+# include <unistd.h>
 
 # define W_WIDTH 2560
 # define W_HEIGHT 1440
@@ -36,7 +36,7 @@ typedef enum e_mode_type
 	PAUSE,
 	MAIN_MENU,
 	MINIMAP
-}	t_mode_type;
+}		t_mode_type;
 
 typedef enum e_keys_angle
 {
@@ -65,7 +65,7 @@ typedef enum e_key_arr
 	L_SHIFT,
 	LEFT_ARROW,
 	RIGHT_ARROW
-}	t_key_arr;
+}		t_key_arr;
 
 typedef enum e_sprite_order
 {
@@ -79,7 +79,7 @@ typedef enum e_sprite_order
 	DOOR_TEXTURE_4,
 	DOOR_TEXTURE_5,
 	DOOR_TEXTURE,
-}	t_sprite_order;
+}		t_sprite_order;
 
 // parser.c
 bool	validate_map(t_map *map);
@@ -124,20 +124,21 @@ void	camera3d(t_session *instance, double pos_x, double pos_y);
 //raycaster.c
 void	init_ray(t_camera3D *camera, t_ray *ray, int i, t_point pos);
 void	aim_ray(t_ray *ray, double pos_x, double pos_y);
-void	cast_ray(t_session *instance, t_ray	*ray);
-void	cast_aux_ray(t_session *instance, t_ray	*ray);
+void	cast_ray(t_session *instance, t_ray *ray);
+void	cast_aux_ray(t_session *instance, t_ray *ray);
 
 //raycaster_utils.c
 double	clamp_ray(double dir);
 double	get_pwall_distance(t_ray *ray);
-int		get_wall_dir(char **grid ,int x, int y, int side);
+int		get_wall_dir(char **grid, int x, int y, int side);
 int		get_walx(t_ray *ray, double pos_x, double pos_y);
 t_data	*get_tex_data(t_session *instance, t_ray *ray, bool select);
 
 // player_movment.c
 bool	initialize_player(t_player *player, t_map *map);
 void	rotate_player(t_player *player, int angle);
-void	move_player(t_player *player, t_session *instance, int speed, t_keys_angle dir);
+void	move_player(t_player *player, t_session *instance, int speed,
+			t_keys_angle dir);
 float	get_player_speed(t_session *instance);
 
 // display.c
