@@ -104,7 +104,7 @@ bool	check_sorroundings(t_map *map)
 		while (map->map[cols][rows])
 		{
 			if ((map->map[cols][rows] == '0' || is_in_array(PLAYER,
-						map->map[cols][rows]))
+					map->map[cols][rows]))
 				&& map->visited[cols][rows] == false)
 			{
 				if (!flood_fill(map, cols, rows))

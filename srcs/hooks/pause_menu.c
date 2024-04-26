@@ -1,7 +1,5 @@
 #include "../../includes/headers/cub3d.h"
 
-# define BOARDER_SIZE MAP_SCALE * 2
-
 int	interpolate(float ratio, int start, int end)
 {
 	return (start * (1 - ratio) + end * ratio);
@@ -23,18 +21,20 @@ void	pause_menu(t_session *instance)
 {
 	int	x;
 	int	y;
+	int	color;
 
-	x = BOARDER_SIZE;
-	while (x < instance->width - BOARDER_SIZE)
+	x = 0;
+	while (x < instance->width)
 	{
-		y = BOARDER_SIZE;
-		while (y < instance->height - BOARDER_SIZE)
+		y = 0;
+		while (y < instance->height)
 		{
-			if ((x > BOARDER_SIZE && x < instance->width - BOARDER_SIZE - 1) && (y > BOARDER_SIZE || y < instance->height - BOARDER_SIZE - 1))
-				pixel_put(instance, x, y, 0x0000000);
+			color = get_pixel(&instance->mlx_img, x, y);
+			pixel_put(instance, x, y, create_rgb(0.6, color, 0x000000));
 			y++;
 		}
 		x++;
 	}
-	mlx_put_image_to_window(instance->mlx_ser, instance->mlx_win, instance->mlx_img.img, 0, 0);
+	mlx_put_image_to_window(instance->mlx_ser, instance->mlx_win,
+		instance->mlx_img.img, 0, 0);
 }

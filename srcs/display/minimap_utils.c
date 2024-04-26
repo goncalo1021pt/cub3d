@@ -27,15 +27,16 @@ size_t	max_len(char **split)
 	return (max);
 }
 
-void fill_square(t_session *instance, t_point point, int sq, int color)
+void	fill_square(t_session *instance, t_point point, int sq, int color)
 {
 	int	x;
 	int	y;
+
 	y = point.y;
 	while (y < point.y + sq)
 	{
 		x = point.x;
-		while ( x < point.x + sq)
+		while (x < point.x + sq)
 		{
 			pixel_put(instance, x, y, color);
 			x++;
@@ -43,11 +44,12 @@ void fill_square(t_session *instance, t_point point, int sq, int color)
 		y++;
 	}
 }
+
 /* draw square faces counter clockwise start tih the top border */
 void	draw_square(t_session *instance, t_point point, int sq, int color)
 {
 	t_point	start;
-	t_point end;
+	t_point	end;
 
 	start = point;
 	end.x = point.x + sq;

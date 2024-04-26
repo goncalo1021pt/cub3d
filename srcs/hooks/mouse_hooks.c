@@ -2,10 +2,9 @@
 
 int	mouse_movement(int x, int y, t_session *instance)
 {
-	int dif;
+	int	dif;
 
 	(void)y;
-	// ft_printf("x: %d\n", x);
 	if (instance->mode.type == PAUSE)
 		return (0);
 	dif = abs(instance->width - x);
@@ -13,7 +12,8 @@ int	mouse_movement(int x, int y, t_session *instance)
 		instance->player.angle += (dif / MOUSE_SENSITIVITY);
 	else if (x < (instance->width / 2))
 		instance->player.angle -= dif / MOUSE_SENSITIVITY;
-	mlx_mouse_move(instance->mlx_ser, instance->mlx_win, instance->width / 2, instance->height / 2);
+	mlx_mouse_move(instance->mlx_ser, instance->mlx_win, instance->width / 2,
+		instance->height / 2);
 	return (0);
 }
 

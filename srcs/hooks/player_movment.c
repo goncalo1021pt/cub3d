@@ -1,31 +1,40 @@
 #include "../../includes/headers/cub3d.h"
 
-void	rotate_player(t_player *player, int angle)
+void wall_slide_2(t_player *player, t_session *instance, double x, double y)
 {
-	if (angle == RIGHT_ARROW)
-		player->angle += ROTATION_SPEED;
-	else if (angle == LEFT_ARROW)
-		player->angle -= ROTATION_SPEED;
-	if (player->angle >= 360)
-		player->angle -= 360;
-	if (player->angle < 0)
-		player->angle += 360;
+	if (x < player->x && !is_in_colision((int)round(player->x - 1),
+			(int)round(player->y), instance, '1')
+		&& !is_in_colision((int)round(player->x - 1), (int)round(player->y),
+			instance, 'D'))
+		player->x = x;
+	else if (y > player->y && !is_in_colision((int)round(player->x),
+			(int)round(player->y + 1), instance, '1')
+		&& !is_in_colision((int)round(player->x), (int)round(player->y + 1),
+			instance, 'D'))
+		player->y = y;
+	else if (y < player->y && !is_in_colision((int)round(player->x),
+			(int)round(player->y - 1), instance, '1')
+		&& !is_in_colision((int)round(player->x), (int)round(player->y - 1),
+			instance, 'D'))
+		player->y = y;
 }
 
 void	wall_slide(t_player *player, t_session *instance, double x, double y)
 {
-	if (!is_in_colision((int)round(x), (int)round(player->y), instance, '1') && !is_in_colision((int)round(x), (int)round(player->y), instance, 'D'))
+	if (!is_in_colision((int)round(x), (int)round(player->y), instance, '1')
+		&& !is_in_colision((int)round(x), (int)round(player->y), instance, 'D'))
 		player->x = x;
-	else if (!is_in_colision((int)round(player->x), (int)round(y), instance, '1') && !is_in_colision((int)round(player->x), (int)round(y), instance, 'D'))
+	else if (!is_in_colision((int)round(player->x), (int)round(y), instance,
+			'1') && !is_in_colision((int)round(player->x), (int)round(y),
+			instance, 'D'))
 		player->y = y;
-	else if (x > player->x && !is_in_colision((int)round(player->x + 1), (int)round(player->y), instance, '1') && !is_in_colision((int)round(player->x + 1), (int)round(player->y), instance, 'D'))
+	else if (x > player->x && !is_in_colision((int)round(player->x + 1),
+			(int)round(player->y), instance, '1')
+		&& !is_in_colision((int)round(player->x + 1), (int)round(player->y),
+			instance, 'D'))
 		player->x = x;
-	else if (x < player->x && !is_in_colision((int)round(player->x - 1), (int)round(player->y), instance, '1') && !is_in_colision((int)round(player->x - 1), (int)round(player->y), instance, 'D'))
-		player->x = x;
-	else if (y > player->y && !is_in_colision((int)round(player->x), (int)round(player->y + 1), instance, '1') && !is_in_colision((int)round(player->x), (int)round(player->y + 1), instance, 'D'))
-		player->y = y;
-	else if (y < player->y && !is_in_colision((int)round(player->x), (int)round(player->y - 1), instance, '1') && !is_in_colision((int)round(player->x), (int)round(player->y - 1), instance, 'D'))
-		player->y = y;
+	else
+		wall_slide_2(player, instance, x, y);
 }
 
 void	meve_door(t_player *player, t_session *instance, double x, double y)
@@ -39,7 +48,8 @@ void	meve_door(t_player *player, t_session *instance, double x, double y)
 		wall_slide(player, instance, x, y);
 }
 
-bool	check_collision_door(t_player *player, t_session *instance, int x, int y)
+bool	check_collision_door(t_player *player, t_session *instance, int x,
+		int y)
 {
 	int	ctd;
 
@@ -60,7 +70,8 @@ bool	check_collision_door(t_player *player, t_session *instance, int x, int y)
 	return (false);
 }
 
-void	move_player(t_player *player, t_session *instance, int speed, t_keys_angle dir)
+void	move_player(t_player *player, t_session *instance, int speed,
+		t_keys_angle dir)
 {
 	double	x;
 	double	y;

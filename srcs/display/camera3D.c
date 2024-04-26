@@ -8,7 +8,7 @@ void	init_camera3D(t_session *instance, t_camera3D *camera)
 	camera->plane_x = -camera->dir_y * tan(camera->fov / 2);
 	camera->plane_y = camera->dir_x * tan(camera->fov / 2);
 }
-int	get_pixel(t_data *data, int x, int y)
+int		get_pixel(t_data *data, int x, int y)
 {
 	char	*dst;
 

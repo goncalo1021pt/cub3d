@@ -66,9 +66,7 @@ bool	start_game(t_session *instance)
 		return (false);
 	if (!initialize_player(player, map))
 		return (false);
-	// print_grid(map->grid);
 	init_keys(instance);
 	mlx_startup(instance);
-	// print_player(player);
 	return (true);
 }

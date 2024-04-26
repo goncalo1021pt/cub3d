@@ -18,7 +18,7 @@ int	get_max_len(t_map *map)
 
 void	set_door(t_map *map, int x, int y)
 {
-	int ctd;
+	int	ctd;
 
 	if (map->map[x - 1][y] == '0')
 	{
@@ -61,7 +61,8 @@ void	scale_grid(t_map *map, int x, int y)
 		ctd++;
 	}
 	if (is_in_array(PLAYER, map->map[x][y]))
-		map->grid[(x * MAP_SCALE) + (MAP_SCALE / 2)][(y * MAP_SCALE) + (MAP_SCALE / 2)] = map->map[x][y];
+		map->grid[(x * MAP_SCALE) + (MAP_SCALE / 2)][(y * MAP_SCALE)
+			+ (MAP_SCALE / 2)] = map->map[x][y];
 	else if (map->map[x][y] == 'D')
 		set_door(map, x, y);
 }

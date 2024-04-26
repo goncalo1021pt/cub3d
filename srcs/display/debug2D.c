@@ -1,9 +1,9 @@
 #include "../../includes/headers/cub3d.h"
 
-static void draw_grid(t_session *instance)
+static void	draw_grid(t_session *instance)
 {
-	int			y;
-	int			x;
+	int	y;
+	int	x;
 
 	y = 0;
 	while (instance->map.grid[y])
@@ -11,7 +11,8 @@ static void draw_grid(t_session *instance)
 		x = 0;
 		while (instance->map.grid[y][x])
 		{
-			if (instance->map.grid[y][x] == '1' && (x % MAP_SCALE == 0 && y % MAP_SCALE == 0))
+			if (instance->map.grid[y][x] == '1' && (x % MAP_SCALE == 0 && y
+					% MAP_SCALE == 0))
 				draw_square(instance, ((t_point){x, y}), MAP_SCALE, 0x000000);
 			x++;
 		}
@@ -21,8 +22,8 @@ static void draw_grid(t_session *instance)
 
 void	debug2D(t_session *instance)
 {
-	int			y;
-	int			x;
+	int	y;
+	int	x;
 
 	y = 0;
 	while (instance->map.grid[y])

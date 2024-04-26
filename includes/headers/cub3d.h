@@ -178,6 +178,8 @@ void	clear_image(t_session *instance);
 
 // load_textures.c
 bool	load_textures(t_session *ist);
+void	get_tex_data_1(t_session *ist);
+void	read_textures(t_session *ist);
 
 // grid.c // debug2D.c
 void	debug2D(t_session *instance);

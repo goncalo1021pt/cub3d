@@ -11,3 +11,15 @@ float	get_player_speed(t_session *instance)
 		speed *= 1.5;
 	return (speed);
 }
+
+void	rotate_player(t_player *player, int angle)
+{
+	if (angle == RIGHT_ARROW)
+		player->angle += ROTATION_SPEED;
+	else if (angle == LEFT_ARROW)
+		player->angle -= ROTATION_SPEED;
+	if (player->angle >= 360)
+		player->angle -= 360;
+	if (player->angle < 0)
+		player->angle += 360;
+}

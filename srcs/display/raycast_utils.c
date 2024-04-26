@@ -15,13 +15,14 @@ double	get_pwall_distance(t_ray *ray)
 	else
 		return (ray->side_dist_y - ray->delta_dist_y);
 }
-int get_wall_dir(char **grid ,int x, int y, int side)
+
+int	get_wall_dir(char **grid, int x, int y, int side)
 {
 	if (grid[y + 1][x] != '1' && side == 1)
 		return (SOUTH_TEXTURE);
 	else if (grid[y - 1][x] != '1' && side == 1)
 		return (NORTH_TEXTURE);
-	else if (grid[y][x + 1] != '1' )
+	else if (grid[y][x + 1] != '1')
 		return (EAST_TEXTURE);
 	else
 		return (WEST_TEXTURE);
@@ -30,9 +31,9 @@ int get_wall_dir(char **grid ,int x, int y, int side)
 int	get_walx(t_ray *ray, double pos_x, double pos_y)
 {
 	if (ray->wall_dir == EAST_TEXTURE || ray->wall_dir == WEST_TEXTURE)
-		return (pos_y + ray->perp_wall_dist * ray->ray_dir_y );
+		return (pos_y + ray->perp_wall_dist * ray->ray_dir_y);
 	else
-		return (pos_x + ray->perp_wall_dist * ray->ray_dir_x );
+		return (pos_x + ray->perp_wall_dist * ray->ray_dir_x);
 }
 
 t_data	*get_tex_data(t_session *instance, t_ray *ray, bool select)
