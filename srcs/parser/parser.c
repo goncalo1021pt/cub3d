@@ -41,7 +41,10 @@ bool	get_file(char *name, t_map *map)
 	int		fd;
 	char	*new_name;
 
-	new_name = ft_strjoin("includes/maps/", name);
+	if (ft_strchr(name, '/'))
+		new_name = ft_strdup(new_name);
+	else
+		new_name = ft_strjoin("includes/maps/", name);
 	if (!new_name)
 		return (ft_putendl_fd(ERR_ALLOC, 2), false);
 	fd = open(new_name, O_RDONLY);
