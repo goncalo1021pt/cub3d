@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlandolt <rlandolt@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: goncalo1021pt <goncalo1021pt@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:47:20 by rlandolt          #+#    #+#             */
-/*   Updated: 2024/04/26 12:47:21 by rlandolt         ###   ########.fr       */
+/*   Updated: 2024/04/27 23:58:00 by goncalo1021      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ bool	get_file(char *name, t_map *map)
 	char	*new_name;
 
 	if (ft_strchr(name, '/'))
-		new_name = ft_strdup(new_name);
+		new_name = ft_strdup(name);
 	else
 		new_name = ft_strjoin("includes/maps/", name);
 	if (!new_name)

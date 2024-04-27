@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlandolt <rlandolt@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: goncalo1021pt <goncalo1021pt@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:47:37 by rlandolt          #+#    #+#             */
-/*   Updated: 2024/04/26 12:47:38 by rlandolt         ###   ########.fr       */
+/*   Updated: 2024/04/28 00:00:22 by goncalo1021      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ bool	set_map(t_map *map, int ctd)
 
 	len = 0;
 	temp = 0;
+	while (map->buffer[ctd + len + temp] && map->buffer[ctd + len
+			+ temp][0] == '\0')
+		temp++;
+	if (map->buffer[ctd + len + temp] == NULL)
+		return (ft_putendl_fd(ERR_MAP, 2), false);
 	while (map->buffer[ctd + len + temp])
-	{
-		if (map->buffer[ctd + len + temp][0] != '\0')
-			len++;
-		else
-			temp++;
-	}
+		len++;
 	map->map = ft_calloc(len + 1, sizeof(char *));
 	if (!map->map)
 		return (ft_putendl_fd(ERR_ALLOC, 2), false);
