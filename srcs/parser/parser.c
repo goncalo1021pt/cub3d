@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlandolt <rlandolt@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: gfontao- <gfontao-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:47:20 by rlandolt          #+#    #+#             */
-/*   Updated: 2024/04/26 12:47:21 by rlandolt         ###   ########.fr       */
+/*   Updated: 2024/04/29 20:35:37 by gfontao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ bool	read_file(t_map *map, int fd, int loopn)
 	{
 		map->buffer[loopn] = ft_strtrim(line, "\n");
 		free(line);
+		if (!map->buffer[loopn])
+			return (false);
 		return (true);
 	}
 	return (false);
