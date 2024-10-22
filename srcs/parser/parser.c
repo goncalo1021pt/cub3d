@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
-/*   By: gfontao- <gfontao-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/26 12:47:20 by rlandolt          #+#    #+#             */
-/*   Updated: 2024/04/29 20:35:37 by gfontao-         ###   ########.fr       */
-=======
 /*   By: goncalo1021pt <goncalo1021pt@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:47:20 by rlandolt          #+#    #+#             */
 /*   Updated: 2024/04/27 23:58:00 by goncalo1021      ###   ########.fr       */
->>>>>>> refs/remotes/origin/main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +43,6 @@ bool	read_file(t_map *map, int fd, int loopn)
 	{
 		map->buffer[loopn] = ft_strtrim(line, "\n");
 		free(line);
-		if (!map->buffer[loopn])
-			return (false);
 		return (true);
 	}
 	return (false);
@@ -72,8 +63,10 @@ bool	get_file(char *name, t_map *map)
 	free(new_name);
 	if (fd < 0)
 		return (ft_putendl_fd(INV_FILE, 2), false);
+	printf("here\n");
 	if (!read_file(map, fd, 0))
 		return (close(fd), ft_putendl_fd(ERR_FILE, 2), false);
+	printf("error\n");
 	close(fd);
 	return (true);
 }
