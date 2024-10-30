@@ -6,7 +6,7 @@
 /*   By: goncalo1021pt <goncalo1021pt@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:47:20 by rlandolt          #+#    #+#             */
-/*   Updated: 2024/04/27 23:58:00 by goncalo1021      ###   ########.fr       */
+/*   Updated: 2024/10/30 02:17:49 by goncalo1021      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,8 @@ bool	get_file(char *name, t_map *map)
 	free(new_name);
 	if (fd < 0)
 		return (ft_putendl_fd(INV_FILE, 2), false);
-	printf("here\n");
 	if (!read_file(map, fd, 0))
 		return (close(fd), ft_putendl_fd(ERR_FILE, 2), false);
-	printf("error\n");
 	close(fd);
 	return (true);
 }
