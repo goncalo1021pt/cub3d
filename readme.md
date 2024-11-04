@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Cub3D is a 3D raycasting engine inspired by classic games like *Wolfenstein 3D*. The project aims to recreate the fundamental mechanics of raycasting to render a 3D environment based on a 2D map, showcasing both the principles of computer graphics and game development.
+Cub3D is a 42 Graphical Project that implements a 3D raycasting engine inspired by classic games like *Wolfenstein 3D*. The project aims to recreate the fundamental mechanics of raycasting to render a 3D environment based on a 2D map, showcasing both the principles of computer graphics and game development.
 
 ## Framework
 
